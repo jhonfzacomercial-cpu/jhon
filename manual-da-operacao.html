@@ -1,0 +1,1266 @@
+<title>Quem Faz o Quê</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+/* ---------- tokens: light (bare :root = complete palette) ---------- */
+:root{
+  --paper:#E9EAE3;
+  --surface:#F6F7F1;
+  --surface-2:#DFE1D7;
+  --ink:#16202B;
+  --ink-2:#3B4855;
+  --muted:#697580;
+  --rule:#C8CCC0;
+  --rule-2:#A8AEA0;
+  --accent:#1F4E79;
+  --accent-soft:#DCE7F1;
+  --stamp:#8E2740;
+  --stamp-soft:#F1DEE3;
+  --ok:#2F6B4F;
+  --shadow:0 1px 0 rgba(22,32,43,.06);
+
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+  --col:820px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#14191D;
+    --surface:#1D242A;
+    --surface-2:#283138;
+    --ink:#E5E8E2;
+    --ink-2:#BAC2BD;
+    --muted:#8D989C;
+    --rule:#333E46;
+    --rule-2:#4B5761;
+    --accent:#7FB2DF;
+    --accent-soft:#1B2B3A;
+    --stamp:#E08CA2;
+    --stamp-soft:#39222A;
+    --ok:#7CBE9B;
+    --shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14191D;
+  --surface:#1D242A;
+  --surface-2:#283138;
+  --ink:#E5E8E2;
+  --ink-2:#BAC2BD;
+  --muted:#8D989C;
+  --rule:#333E46;
+  --rule-2:#4B5761;
+  --accent:#7FB2DF;
+  --accent-soft:#1B2B3A;
+  --stamp:#E08CA2;
+  --stamp-soft:#39222A;
+  --ok:#7CBE9B;
+  --shadow:0 1px 0 rgba(0,0,0,.35);
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:16.5px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--sans);text-wrap:balance;margin:0}
+p{margin:0}
+ul{margin:0;padding-left:1.15em}
+li{margin:.22em 0}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- shell ---------- */
+.wrap{
+  max-width:1200px;margin:0 auto;padding:0 28px 96px;
+  display:grid;grid-template-columns:224px minmax(0,1fr);
+  column-gap:56px;align-items:start;
+}
+
+/* ---------- masthead ---------- */
+.masthead{grid-column:1/-1;padding:44px 0 26px;border-bottom:2px solid var(--ink)}
+.masthead .kicker{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--stamp);margin-bottom:14px;
+}
+.masthead h1{
+  font-size:clamp(2rem,1.1rem + 3.1vw,3.1rem);font-weight:700;letter-spacing:-.025em;line-height:1.02;
+}
+.masthead .sub{margin-top:12px;max-width:60ch;color:var(--ink-2);font-size:1.06rem}
+.meta{
+  margin-top:26px;display:flex;flex-wrap:wrap;gap:0 30px;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--muted);
+}
+.meta b{color:var(--ink);font-weight:500}
+
+/* ---------- sidebar ---------- */
+.toc{
+  position:sticky;top:0;align-self:start;max-height:100vh;overflow-y:auto;
+  padding:34px 0 40px;
+}
+.toc-h{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--rule);margin-bottom:6px;
+}
+.toc a{
+  display:grid;grid-template-columns:26px 1fr;gap:6px;align-items:baseline;
+  padding:6px 8px 6px 0;font-family:var(--sans);font-size:.86rem;line-height:1.3;
+  color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;padding-left:10px;
+}
+.toc a span{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+.toc a:hover{color:var(--ink);background:var(--surface)}
+.toc a[aria-current="true"]{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+.toc a[aria-current="true"] span{color:var(--accent)}
+.toc-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--rule)}
+.btn{
+  font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:2px;
+  padding:8px 12px;cursor:pointer;width:100%;text-align:left;
+}
+.btn:hover{background:var(--surface-2)}
+
+/* ---------- main ---------- */
+main{padding-top:34px;min-width:0}
+section{max-width:var(--col);padding:44px 0 8px;scroll-margin-top:18px}
+section + section{border-top:1px solid var(--rule)}
+.sec-code{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--stamp);margin-bottom:10px;
+}
+section > h2{font-size:1.72rem;font-weight:700;letter-spacing:-.018em;line-height:1.12}
+.lede{margin-top:12px;color:var(--ink-2);max-width:66ch}
+.body{margin-top:22px;display:flex;flex-direction:column;gap:18px;max-width:68ch}
+h3{font-size:1.02rem;font-weight:600;letter-spacing:-.005em;margin-top:6px}
+h4{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+
+/* ---------- fill-in placeholder ---------- */
+.fill{
+  font-family:var(--mono);font-size:.86em;color:var(--stamp);
+  background:var(--stamp-soft);border-bottom:1px dotted var(--stamp);
+  padding:1px 4px;border-radius:2px;white-space:nowrap;
+}
+
+/* ---------- callout ---------- */
+.note{
+  background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  padding:16px 18px;font-size:.95rem;display:flex;flex-direction:column;gap:8px;
+}
+.note.warn{border-left-color:var(--stamp)}
+.note h4{color:var(--ink);font-family:var(--sans);font-size:.86rem;letter-spacing:0;text-transform:none;font-weight:600}
+
+/* ---------- figures ---------- */
+figure{margin:26px 0 8px;max-width:none}
+.scroller{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);padding:18px}
+.scroller svg{display:block;width:100%;min-width:660px;height:auto;color:var(--ink-2)}
+figcaption{
+  margin-top:10px;font-size:.86rem;color:var(--muted);max-width:68ch;line-height:1.5;
+}
+
+/* diagram primitives */
+.dg-node{fill:var(--surface-2);stroke:var(--rule-2);stroke-width:1.4}
+.dg-chip{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.2}
+.dg-dec{fill:var(--stamp-soft);stroke:var(--stamp);stroke-width:1.4}
+.dg-side{fill:none;stroke:var(--rule-2);stroke-width:1.2;stroke-dasharray:4 4}
+.dg-line{stroke:var(--ink-2);stroke-width:1.4;fill:none}
+.dg-thin{stroke:var(--rule-2);stroke-width:1.1;fill:none}
+.dg-dash{stroke:var(--ink-2);stroke-width:1.2;fill:none;stroke-dasharray:5 5}
+.dg-head{fill:var(--ink-2)}
+.dg-t{font-family:var(--sans);font-size:12.5px;font-weight:500;fill:var(--ink)}
+.dg-t.sm{font-family:var(--mono);font-size:10.5px;font-weight:400;fill:var(--muted)}
+.dg-lbl{font-family:var(--mono);font-size:10.5px;fill:var(--muted);letter-spacing:.04em}
+.dg-flag{font-family:var(--mono);font-size:10.5px;font-weight:600;fill:var(--stamp);letter-spacing:.06em}
+.dg-cap{font-family:var(--mono);font-size:10px;fill:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+
+/* ---------- role cards ---------- */
+.filterbar{
+  margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  max-width:var(--col);
+}
+.filterbar input{
+  flex:1 1 240px;font-family:var(--sans);font-size:.92rem;color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:2px;padding:9px 12px;
+}
+.filterbar input::placeholder{color:var(--muted)}
+.count{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.06em}
+
+.area{margin-top:34px;max-width:var(--col)}
+.area > h3{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);border-bottom:1px solid var(--rule);padding-bottom:8px;margin:0 0 18px;font-weight:600;
+}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.role{
+  background:var(--surface);border:1px solid var(--rule);box-shadow:var(--shadow);
+  padding:18px 18px 20px;display:flex;flex-direction:column;gap:12px;
+}
+.role-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.role-top h4{
+  font-family:var(--sans);font-size:1rem;font-weight:600;color:var(--ink);
+  letter-spacing:-.008em;text-transform:none;line-height:1.25;
+}
+.tag{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--accent);
+  background:var(--accent-soft);border:1px solid var(--accent);border-radius:2px;padding:2px 6px;white-space:nowrap;
+}
+.reports{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.03em}
+.mission{font-size:.95rem;color:var(--ink);border-left:2px solid var(--stamp);padding-left:11px}
+.role dl{margin:0;display:flex;flex-direction:column;gap:11px}
+.role dt{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:3px;
+}
+.role dd{margin:0;font-size:.92rem;line-height:1.52}
+.role dd ul{padding-left:1.05em}
+.role dd li{margin:.15em 0}
+.no-hit{display:none}
+.empty{font-family:var(--mono);font-size:.8rem;color:var(--muted);padding:14px 0}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;margin-top:22px;border:1px solid var(--rule);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+caption{
+  text-align:left;padding:12px 14px;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);
+}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink);font-weight:600;background:var(--surface-2);
+}
+tbody tr:last-child td{border-bottom:none}
+td.num,td.who{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.who{color:var(--accent)}
+
+/* ---------- rhythm grid ---------- */
+.rhythm{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px;max-width:var(--col)}
+.beat{background:var(--surface);border:1px solid var(--rule);padding:16px 17px;display:flex;flex-direction:column;gap:9px}
+.beat h4{color:var(--stamp)}
+.beat ul{font-size:.9rem;padding-left:1.05em}
+
+/* ---------- footer ---------- */
+.colophon{
+  grid-column:1/-1;margin-top:56px;padding-top:22px;border-top:2px solid var(--ink);
+  font-family:var(--mono);font-size:.72rem;color:var(--muted);line-height:1.7;max-width:70ch;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .wrap{grid-template-columns:1fr;column-gap:0}
+  .toc{
+    position:sticky;top:0;z-index:5;max-height:none;padding:10px 0;
+    background:var(--paper);border-bottom:1px solid var(--rule);
+  }
+  .toc-h,.toc-foot{display:none}
+  .toc nav{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px}
+  .toc a{
+    border-left:none;border-bottom:2px solid transparent;white-space:nowrap;
+    padding:6px 10px;display:flex;gap:6px;
+  }
+  .toc a[aria-current="true"]{border-bottom-color:var(--accent)}
+  main{padding-top:8px}
+  .wrap{padding:0 18px 72px}
+}
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+}
+@media print{
+  .toc{display:none}
+  .wrap{display:block;max-width:none;padding:0}
+  section{page-break-inside:auto;break-inside:auto}
+  .role,figure,.beat{break-inside:avoid}
+  body{background:#fff;color:#000;font-size:11pt}
+}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">Documento interno · versão <span class="fill">1.0</span> · revisado em <span class="fill">[data]</span></div>
+    <h1>Quem faz o quê</h1>
+    <p class="sub">Manual de operação da <span class="fill">[NOME DA EMPRESA]</span>. Aqui está a estrutura da empresa, o que cada cargo faz e o passo a passo de cada processo — para que ninguém precise perguntar duas vezes qual é a sua parte.</p>
+    <div class="meta">
+      <div>Dono do documento: <b><span class="fill">[nome]</span></b></div>
+      <div>Revisão: <b>a cada 3 meses</b></div>
+      <div>Vale para: <b>toda a equipe</b></div>
+    </div>
+  </header>
+
+  <aside class="toc">
+    <div class="toc-h">Índice</div>
+    <nav id="nav" aria-label="Seções do manual">
+      <a href="#s01"><span>01</span>Como usar este manual</a>
+      <a href="#s02"><span>02</span>A empresa em uma página</a>
+      <a href="#s03"><span>03</span>Como o trabalho flui</a>
+      <a href="#s04"><span>04</span>Estrutura e organograma</a>
+      <a href="#s05"><span>05</span>Cargos e responsabilidades</a>
+      <a href="#s06"><span>06</span>Processos passo a passo</a>
+      <a href="#s07"><span>07</span>Quem decide o quê</a>
+      <a href="#s08"><span>08</span>O ritmo da empresa</a>
+      <a href="#s09"><span>09</span>Regras internas</a>
+      <a href="#s10"><span>10</span>Sistemas e onde fica cada coisa</a>
+      <a href="#s11"><span>11</span>Quando dá problema</a>
+      <a href="#s12"><span>12</span>Primeiros 7 dias</a>
+      <a href="#s13"><span>13</span>Manter este manual vivo</a>
+    </nav>
+    <div class="toc-foot">
+      <button class="btn" id="printBtn" type="button">Imprimir o manual</button>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- 01 -->
+    <section id="s01">
+      <div class="sec-code">01 — Leia primeiro</div>
+      <h2>Como usar este manual</h2>
+      <p class="lede">Este é o lugar único onde a empresa está escrita. Se surgir dúvida sobre quem faz alguma coisa ou como uma coisa é feita, a resposta está aqui — e se não estiver, é sinal de que falta escrever.</p>
+      <div class="body">
+        <p>Três regras de uso:</p>
+        <ul>
+          <li><b>Procure antes de perguntar.</b> Use o índice à esquerda ou a busca da seção 05 para achar o seu cargo.</li>
+          <li><b>O manual vale mais que o costume.</b> Se alguém faz diferente do que está escrito, ou o manual está errado e precisa ser corrigido, ou a prática está errada e precisa mudar. As duas coisas se resolvem falando com o dono do documento.</li>
+          <li><b>Ninguém é penalizado por apontar erro aqui.</b> Achou algo desatualizado, avise. É assim que o documento continua útil.</li>
+        </ul>
+        <div class="note warn">
+          <h4>Este é um modelo — os campos em destaque precisam ser preenchidos</h4>
+          <p>Tudo que aparece assim, <span class="fill">[como neste exemplo]</span>, é um espaço reservado para o dado real da sua empresa: nomes, valores, prazos, horários e nomes de sistemas. A estrutura, os cargos e os processos já vêm montados no padrão de uma empresa comercial de pequeno e médio porte — ajuste o que não bater com a sua realidade e apague o que não existe aí.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="s02">
+      <div class="sec-code">02 — Contexto</div>
+      <h2>A empresa em uma página</h2>
+      <p class="lede">Antes de saber o que fazer, todo mundo precisa saber para que a empresa existe e qual é a promessa que fazemos ao cliente. É essa promessa que decide as dúvidas que o manual não cobre.</p>
+      <div class="body">
+        <h3>O que fazemos</h3>
+        <p><span class="fill">[Descreva em duas frases: o que a empresa vende, para quem e em qual região.]</span></p>
+
+        <h3>A promessa ao cliente</h3>
+        <p>Todo cliente que compra com a gente pode contar com três coisas, sempre:</p>
+        <ul>
+          <li><b>Resposta rápida.</b> Nenhum contato fica sem resposta por mais de <span class="fill">[2 horas]</span> em horário comercial.</li>
+          <li><b>Prazo cumprido.</b> A data que prometemos é a data que entregamos. Se algo mudar, avisamos antes do cliente perguntar.</li>
+          <li><b>Problema resolvido.</b> Se o erro foi nosso, a gente conserta sem custo e sem discussão.</li>
+        </ul>
+
+        <h3>Como decidir quando o manual não responde</h3>
+        <p>Nesta ordem: primeiro, o que é seguro e legal; segundo, o que cumpre a promessa ao cliente; terceiro, o que custa menos para a empresa. Se as três coisas conflitarem, pare e chame o seu líder direto — decidir sozinho contra essa ordem é o único erro que não aceitamos.</p>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="s03">
+      <div class="sec-code">03 — Visão geral</div>
+      <h2>Como o trabalho flui</h2>
+      <p class="lede">Do primeiro contato do cliente até o pós-venda, o trabalho passa por seis etapas e troca de mãos cinco vezes. Cada troca de mãos é onde as coisas se perdem — por isso cada etapa tem um responsável com nome.</p>
+
+      <figure>
+        <div class="scroller">
+          <svg viewBox="0 0 820 592" role="img" aria-label="Fluxo geral: seis etapas do atendimento, do primeiro contato do cliente ao pós-venda, cada uma com o cargo responsável ao lado.">
+            <defs>
+              <marker id="mk-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+              </marker>
+            </defs>
+
+            <text class="dg-cap" x="40" y="14">Etapa</text>
+            <text class="dg-cap" x="440" y="14">Quem responde</text>
+            <line class="dg-thin" x1="40" y1="24" x2="780" y2="24"></line>
+
+            <!-- 1 -->
+            <rect class="dg-node" x="40" y="40" width="330" height="56" rx="3"></rect>
+            <text class="dg-t" x="205" y="66" text-anchor="middle">Cliente entra em contato</text>
+            <text class="dg-t sm" x="205" y="83" text-anchor="middle">loja · telefone · WhatsApp oficial</text>
+            <line class="dg-thin" x1="370" y1="68" x2="432" y2="68" stroke-dasharray="3 3"></line>
+            <rect class="dg-chip" x="440" y="40" width="340" height="56" rx="3"></rect>
+            <text class="dg-t" x="610" y="73" text-anchor="middle">Atendimento ou Vendedor(a) de plantão</text>
+            <line class="dg-line" x1="205" y1="96" x2="205" y2="128" marker-end="url(#mk-a)"></line>
+            <text class="dg-lbl" x="218" y="119">registra no sistema no mesmo dia</text>
+
+            <!-- 2 -->
+            <rect class="dg-node" x="40" y="136" width="330" height="56" rx="3"></rect>
+            <text class="dg-t" x="205" y="169" text-anchor="middle">Orçamento montado e enviado</text>
+            <line class="dg-thin" x1="370" y1="164" x2="432" y2="164" stroke-dasharray="3 3"></line>
+            <rect class="dg-chip" x="440" y="136" width="340" height="56" rx="3"></rect>
+            <text class="dg-t" x="610" y="169" text-anchor="middle">Vendedor(a) dono da conta</text>
+            <line class="dg-line" x1="205" y1="192" x2="205" y2="224" marker-end="url(#mk-a)"></line>
+            <text class="dg-lbl" x="218" y="215">cliente aprova por escrito</text>
+
+            <!-- 3 -->
+            <rect class="dg-node" x="40" y="232" width="330" height="56" rx="3"></rect>
+            <text class="dg-t" x="205" y="265" text-anchor="middle">Pedido gerado</text>
+            <line class="dg-thin" x1="370" y1="260" x2="432" y2="260" stroke-dasharray="3 3"></line>
+            <rect class="dg-chip" x="440" y="232" width="340" height="56" rx="3"></rect>
+            <text class="dg-t" x="610" y="265" text-anchor="middle">Vendedor(a) passa ao Financeiro</text>
+            <line class="dg-line" x1="205" y1="288" x2="205" y2="320" marker-end="url(#mk-a)"></line>
+            <text class="dg-lbl" x="218" y="311">crédito e limite conferidos</text>
+
+            <!-- 4 -->
+            <rect class="dg-node" x="40" y="328" width="330" height="56" rx="3"></rect>
+            <text class="dg-t" x="205" y="361" text-anchor="middle">Faturamento e emissão da nota</text>
+            <line class="dg-thin" x1="370" y1="356" x2="432" y2="356" stroke-dasharray="3 3"></line>
+            <rect class="dg-chip" x="440" y="328" width="340" height="56" rx="3"></rect>
+            <text class="dg-t" x="610" y="361" text-anchor="middle">Financeiro</text>
+            <line class="dg-line" x1="205" y1="384" x2="205" y2="416" marker-end="url(#mk-a)"></line>
+            <text class="dg-lbl" x="218" y="407">nota liberada para separação</text>
+
+            <!-- 5 -->
+            <rect class="dg-node" x="40" y="424" width="330" height="56" rx="3"></rect>
+            <text class="dg-t" x="205" y="457" text-anchor="middle">Separação e entrega</text>
+            <line class="dg-thin" x1="370" y1="452" x2="432" y2="452" stroke-dasharray="3 3"></line>
+            <rect class="dg-chip" x="440" y="424" width="340" height="56" rx="3"></rect>
+            <text class="dg-t" x="610" y="457" text-anchor="middle">Estoque e Entregas</text>
+            <line class="dg-line" x1="205" y1="480" x2="205" y2="512" marker-end="url(#mk-a)"></line>
+            <text class="dg-lbl" x="218" y="503">comprovante assinado volta</text>
+
+            <!-- 6 -->
+            <rect class="dg-node" x="40" y="520" width="330" height="56" rx="3"></rect>
+            <text class="dg-t" x="205" y="553" text-anchor="middle">Pós-venda em até 48 h</text>
+            <line class="dg-thin" x1="370" y1="548" x2="432" y2="548" stroke-dasharray="3 3"></line>
+            <rect class="dg-chip" x="440" y="520" width="340" height="56" rx="3"></rect>
+            <text class="dg-t" x="610" y="553" text-anchor="middle">Atendimento</text>
+          </svg>
+        </div>
+        <figcaption>O caminho normal de um pedido. As setas mostram o que precisa estar pronto para a etapa seguinte começar — sem o item da seta, a próxima pessoa não pode agir e o pedido para.</figcaption>
+      </figure>
+
+      <div class="body">
+        <div class="note">
+          <h4>A regra das mãos</h4>
+          <p>Quem entrega o trabalho para a próxima etapa continua responsável até a próxima pessoa confirmar que recebeu. Passar adiante e não conferir se chegou é o que causa quase todo pedido perdido.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="s04">
+      <div class="sec-code">04 — Estrutura</div>
+      <h2>Estrutura e organograma</h2>
+      <p class="lede">A empresa se organiza em quatro áreas sob a Direção. Cada pessoa tem um — e só um — líder direto, que é quem aprova, cobra e resolve os impedimentos do dia a dia.</p>
+
+      <figure>
+        <div class="scroller">
+          <svg viewBox="0 0 820 320" role="img" aria-label="Organograma: a Direção no topo, quatro áreas abaixo — Comercial, Financeiro, Estoque e Logística, e Administrativo — cada uma com seus cargos.">
+            <defs>
+              <marker id="mk-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+              </marker>
+            </defs>
+
+            <rect class="dg-chip" x="310" y="16" width="200" height="46" rx="3"></rect>
+            <text class="dg-t" x="410" y="44" text-anchor="middle">Direção</text>
+
+            <line class="dg-line" x1="410" y1="62" x2="410" y2="96"></line>
+            <line class="dg-line" x1="95" y1="96" x2="725" y2="96"></line>
+            <line class="dg-line" x1="95" y1="96" x2="95" y2="120" marker-end="url(#mk-b)"></line>
+            <line class="dg-line" x1="305" y1="96" x2="305" y2="120" marker-end="url(#mk-b)"></line>
+            <line class="dg-line" x1="515" y1="96" x2="515" y2="120" marker-end="url(#mk-b)"></line>
+            <line class="dg-line" x1="725" y1="96" x2="725" y2="120" marker-end="url(#mk-b)"></line>
+
+            <!-- área 1 -->
+            <rect class="dg-node" x="20" y="120" width="150" height="46" rx="3"></rect>
+            <text class="dg-t" x="95" y="148" text-anchor="middle">Comercial</text>
+            <path class="dg-thin" d="M28 166 L28 273"></path>
+            <path class="dg-thin" d="M28 201 L38 201 M28 237 L38 237 M28 273 L38 273"></path>
+            <rect class="dg-side" x="38" y="186" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="104" y="205" text-anchor="middle">Vendas internas</text>
+            <rect class="dg-side" x="38" y="222" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="104" y="241" text-anchor="middle">Vendas externas</text>
+            <rect class="dg-side" x="38" y="258" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="104" y="277" text-anchor="middle">Pós-venda</text>
+
+            <!-- área 2 -->
+            <rect class="dg-node" x="230" y="120" width="150" height="46" rx="3"></rect>
+            <text class="dg-t" x="305" y="148" text-anchor="middle">Financeiro</text>
+            <path class="dg-thin" d="M238 166 L238 237"></path>
+            <path class="dg-thin" d="M238 201 L248 201 M238 237 L248 237"></path>
+            <rect class="dg-side" x="248" y="186" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="314" y="205" text-anchor="middle">Pagar e receber</text>
+            <rect class="dg-side" x="248" y="222" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="314" y="241" text-anchor="middle">Caixa e faturamento</text>
+
+            <!-- área 3 -->
+            <rect class="dg-node" x="440" y="120" width="150" height="46" rx="3"></rect>
+            <text class="dg-t" x="515" y="142" text-anchor="middle">Estoque e</text>
+            <text class="dg-t" x="515" y="157" text-anchor="middle">Logística</text>
+            <path class="dg-thin" d="M448 166 L448 237"></path>
+            <path class="dg-thin" d="M448 201 L458 201 M448 237 L458 237"></path>
+            <rect class="dg-side" x="458" y="186" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="524" y="205" text-anchor="middle">Conferência</text>
+            <rect class="dg-side" x="458" y="222" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="524" y="241" text-anchor="middle">Entregas</text>
+
+            <!-- área 4 -->
+            <rect class="dg-node" x="650" y="120" width="150" height="46" rx="3"></rect>
+            <text class="dg-t" x="725" y="148" text-anchor="middle">Administrativo</text>
+            <path class="dg-thin" d="M658 166 L658 237"></path>
+            <path class="dg-thin" d="M658 201 L668 201 M658 237 L668 237"></path>
+            <rect class="dg-side" x="668" y="186" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="734" y="205" text-anchor="middle">Compras</text>
+            <rect class="dg-side" x="668" y="222" width="132" height="30" rx="2"></rect>
+            <text class="dg-t sm" x="734" y="241" text-anchor="middle">RH e DP</text>
+          </svg>
+        </div>
+        <figcaption>Cada linha cheia é uma relação de chefia: aprova férias, cobra resultado e responde pelos erros da área. As caixas pontilhadas são funções, não necessariamente pessoas diferentes — em equipe pequena, a mesma pessoa acumula duas ou três.</figcaption>
+      </figure>
+
+      <div class="body">
+        <div class="note">
+          <h4>Quando a mesma pessoa acumula funções</h4>
+          <p>Acúmulo é normal e não é problema — desde que esteja escrito. Preencha a coluna de responsável na seção 07 com o nome real de quem faz, mesmo que o mesmo nome apareça cinco vezes. O que não pode existir é função sem dono.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section id="s05">
+      <div class="sec-code">05 — O seu cargo</div>
+      <h2>Cargos e responsabilidades</h2>
+      <p class="lede">Ache o seu cargo, leia a missão e a rotina. A parte mais importante de cada ficha é a que diz o que <em>não</em> é sua responsabilidade — é ali que a maioria dos conflitos entre áreas se resolve.</p>
+
+      <div class="filterbar">
+        <input id="roleSearch" type="search" placeholder="Buscar por cargo, área ou tarefa — ex.: entrega, caixa, orçamento" aria-label="Buscar cargo">
+        <span class="count" id="roleCount"></span>
+      </div>
+      <p class="empty" id="roleEmpty" hidden>Nenhum cargo encontrado com esse termo.</p>
+
+      <!-- DIREÇÃO -->
+      <div class="area" data-area>
+        <h3>Direção</h3>
+        <div class="cards">
+          <article class="role">
+            <div class="role-top"><h4>Diretor(a) / Sócio-gestor(a)</h4><span class="tag">DIR-01</span></div>
+            <div class="reports">Responde a: sociedade / conselho</div>
+            <p class="mission">Define para onde a empresa vai, garante que exista caixa para chegar lá e é a última instância de decisão.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Lê o resumo de vendas e caixa do dia anterior antes de qualquer outra coisa</li><li>Resolve os impedimentos que os líderes trouxeram</li><li>Conduz a reunião semanal de 20 minutos</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Metas de venda e margem do trimestre</li><li>Aprovação de compras e despesas acima de <span class="fill">[R$ valor]</span></li><li>Contratação, promoção e desligamento</li><li>Preço de tabela e política de desconto</li><li>Relação com bancos, contabilidade e fornecedores estratégicos</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Fechar venda no lugar do vendedor</li><li>Resolver reclamação de cliente que o Atendimento pode resolver</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Faturamento e margem do mês · caixa livre · giro de estoque</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+
+      <!-- COMERCIAL -->
+      <div class="area" data-area>
+        <h3>Comercial</h3>
+        <div class="cards">
+
+          <article class="role">
+            <div class="role-top"><h4>Líder comercial</h4><span class="tag">COM-01</span></div>
+            <div class="reports">Responde a: Direção</div>
+            <p class="mission">Faz a equipe de vendas bater a meta sem quebrar a política de preço.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Confere no início do dia os orçamentos abertos e cobra os que estão parados há mais de 3 dias</li><li>Acompanha a meta do mês com cada vendedor</li><li>Aprova descontos dentro da alçada</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Distribuir clientes e regiões entre os vendedores</li><li>Aprovar desconto até <span class="fill">[X %]</span></li><li>Treinar quem entra na equipe</li><li>Levar à Direção o que o mercado está pedindo</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Liberar crédito para cliente — isso é do Financeiro</li><li>Prometer prazo de entrega sem confirmar com o Estoque</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Meta da equipe · taxa de orçamento que vira venda · desconto médio</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Vendedor(a) interno</h4><span class="tag">COM-02</span></div>
+            <div class="reports">Responde a: Líder comercial</div>
+            <p class="mission">Atende quem chega na loja, no telefone e no WhatsApp, e transforma esse contato em pedido.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Abre o sistema e responde os contatos da noite anterior</li><li>Monta e envia orçamentos no mesmo dia do pedido</li><li>Faz follow-up de todo orçamento em até 48 h</li><li>Registra no cadastro tudo que o cliente falou</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Cadastro do cliente completo e correto</li><li>Orçamento com preço, prazo e condição de pagamento certos</li><li>Conferir estoque antes de prometer prazo</li><li>Registrar o motivo de toda venda perdida</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Dar desconto acima da alçada sem aprovação</li><li>Combinar pagamento fora das condições da tabela</li><li>Separar ou entregar mercadoria</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Vendas do mês · tempo até responder o cliente · orçamentos que viram pedido</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Vendedor(a) externo</h4><span class="tag">COM-03</span></div>
+            <div class="reports">Responde a: Líder comercial</div>
+            <p class="mission">Visita e mantém a carteira de clientes na rua, e traz cliente novo.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Segue o roteiro de visitas combinado na segunda-feira</li><li>Registra cada visita no sistema no mesmo dia — visita não registrada não existe</li><li>Passa os pedidos ao interno até <span class="fill">[16h]</span> para entrar no faturamento do dia</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Carteira de clientes ativa e visitada na frequência combinada</li><li>Prospecção de <span class="fill">[N]</span> clientes novos por mês</li><li>Trazer informação de preço e movimento da concorrência</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Receber dinheiro do cliente na mão</li><li>Negociar dívida de cliente inadimplente — isso é do Financeiro</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Vendas da carteira · visitas realizadas · clientes novos</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Auxiliar comercial</h4><span class="tag">COM-04</span></div>
+            <div class="reports">Responde a: Líder comercial</div>
+            <p class="mission">Tira do vendedor tudo que não é falar com cliente.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Digita e confere pedidos no sistema</li><li>Organiza a fila de orçamentos do dia</li><li>Junta os documentos de cadastro de cliente novo</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Pedido digitado sem erro de item, quantidade ou preço</li><li>Cadastro com documentos completos antes de ir ao Financeiro</li><li>Relatório de vendas da semana</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Negociar preço ou prazo com o cliente</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Pedidos digitados sem erro · cadastros devolvidos pelo Financeiro</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Atendimento e pós-venda</h4><span class="tag">COM-05</span></div>
+            <div class="reports">Responde a: Líder comercial</div>
+            <p class="mission">É a voz da empresa depois da venda: confirma a entrega, resolve reclamação e traz o cliente de volta.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Liga ou manda mensagem para todo cliente que recebeu nas últimas 48 h</li><li>Abre e acompanha os chamados de reclamação até o fim</li><li>Fecha o dia sem nenhum chamado sem resposta</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Todo contato pós-entrega registrado com o resultado</li><li>Chamado aberto com número, prazo e causa</li><li>Levar ao Líder comercial as causas que se repetem</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Autorizar estorno ou crédito — isso é do Financeiro</li><li>Aceitar devolução fora da política sem aprovação</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Chamados resolvidos no prazo · clientes que voltam a comprar</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Marketing</h4><span class="tag">COM-06</span></div>
+            <div class="reports">Responde a: Líder comercial</div>
+            <p class="mission">Faz o telefone tocar e mantém a marca com a mesma cara em todo lugar.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Publica conforme o calendário da semana</li><li>Responde comentários e mensagens em até <span class="fill">[4 h]</span> e passa os pedidos de orçamento ao Comercial</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Calendário de publicações e campanhas do mês</li><li>Material de preço e promoção sempre igual à tabela vigente</li><li>Medir de onde vieram os contatos</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Divulgar preço ou promoção sem aprovação da Direção</li><li>Atender e negociar a venda</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Contatos gerados por mês · custo por contato</dd></div>
+            </dl>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- FINANCEIRO -->
+      <div class="area" data-area>
+        <h3>Financeiro</h3>
+        <div class="cards">
+
+          <article class="role">
+            <div class="role-top"><h4>Analista financeiro</h4><span class="tag">FIN-01</span></div>
+            <div class="reports">Responde a: Direção</div>
+            <p class="mission">Garante que a empresa saiba, todo dia, quanto tem, quanto entra e quanto sai.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Concilia o banco todo dia de manhã</li><li>Paga o que vence no dia e confere o que entrou</li><li>Cobra os títulos vencidos antes de virar a semana</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Contas a pagar e a receber em dia</li><li>Análise de crédito e limite de cliente novo</li><li>Fluxo de caixa projetado para <span class="fill">[30 dias]</span></li><li>Estorno e crédito de devolução</li><li>Documentos para a contabilidade até o dia <span class="fill">[5]</span></li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Prometer prazo de pagamento diferente ao cliente sem passar pelo Comercial</li><li>Comprar ou negociar com fornecedor</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Inadimplência · dias de atraso no recebimento · caixa projetado versus real</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Caixa e faturamento</h4><span class="tag">FIN-02</span></div>
+            <div class="reports">Responde a: Analista financeiro</div>
+            <p class="mission">Emite a nota certa e fecha o caixa batendo, todo dia.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Abre o caixa com o fundo conferido e registrado</li><li>Emite as notas dos pedidos liberados</li><li>Fecha e confere o caixa na frente de <span class="fill">[quem confere]</span></li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Nota fiscal com dados, item e imposto corretos</li><li>Recebimentos registrados na forma de pagamento certa</li><li>Sangria acima de <span class="fill">[R$ valor]</span> comunicada na hora</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Liberar mercadoria antes da nota emitida</li><li>Autorizar venda para cliente bloqueado</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Diferença de caixa no fechamento · notas canceladas ou corrigidas</dd></div>
+            </dl>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ESTOQUE -->
+      <div class="area" data-area>
+        <h3>Estoque e Logística</h3>
+        <div class="cards">
+
+          <article class="role">
+            <div class="role-top"><h4>Encarregado de estoque</h4><span class="tag">EST-01</span></div>
+            <div class="reports">Responde a: Direção</div>
+            <p class="mission">Faz o que está no sistema ser exatamente o que está na prateleira.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Prioriza as separações do dia por horário de entrega</li><li>Confere os recebimentos do dia</li><li>Aponta na sexta os itens abaixo do estoque mínimo</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Estoque físico igual ao sistema</li><li>Estoque mínimo definido e revisado por item</li><li>Inventário rotativo de <span class="fill">[N]</span> itens por semana</li><li>Organização, segurança e limpeza do depósito</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Negociar preço com fornecedor</li><li>Liberar saída de mercadoria sem nota</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Acuracidade do inventário · rupturas no mês · pedidos separados no prazo</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Conferente / separador</h4><span class="tag">EST-02</span></div>
+            <div class="reports">Responde a: Encarregado de estoque</div>
+            <p class="mission">Separa o pedido certo, na quantidade certa, sem avaria.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Pega a lista de separação na ordem de prioridade</li><li>Separa, confere item a item contra a nota e assina</li><li>Embala e identifica com o nome do cliente e o número do pedido</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Dupla conferência antes de liberar para a entrega</li><li>Avaria ou falta comunicada na hora, nunca no fim do dia</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Trocar item por similar por conta própria</li><li>Falar prazo direto com o cliente</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Erros de separação por mês · avarias internas</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Motorista entregador</h4><span class="tag">EST-03</span></div>
+            <div class="reports">Responde a: Encarregado de estoque</div>
+            <p class="mission">Leva a mercadoria inteira, no prazo, e traz o comprovante assinado.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Confere a carga contra as notas antes de sair</li><li>Segue o roteiro do dia e avisa qualquer atraso na hora</li><li>Entrega os comprovantes assinados ao voltar — no mesmo dia</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Comprovante assinado, datado e com o nome de quem recebeu</li><li>Veículo revisado, limpo e com a documentação em dia</li><li>Recusa de entrega comunicada imediatamente ao Atendimento</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Receber pagamento sem autorização do Financeiro</li><li>Deixar mercadoria com terceiro sem assinatura</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Entregas no prazo · comprovantes devolvidos no mesmo dia · ocorrências</dd></div>
+            </dl>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ADMINISTRATIVO -->
+      <div class="area" data-area>
+        <h3>Administrativo</h3>
+        <div class="cards">
+
+          <article class="role">
+            <div class="role-top"><h4>Compras</h4><span class="tag">ADM-01</span></div>
+            <div class="reports">Responde a: Direção</div>
+            <p class="mission">Compra o que falta, na hora certa, pelo melhor custo total — não só pelo menor preço.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Recebe na sexta a lista de reposição do Estoque</li><li>Cota com no mínimo 3 fornecedores</li><li>Acompanha os pedidos em trânsito e cobra atraso</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Cotação registrada com as 3 propostas comparadas</li><li>Pedido com prazo e condição formalizados por escrito</li><li>Cadastro de fornecedor atualizado</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Comprar acima de <span class="fill">[R$ valor]</span> sem aprovação da Direção</li><li>Definir o estoque mínimo — isso é do Encarregado</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Economia sobre a cotação média · pedidos entregues no prazo pelo fornecedor</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Auxiliar administrativo</h4><span class="tag">ADM-02</span></div>
+            <div class="reports">Responde a: Direção</div>
+            <p class="mission">Mantém a casa funcionando: documentos, contratos, materiais e a recepção.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Organiza e arquiva os documentos do dia</li><li>Recebe visitas e direciona ligações</li><li>Controla o material de consumo e pede reposição antes de acabar</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Arquivo em ordem e localizável em minutos</li><li>Contratos e licenças com data de vencimento controlada</li><li>Agenda de manutenções prediais e de equipamentos</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Movimentar dinheiro ou pagar contas</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Vencimentos perdidos · pendências de arquivo</dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>RH e Departamento Pessoal</h4><span class="tag">ADM-03</span></div>
+            <div class="reports">Responde a: Direção · apoio de <span class="fill">[contabilidade externa]</span></div>
+            <p class="mission">Cuida de quem trabalha aqui: admissão, folha, ponto, férias e saída, tudo dentro da lei.</p>
+            <dl>
+              <div><dt>Rotina</dt><dd><ul><li>Confere o ponto e trata as inconsistências antes do fechamento</li><li>Acompanha os processos de admissão e desligamento abertos</li></ul></dd></div>
+              <div><dt>Responsabilidades</dt><dd><ul><li>Documentação de admissão e desligamento completa e no prazo</li><li>Folha, férias e 13º enviados à contabilidade até o dia <span class="fill">[X]</span></li><li>Exames ocupacionais e treinamentos obrigatórios em dia</li><li>Integração de quem chega — seção 12</li></ul></dd></div>
+              <div><dt>Não é deste cargo</dt><dd><ul><li>Decidir contratação, promoção ou desligamento — isso é da Direção</li></ul></dd></div>
+              <div><dt>Como medimos</dt><dd>Prazos legais cumpridos · tempo para preencher uma vaga · rotatividade</dd></div>
+            </dl>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section id="s06">
+      <div class="sec-code">06 — Processos</div>
+      <h2>Processos passo a passo</h2>
+      <p class="lede">Três processos concentram quase tudo que a empresa faz. Cada um está desenhado com os pontos de decisão — o losango é onde alguém precisa escolher, e a escolha errada ali é o que gera retrabalho depois.</p>
+
+      <h3 style="margin-top:30px">P-01 · Da primeira conversa até a entrega</h3>
+      <figure>
+        <div class="scroller">
+          <svg viewBox="0 0 820 930" role="img" aria-label="Fluxograma do processo de venda: contato, orçamento, decisão de aprovação do cliente, checagem de estoque, faturamento, separação, entrega e pós-venda.">
+            <defs>
+              <marker id="mk-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+              </marker>
+            </defs>
+
+            <rect class="dg-node" x="120" y="20" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="52" text-anchor="middle">Cliente entra em contato</text>
+            <line class="dg-line" x1="285" y1="74" x2="285" y2="100" marker-end="url(#mk-c)"></line>
+
+            <rect class="dg-node" x="120" y="108" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="132" text-anchor="middle">Vendedor registra o cliente e envia</text>
+            <text class="dg-t" x="285" y="150" text-anchor="middle">o orçamento no mesmo dia</text>
+            <line class="dg-line" x1="285" y1="162" x2="285" y2="190" marker-end="url(#mk-c)"></line>
+
+            <polygon class="dg-dec" points="285,196 395,232 285,268 175,232"></polygon>
+            <text class="dg-t" x="285" y="236" text-anchor="middle">Cliente aprovou?</text>
+            <line class="dg-line" x1="395" y1="232" x2="512" y2="232" marker-end="url(#mk-c)"></line>
+            <text class="dg-flag" x="430" y="224">Não</text>
+            <rect class="dg-side" x="520" y="203" width="272" height="58" rx="3"></rect>
+            <text class="dg-t sm" x="656" y="227" text-anchor="middle">Registra o motivo da perda e</text>
+            <text class="dg-t sm" x="656" y="243" text-anchor="middle">agenda retorno em 7 dias</text>
+            <line class="dg-line" x1="285" y1="268" x2="285" y2="294" marker-end="url(#mk-c)"></line>
+            <text class="dg-flag" x="295" y="288">Sim</text>
+
+            <rect class="dg-node" x="120" y="302" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="334" text-anchor="middle">Confere disponibilidade no estoque</text>
+            <line class="dg-line" x1="285" y1="356" x2="285" y2="384" marker-end="url(#mk-c)"></line>
+
+            <polygon class="dg-dec" points="285,390 395,426 285,462 175,426"></polygon>
+            <text class="dg-t" x="285" y="430" text-anchor="middle">Tem em estoque?</text>
+            <line class="dg-line" x1="395" y1="426" x2="512" y2="426" marker-end="url(#mk-c)"></line>
+            <text class="dg-flag" x="430" y="418">Não</text>
+            <rect class="dg-side" x="520" y="397" width="272" height="58" rx="3"></rect>
+            <text class="dg-t sm" x="656" y="421" text-anchor="middle">Aciona a compra (P-02) e</text>
+            <text class="dg-t sm" x="656" y="437" text-anchor="middle">informa o novo prazo ao cliente</text>
+            <path class="dg-dash" d="M656 455 L656 523 L458 523" marker-end="url(#mk-c)"></path>
+            <text class="dg-lbl" x="470" y="516">quando a mercadoria chega</text>
+            <line class="dg-line" x1="285" y1="462" x2="285" y2="488" marker-end="url(#mk-c)"></line>
+            <text class="dg-flag" x="295" y="482">Sim</text>
+
+            <rect class="dg-node" x="120" y="496" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="528" text-anchor="middle">Pedido gerado e enviado ao Financeiro</text>
+            <line class="dg-line" x1="285" y1="550" x2="285" y2="578" marker-end="url(#mk-c)"></line>
+
+            <rect class="dg-node" x="120" y="584" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="608" text-anchor="middle">Financeiro confere o crédito,</text>
+            <text class="dg-t" x="285" y="626" text-anchor="middle">fatura e emite a nota</text>
+            <line class="dg-line" x1="285" y1="638" x2="285" y2="666" marker-end="url(#mk-c)"></line>
+
+            <rect class="dg-node" x="120" y="672" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="696" text-anchor="middle">Estoque separa, confere</text>
+            <text class="dg-t" x="285" y="714" text-anchor="middle">e agenda a entrega</text>
+            <line class="dg-line" x1="285" y1="726" x2="285" y2="754" marker-end="url(#mk-c)"></line>
+
+            <rect class="dg-node" x="120" y="760" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="792" text-anchor="middle">Entrega com comprovante assinado</text>
+            <line class="dg-line" x1="285" y1="814" x2="285" y2="842" marker-end="url(#mk-c)"></line>
+
+            <rect class="dg-chip" x="120" y="848" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="880" text-anchor="middle">Pós-venda em até 48 h</text>
+          </svg>
+        </div>
+        <figcaption>Os dois losangos são os únicos pontos onde o pedido pode sair do caminho normal. A linha tracejada mostra o pedido voltando ao fluxo depois que a mercadoria comprada chega — ele não recomeça do zero.</figcaption>
+      </figure>
+
+      <h3 style="margin-top:38px">P-02 · Reposição de estoque e compra</h3>
+      <figure>
+        <div class="scroller">
+          <svg viewBox="0 0 820 754" role="img" aria-label="Fluxograma da reposição de estoque: identificação do estoque mínimo, lista semanal, decisão de alçada de aprovação, cotação, pedido, recebimento, decisão de divergência e entrada no sistema.">
+            <defs>
+              <marker id="mk-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+              </marker>
+            </defs>
+
+            <rect class="dg-node" x="120" y="20" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="52" text-anchor="middle">Itens abaixo do estoque mínimo</text>
+            <line class="dg-line" x1="285" y1="74" x2="285" y2="100" marker-end="url(#mk-d)"></line>
+
+            <rect class="dg-node" x="120" y="108" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="140" text-anchor="middle">Lista de reposição fechada na sexta</text>
+            <line class="dg-line" x1="285" y1="162" x2="285" y2="190" marker-end="url(#mk-d)"></line>
+
+            <polygon class="dg-dec" points="285,196 395,232 285,268 175,232"></polygon>
+            <text class="dg-t" x="285" y="228" text-anchor="middle">Compra acima</text>
+            <text class="dg-t" x="285" y="244" text-anchor="middle">da alçada?</text>
+            <line class="dg-line" x1="395" y1="232" x2="512" y2="232" marker-end="url(#mk-d)"></line>
+            <text class="dg-flag" x="430" y="224">Sim</text>
+            <rect class="dg-side" x="520" y="203" width="272" height="58" rx="3"></rect>
+            <text class="dg-t sm" x="656" y="227" text-anchor="middle">Direção aprova antes de</text>
+            <text class="dg-t sm" x="656" y="243" text-anchor="middle">qualquer pedido ao fornecedor</text>
+            <path class="dg-dash" d="M656 261 L656 329 L458 329" marker-end="url(#mk-d)"></path>
+            <line class="dg-line" x1="285" y1="268" x2="285" y2="294" marker-end="url(#mk-d)"></line>
+            <text class="dg-flag" x="295" y="288">Não</text>
+
+            <rect class="dg-node" x="120" y="302" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="334" text-anchor="middle">Cotação com 3 fornecedores</text>
+            <line class="dg-line" x1="285" y1="356" x2="285" y2="382" marker-end="url(#mk-d)"></line>
+
+            <rect class="dg-node" x="120" y="390" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="414" text-anchor="middle">Pedido enviado ao fornecedor</text>
+            <text class="dg-t" x="285" y="432" text-anchor="middle">com prazo por escrito</text>
+            <line class="dg-line" x1="285" y1="444" x2="285" y2="470" marker-end="url(#mk-d)"></line>
+
+            <rect class="dg-node" x="120" y="478" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="502" text-anchor="middle">Recebimento: confere a nota</text>
+            <text class="dg-t" x="285" y="520" text-anchor="middle">contra a mercadoria</text>
+            <line class="dg-line" x1="285" y1="532" x2="285" y2="560" marker-end="url(#mk-d)"></line>
+
+            <polygon class="dg-dec" points="285,566 395,602 285,638 175,602"></polygon>
+            <text class="dg-t" x="285" y="606" text-anchor="middle">Divergência?</text>
+            <line class="dg-line" x1="395" y1="602" x2="512" y2="602" marker-end="url(#mk-d)"></line>
+            <text class="dg-flag" x="430" y="594">Sim</text>
+            <rect class="dg-side" x="520" y="573" width="272" height="58" rx="3"></rect>
+            <text class="dg-t sm" x="656" y="597" text-anchor="middle">Registra a ocorrência e aciona o</text>
+            <text class="dg-t sm" x="656" y="613" text-anchor="middle">fornecedor no mesmo dia</text>
+            <line class="dg-line" x1="285" y1="638" x2="285" y2="664" marker-end="url(#mk-d)"></line>
+            <text class="dg-flag" x="295" y="658">Não</text>
+
+            <rect class="dg-chip" x="120" y="672" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="696" text-anchor="middle">Entrada no sistema e produto</text>
+            <text class="dg-t" x="285" y="714" text-anchor="middle">guardado no endereço certo</text>
+          </svg>
+        </div>
+        <figcaption>Mercadoria com divergência não entra no sistema e não vai para a prateleira até o fornecedor responder. É esse bloqueio que impede o estoque do sistema de descolar do estoque real.</figcaption>
+      </figure>
+
+      <h3 style="margin-top:38px">P-03 · Reclamação, troca e devolução</h3>
+      <figure>
+        <div class="scroller">
+          <svg viewBox="0 0 820 648" role="img" aria-label="Fluxograma da reclamação: registro do chamado, decisão sobre erro da empresa, resolução, retorno do produto ao estoque, estorno pelo financeiro e fechamento do chamado com a causa registrada.">
+            <defs>
+              <marker id="mk-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+              </marker>
+            </defs>
+
+            <rect class="dg-node" x="120" y="20" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="52" text-anchor="middle">Cliente reclama pelo canal oficial</text>
+            <line class="dg-line" x1="285" y1="74" x2="285" y2="100" marker-end="url(#mk-e)"></line>
+
+            <rect class="dg-node" x="120" y="108" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="132" text-anchor="middle">Atendimento abre o chamado</text>
+            <text class="dg-t" x="285" y="150" text-anchor="middle">com número e prazo de resposta</text>
+            <line class="dg-line" x1="285" y1="162" x2="285" y2="190" marker-end="url(#mk-e)"></line>
+
+            <polygon class="dg-dec" points="285,196 395,232 285,268 175,232"></polygon>
+            <text class="dg-t" x="285" y="236" text-anchor="middle">O erro foi nosso?</text>
+            <line class="dg-line" x1="395" y1="232" x2="512" y2="232" marker-end="url(#mk-e)"></line>
+            <text class="dg-flag" x="430" y="224">Não</text>
+            <rect class="dg-side" x="520" y="203" width="272" height="58" rx="3"></rect>
+            <text class="dg-t sm" x="656" y="227" text-anchor="middle">Aplica a política de troca e</text>
+            <text class="dg-t sm" x="656" y="243" text-anchor="middle">explica ao cliente por escrito</text>
+            <path class="dg-dash" d="M656 261 L656 417 L458 417" marker-end="url(#mk-e)"></path>
+            <text class="dg-lbl" x="470" y="410">se o cliente aceitar a troca</text>
+            <line class="dg-line" x1="285" y1="268" x2="285" y2="294" marker-end="url(#mk-e)"></line>
+            <text class="dg-flag" x="295" y="288">Sim</text>
+
+            <rect class="dg-node" x="120" y="302" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="326" text-anchor="middle">Resolve na hora, sem custo</text>
+            <text class="dg-t" x="285" y="344" text-anchor="middle">para o cliente</text>
+            <line class="dg-line" x1="285" y1="356" x2="285" y2="382" marker-end="url(#mk-e)"></line>
+
+            <rect class="dg-node" x="120" y="390" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="422" text-anchor="middle">Estoque recebe e registra o produto</text>
+            <line class="dg-line" x1="285" y1="444" x2="285" y2="470" marker-end="url(#mk-e)"></line>
+
+            <rect class="dg-node" x="120" y="478" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="510" text-anchor="middle">Financeiro faz o estorno ou o crédito</text>
+            <line class="dg-line" x1="285" y1="532" x2="285" y2="558" marker-end="url(#mk-e)"></line>
+
+            <rect class="dg-chip" x="120" y="566" width="330" height="54" rx="3"></rect>
+            <text class="dg-t" x="285" y="590" text-anchor="middle">Chamado fechado com a</text>
+            <text class="dg-t" x="285" y="608" text-anchor="middle">causa registrada</text>
+          </svg>
+        </div>
+        <figcaption>O chamado só fecha com a causa preenchida — não basta resolver para o cliente. A Direção lê essas causas no fechamento mensal, e é daí que saem as mudanças no próprio manual.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 07 -->
+    <section id="s07">
+      <div class="sec-code">07 — Alçadas</div>
+      <h2>Quem decide o quê</h2>
+      <p class="lede">Toda decisão recorrente tem um dono. Se o seu nome não está na coluna de quem decide, você não decide sozinho — pergunta e segue. Não é burocracia: é para ninguém ser cobrado por uma decisão que não era sua.</p>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Matriz de decisão · preencha a coluna de quem decide com nomes reais</caption>
+          <thead>
+            <tr><th>Decisão</th><th>Quem decide</th><th>Quem executa</th><th>Quem precisa saber</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Desconto até <span class="fill">[X %]</span></td><td class="who">Líder comercial</td><td>Vendedor(a)</td><td>Financeiro</td></tr>
+            <tr><td>Desconto acima de <span class="fill">[X %]</span></td><td class="who">Direção</td><td>Vendedor(a)</td><td>Líder comercial · Financeiro</td></tr>
+            <tr><td>Crédito e limite de cliente novo</td><td class="who">Financeiro</td><td>Financeiro</td><td>Vendedor(a) responsável</td></tr>
+            <tr><td>Venda para cliente bloqueado</td><td class="who">Direção</td><td>Financeiro</td><td>Comercial</td></tr>
+            <tr><td>Compra até <span class="fill">[R$ valor]</span></td><td class="who">Compras</td><td>Compras</td><td>Estoque · Financeiro</td></tr>
+            <tr><td>Compra acima de <span class="fill">[R$ valor]</span></td><td class="who">Direção</td><td>Compras</td><td>Financeiro</td></tr>
+            <tr><td>Devolução dentro da política</td><td class="who">Atendimento</td><td>Estoque · Financeiro</td><td>Vendedor(a) responsável</td></tr>
+            <tr><td>Devolução fora da política</td><td class="who">Direção</td><td>Atendimento</td><td>Financeiro</td></tr>
+            <tr><td>Mudança de preço de tabela</td><td class="who">Direção</td><td>Auxiliar comercial</td><td>Toda a equipe</td></tr>
+            <tr><td>Pagamento adiantado a fornecedor</td><td class="who">Direção</td><td>Financeiro</td><td>Compras</td></tr>
+            <tr><td>Hora extra e banco de horas</td><td class="who">Líder da área</td><td>RH e DP</td><td>Direção</td></tr>
+            <tr><td>Contratar, promover ou desligar</td><td class="who">Direção</td><td>RH e DP</td><td>Líder da área</td></tr>
+            <tr><td>Parar uma entrega já roteirizada</td><td class="who">Encarregado de estoque</td><td>Motorista</td><td>Atendimento · Vendedor(a)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section id="s08">
+      <div class="sec-code">08 — Ritmo</div>
+      <h2>O ritmo da empresa</h2>
+      <p class="lede">A empresa tem batidas fixas. Elas existem para que os problemas apareçam cedo, num horário previsto, em vez de estourarem no meio do dia.</p>
+
+      <div class="rhythm">
+        <div class="beat">
+          <h4>Todo dia</h4>
+          <ul>
+            <li><b><span class="fill">[08h00]</span></b> — abertura: caixa conferido, pedidos do dia na tela</li>
+            <li><b><span class="fill">[08h15]</span></b> — Estoque prioriza as separações por horário de entrega</li>
+            <li>Ao longo do dia — nenhum contato de cliente sem resposta</li>
+            <li><b><span class="fill">[18h00]</span></b> — fechamento: caixa batido, comprovantes de entrega recolhidos, pendências registradas</li>
+          </ul>
+        </div>
+        <div class="beat">
+          <h4>Toda semana</h4>
+          <ul>
+            <li><b>Segunda, <span class="fill">[08h30]</span></b> — reunião de 20 minutos em pé: número da semana passada, meta da semana, impedimentos</li>
+            <li><b>Segunda</b> — roteiro de visitas do vendedor externo definido</li>
+            <li><b>Quarta</b> — Financeiro revisa os títulos vencidos</li>
+            <li><b>Sexta</b> — Estoque fecha a lista de reposição e envia a Compras</li>
+          </ul>
+        </div>
+        <div class="beat">
+          <h4>Todo mês</h4>
+          <ul>
+            <li><b>Dia <span class="fill">[05]</span></b> — documentos na contabilidade</li>
+            <li><b>Dia <span class="fill">[10]</span></b> — reunião de resultados: faturamento, margem, inadimplência, causas de reclamação</li>
+            <li><b>Dia <span class="fill">[15]</span></b> — revisão dos estoques mínimos</li>
+            <li><b>Último dia útil</b> — conferência de inventário rotativo do mês</li>
+          </ul>
+        </div>
+        <div class="beat">
+          <h4>Todo trimestre</h4>
+          <ul>
+            <li>Revisão deste manual — seção 13</li>
+            <li>Conversa individual de cada líder com cada pessoa da equipe</li>
+            <li>Revisão da tabela de preços e da política de desconto</li>
+            <li>Avaliação dos fornecedores: prazo, preço e qualidade</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 -->
+    <section id="s09">
+      <div class="sec-code">09 — Regras</div>
+      <h2>Regras internas</h2>
+      <p class="lede">Poucas regras, todas com um motivo. Se uma regra aqui não faz sentido para você, traga a discussão — enquanto ela estiver escrita, ela vale.</p>
+      <div class="body">
+        <h3>Horário e presença</h3>
+        <ul>
+          <li>Jornada: <span class="fill">[08h às 18h, com 1h de almoço]</span>. Ponto registrado por <span class="fill">[sistema]</span>.</li>
+          <li>Atraso ou falta: avisar o líder direto por <span class="fill">[canal]</span> antes do início da jornada. Avisar depois não conta como aviso.</li>
+          <li>Férias: pedir com <span class="fill">[30 dias]</span> de antecedência ao RH, com o aval do líder.</li>
+        </ul>
+
+        <h3>Comunicação</h3>
+        <ul>
+          <li>Cliente: só pelos canais oficiais da empresa. Nada de WhatsApp pessoal — se a pessoa sai, o histórico do cliente sai junto.</li>
+          <li>Interno: <span class="fill">[ferramenta]</span> para o dia a dia; assunto que vira decisão precisa ficar registrado por escrito.</li>
+          <li>Combinado por telefone ou no corredor não existe até estar escrito no sistema.</li>
+        </ul>
+
+        <h3>Dinheiro</h3>
+        <ul>
+          <li>Nenhum valor circula sem registro — nem adiantamento, nem troco, nem vale.</li>
+          <li>Caixa é conferido na abertura e no fechamento, sempre por duas pessoas.</li>
+          <li>Diferença de caixa é comunicada na hora. Diferença comunicada é ocorrência; diferença escondida é falta grave.</li>
+        </ul>
+
+        <h3>Sistema e dados</h3>
+        <ul>
+          <li>Senha é pessoal e intransferível. O que acontece no seu login é sua responsabilidade.</li>
+          <li>Dado de cliente é da empresa e protegido por lei (LGPD): não se exporta, não se envia para fora e não se usa fora do trabalho.</li>
+          <li>Ao sair da empresa, o acesso é encerrado no mesmo dia — providência do RH com <span class="fill">[TI ou responsável]</span>.</li>
+        </ul>
+
+        <h3>Segurança e cuidado com o patrimônio</h3>
+        <ul>
+          <li>EPI onde é exigido, sem exceção — inclusive para uma tarefa de dois minutos.</li>
+          <li>Chaves e alarme: responsáveis nomeados em <span class="fill">[lista]</span>, entregues por escrito.</li>
+          <li>Veículo da empresa é para uso da empresa. Multa é de quem dirigia.</li>
+        </ul>
+
+        <div class="note warn">
+          <h4>As três faltas graves</h4>
+          <p>Levar valor ou mercadoria da empresa; esconder erro que causa prejuízo ao cliente ou à empresa; e tratar colega ou cliente com desrespeito, assédio ou discriminação. Qualquer uma dessas leva à apuração imediata pela Direção.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section id="s10">
+      <div class="sec-code">10 — Ferramentas</div>
+      <h2>Sistemas e onde fica cada coisa</h2>
+      <p class="lede">Metade do tempo perdido numa empresa é gente procurando onde está a informação. Esta tabela acaba com isso — mantenha-a preenchida.</p>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Mapa de sistemas e documentos</caption>
+          <thead>
+            <tr><th>O que</th><th>Onde fica</th><th>Quem mantém</th><th>Quem acessa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cadastro de clientes e pedidos</td><td class="num"><span class="fill">[sistema ERP]</span></td><td class="who">Auxiliar comercial</td><td>Comercial · Financeiro</td></tr>
+            <tr><td>Estoque e inventário</td><td class="num"><span class="fill">[sistema]</span></td><td class="who">Encarregado de estoque</td><td>Estoque · Comercial · Compras</td></tr>
+            <tr><td>Emissão de nota fiscal</td><td class="num"><span class="fill">[sistema]</span></td><td class="who">Caixa e faturamento</td><td>Financeiro</td></tr>
+            <tr><td>Contas a pagar e receber</td><td class="num"><span class="fill">[sistema]</span></td><td class="who">Analista financeiro</td><td>Financeiro · Direção</td></tr>
+            <tr><td>Atendimento ao cliente</td><td class="num"><span class="fill">[WhatsApp Business]</span></td><td class="who">Atendimento</td><td>Comercial</td></tr>
+            <tr><td>Tabela de preços vigente</td><td class="num"><span class="fill">[local do arquivo]</span></td><td class="who">Auxiliar comercial</td><td>Comercial · Financeiro</td></tr>
+            <tr><td>Contratos e documentos legais</td><td class="num"><span class="fill">[armário / pasta]</span></td><td class="who">Auxiliar administrativo</td><td>Direção</td></tr>
+            <tr><td>Documentos de pessoal e ponto</td><td class="num"><span class="fill">[sistema]</span></td><td class="who">RH e DP</td><td>RH · Direção</td></tr>
+            <tr><td>Este manual</td><td class="num"><span class="fill">[link da página]</span></td><td class="who"><span class="fill">[nome]</span></td><td>Toda a equipe</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section id="s11">
+      <div class="sec-code">11 — Exceções</div>
+      <h2>Quando dá problema</h2>
+      <p class="lede">Todo mundo trava quando algo sai do roteiro. Aqui está o primeiro passo de cada situação comum — a regra é agir, avisar e registrar, nessa ordem.</p>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Primeiro passo por situação</caption>
+          <thead>
+            <tr><th>Situação</th><th>O que fazer primeiro</th><th>Quem acionar</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cliente reclama alterado</td><td>Ouvir sem interromper, registrar o chamado e dar um prazo real de retorno. Nunca prometer o que não depende de você.</td><td class="who">Atendimento</td></tr>
+            <tr><td>Faltou produto de um pedido já vendido</td><td>Avisar o cliente antes que ele descubra, com uma data nova confirmada pelo Estoque.</td><td class="who">Vendedor(a) · Estoque</td></tr>
+            <tr><td>Caixa não bateu</td><td>Parar, recontar com uma segunda pessoa e registrar a ocorrência no mesmo dia.</td><td class="who">Financeiro</td></tr>
+            <tr><td>Entrega recusada na porta do cliente</td><td>Não deixar a mercadoria. Ligar antes de sair do local.</td><td class="who">Atendimento · Encarregado</td></tr>
+            <tr><td>Sistema fora do ar</td><td>Anotar tudo em papel com data, hora e responsável, e lançar assim que voltar.</td><td class="who"><span class="fill">[TI ou responsável]</span></td></tr>
+            <tr><td>Alguém faltou sem avisar</td><td>Líder redistribui as tarefas críticas do dia e comunica o RH.</td><td class="who">Líder da área · RH</td></tr>
+            <tr><td>Acidente ou quase-acidente</td><td>Socorrer, isolar a área e comunicar imediatamente — inclusive se ninguém se machucou.</td><td class="who">Direção · RH</td></tr>
+            <tr><td>Fornecedor vai atrasar</td><td>Levantar quais pedidos de cliente dependem dessa carga e avisar cada um deles.</td><td class="who">Compras · Comercial</td></tr>
+            <tr><td>Erro seu, já cometido</td><td>Falar. Erro contado cedo é problema pequeno; erro descoberto depois é problema grande e vira questão de confiança.</td><td class="who">Líder direto</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section id="s12">
+      <div class="sec-code">12 — Integração</div>
+      <h2>Primeiros 7 dias de quem chega</h2>
+      <p class="lede">Ninguém começa sabendo. Este roteiro é responsabilidade do líder direto, com apoio do RH — se ele não for cumprido, a culpa pelo erro do novato é de quem recebeu.</p>
+      <div class="body">
+        <ul>
+          <li><b>Dia 1</b> — documentação com o RH, acessos criados, tour pela empresa, apresentação a cada área e leitura das seções 01 a 04 deste manual.</li>
+          <li><b>Dia 2</b> — leitura da ficha do próprio cargo (seção 05) e conversa com o líder sobre o que ficou dúvida.</li>
+          <li><b>Dias 3 e 4</b> — acompanhar alguém experiente do mesmo cargo, observando sem executar sozinho.</li>
+          <li><b>Dia 5</b> — executar com acompanhamento, e conhecer os processos da seção 06 na prática.</li>
+          <li><b>Dias 6 e 7</b> — executar sozinho com conferência do líder no fim do dia.</li>
+          <li><b>Fim da 1ª semana</b> — conversa de 20 minutos com o líder: o que já dá para fazer sozinho, o que ainda não.</li>
+          <li><b>Dia 30, 60 e 90</b> — conversa de acompanhamento com o líder, registrada pelo RH.</li>
+        </ul>
+        <div class="note">
+          <h4>Uma pergunta obrigatória no dia 30</h4>
+          <p>“O que você viu aqui que não está escrito no manual?” Quem chegou há pouco enxerga o que os antigos já não percebem. As respostas viram alterações neste documento.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section id="s13">
+      <div class="sec-code">13 — Manutenção</div>
+      <h2>Manter este manual vivo</h2>
+      <p class="lede">Manual desatualizado é pior que manual nenhum, porque as pessoas param de confiar nele e voltam a perguntar. Esta seção existe para que isso não aconteça.</p>
+      <div class="body">
+        <ul>
+          <li><b>Dono do documento:</b> <span class="fill">[nome]</span>. É quem aprova qualquer alteração e responde por manter o conteúdo verdadeiro.</li>
+          <li><b>Revisão obrigatória:</b> a cada 3 meses, junto da reunião trimestral.</li>
+          <li><b>Revisão fora de hora:</b> sempre que mudar um cargo, um processo, um sistema ou uma regra — antes da mudança entrar em vigor, não depois.</li>
+          <li><b>Como pedir mudança:</b> falar com o dono do documento por <span class="fill">[canal]</span>, dizendo qual seção, o que está errado e o que deveria estar escrito.</li>
+          <li><b>Como a equipe fica sabendo:</b> toda alteração é anunciada na reunião de segunda e registrada no controle abaixo.</li>
+        </ul>
+
+        <div class="tablewrap">
+          <table>
+            <caption>Controle de versões</caption>
+            <thead>
+              <tr><th>Versão</th><th>Data</th><th>O que mudou</th><th>Aprovado por</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">1.0</td><td class="num"><span class="fill">[data]</span></td><td>Primeira versão do manual</td><td class="who"><span class="fill">[nome]</span></td></tr>
+              <tr><td class="num"><span class="fill">[1.1]</span></td><td class="num"><span class="fill">[data]</span></td><td><span class="fill">[o que mudou]</span></td><td class="who"><span class="fill">[nome]</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="colophon">
+    <p>Manual de operação da <span class="fill">[NOME DA EMPRESA]</span> · versão <span class="fill">1.0</span> · documento interno.</p>
+    <p>Os campos destacados são espaços reservados deste modelo e devem ser substituídos pelos dados reais da empresa antes de circular com a equipe.</p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // --- índice: marca a seção visível ---
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var sections = links
+    .map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); })
+    .filter(Boolean);
+
+  function setCurrent(id) {
+    links.forEach(function (a) { a.removeAttribute('aria-current'); });
+    if (byId[id]) { byId[id].setAttribute('aria-current', 'true'); }
+  }
+
+  if ('IntersectionObserver' in window && sections.length) {
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      for (var i = 0; i < sections.length; i++) {
+        if (visible[sections[i].id]) { setCurrent(sections[i].id); return; }
+      }
+    }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+    setCurrent(sections[0].id);
+  }
+
+  // --- busca de cargos ---
+  var search = document.getElementById('roleSearch');
+  var counter = document.getElementById('roleCount');
+  var emptyMsg = document.getElementById('roleEmpty');
+  var roles = Array.prototype.slice.call(document.querySelectorAll('.role'));
+  var areas = Array.prototype.slice.call(document.querySelectorAll('[data-area]'));
+
+  function normalize(s) {
+    return s.toLowerCase().normalize('NFD').replace(new RegExp('[\\u0300-\\u036f]', 'g'), '');
+  }
+
+  roles.forEach(function (r) { r.dataset.hay = normalize(r.textContent); });
+
+  function updateCount(n) {
+    counter.textContent = n === roles.length
+      ? roles.length + ' cargos'
+      : n + ' de ' + roles.length + ' cargos';
+  }
+
+  function filter() {
+    var q = search.value.trim().toLowerCase().normalize('NFD').replace(new RegExp('[\\u0300-\\u036f]', 'g'), '');
+    var hits = 0;
+    roles.forEach(function (r) {
+      var hit = !q || r.dataset.hay.indexOf(q) !== -1;
+      r.classList.toggle('no-hit', !hit);
+      if (hit) { hits++; }
+    });
+    areas.forEach(function (a) {
+      var any = a.querySelectorAll('.role:not(.no-hit)').length > 0;
+      a.hidden = !any;
+    });
+    emptyMsg.hidden = hits !== 0;
+    updateCount(hits);
+  }
+
+  if (search) {
+    updateCount(roles.length);
+    search.addEventListener('input', filter);
+  }
+
+  // --- imprimir ---
+  var printBtn = document.getElementById('printBtn');
+  if (printBtn) {
+    printBtn.addEventListener('click', function () { window.print(); });
+  }
+})();
+</script>
