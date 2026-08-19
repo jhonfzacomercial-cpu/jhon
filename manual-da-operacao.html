@@ -39,6 +39,7 @@
   --amber-soft:#FFF2DC;
   --purple-soft:#EFE6FA;
   --purple-ink:#FFFFFF;
+  --alert:#B03024;
   --shadow:0 1px 0 rgba(18,17,16,.05);
 
   --display:"Outfit","Archivo","Helvetica Neue",Arial,sans-serif;
@@ -62,6 +63,7 @@
     --amber-soft:#332812;
     --purple-soft:#271B3A;
     --purple-ink:#1C1428;
+    --alert:#F08D80;
     --shadow:0 1px 0 rgba(0,0,0,.4);
   }
 }
@@ -77,6 +79,7 @@
   --amber-soft:#332812;
   --purple-soft:#271B3A;
   --purple-ink:#1C1428;
+  --alert:#F08D80;
   --shadow:0 1px 0 rgba(0,0,0,.4);
 }
 
@@ -420,6 +423,63 @@ td.who{color:var(--amber-deep)}
   font-family:var(--display);font-size:.68rem;font-weight:600;letter-spacing:.12em;
   text-transform:uppercase;color:var(--muted);
 }
+
+/* ---------- jobs do Nexus ---------- */
+.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:16px;margin-top:20px}
+.job{
+  background:var(--surface);border:2px solid var(--ink);border-radius:18px;
+  padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;
+}
+.job header{
+  display:flex;justify-content:space-between;gap:10px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:10px;
+}
+.job h4{font-family:var(--display);font-size:1rem;font-weight:600;color:var(--ink);letter-spacing:-.012em}
+.jobtag{
+  font-family:var(--display);font-size:.62rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+.steps{list-style:none;margin:0;padding:0;counter-reset:st;display:flex;flex-direction:column;gap:10px}
+.steps li{display:grid;grid-template-columns:22px 1fr;gap:9px;font-size:.91rem;line-height:1.38}
+.steps li::before{
+  counter-increment:st;content:counter(st,decimal-leading-zero);
+  font-family:var(--mono);font-size:.68rem;color:var(--amber-deep);padding-top:3px;
+}
+.steps .who{
+  display:block;font-family:var(--mono);font-size:.68rem;color:var(--muted);
+  letter-spacing:.02em;margin-top:2px;
+}
+
+/* ---------- pipeline de setores ---------- */
+.pl-chip{fill:var(--surface-2);stroke:var(--ink);stroke-width:1.4}
+.pl-chip.end{fill:var(--amber);stroke:var(--amber-deep)}
+.pl-num{font-family:var(--mono);font-size:9px;fill:var(--muted)}
+.pl-num.on{fill:var(--on-amber);opacity:.72}
+.pl-lbl{font-family:var(--display);font-size:11.5px;font-weight:600;fill:var(--ink)}
+.pl-lbl.on{fill:var(--on-amber)}
+
+/* ---------- cartões de regra ---------- */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:14px;margin-top:20px}
+.rule-card{background:var(--surface-2);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.rule-card h4{font-family:var(--display);font-size:.96rem;font-weight:600;color:var(--ink)}
+.rule-card p{font-size:.9rem;color:var(--ink-2)}
+.code{
+  font-family:var(--mono);font-size:.79rem;background:var(--surface);
+  border:1px solid var(--rule-2);border-radius:6px;padding:1px 7px;display:inline-block;
+}
+.codeblock{
+  font-family:var(--mono);font-size:.82rem;background:var(--surface-2);
+  border-left:3px solid var(--amber);border-radius:0 12px 12px 0;
+  padding:14px 18px;line-height:1.75;margin-top:6px;
+}
+.codeblock b{color:var(--alert);font-weight:700}
+.codeblock s{color:var(--muted);text-decoration-thickness:1px}
+.examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:14px;margin-top:6px}
+.examples > div > .lbl{
+  font-family:var(--display);font-size:.66rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+}
+.who-map{margin-top:18px}
 </style>
 
 <div class="wrap">
@@ -428,7 +488,7 @@ td.who{color:var(--amber-deep)}
     <div class="brandmark" role="img" aria-label="Logotipo do Grupo FZA"></div>
     <div class="rule"></div>
     <div class="masthead-main">
-      <div class="eyebrow">Manual de operação · versão 0.2</div>
+      <div class="eyebrow">Manual de operação · versão 0.3</div>
       <h1>Quem faz o quê no Grupo FZA</h1>
       <p class="sub">Estrutura, cargos e processos reunidos em um só lugar, para que cada pessoa saiba exatamente qual é a <u>sua parte</u> — e a de quem está do lado.</p>
     </div>
@@ -437,7 +497,7 @@ td.who{color:var(--amber-deep)}
 
   <div class="meta">
     <div>Documento interno</div><span class="sep">\\</span>
-    <div>Fonte desta versão: <b>Organograma do Squad</b></div><span class="sep">\\</span>
+    <div>Fontes: <b>Organograma do Squad</b> e <b>Fluxo Nexus 2.0</b></div><span class="sep">\\</span>
     <div>Vale para: <b>toda a equipe</b></div><span class="sep">\\</span>
     <div><i>em construção</i></div>
   </div>
@@ -449,6 +509,8 @@ td.who{color:var(--amber-deep)}
       <nav id="nav" aria-label="Seções do manual">
         <a href="#s01"><span>01</span>Organograma</a>
         <a href="#s02"><span>02</span>Funções e responsabilidades</a>
+        <a href="#s03"><span>03</span>Sistema Nexus 2.0</a>
+        <a href="#s04"><span>04</span>Rotina dentro do Nexus</a>
       </nav>
       <div class="toc-foot">
         <button class="btn" id="printBtn" type="button">Imprimir</button>
@@ -460,20 +522,19 @@ td.who{color:var(--amber-deep)}
       <section id="s01">
         <div class="pill">seção 01</div>
         <h2>Organograma do squad</h2>
-        <p class="lede">A estrutura tem quatro níveis e treze posições. Toda a operação passa por uma única gerência, que sustenta cinco frentes ao mesmo tempo — é o ponto mais carregado da estrutura e o primeiro lugar onde um gargalo aparece.</p>
+        <p class="lede">A estrutura tem cinco níveis e treze posições. Só três posições respondem diretamente à gerência — todo o time de conteúdo e produção fica sob uma única liderança.</p>
 
         <div class="counts">
           <div><b>13</b><span>posições</span></div>
-          <div><b>4</b><span>níveis</span></div>
-          <div><b>5</b><span>lideranças</span></div>
+          <div><b>5</b><span>níveis</span></div>
+          <div><b>3</b><span>reportes à gerência</span></div>
           <div><b>3</b><span>frentes</span></div>
         </div>
 
         <figure>
           <div class="scroller">
-            <svg viewBox="0 0 820 800" role="img" aria-label="Organograma do squad FZA: Danilo Fiuza como fundador e CEO no topo; abaixo o Gerente de Operações e Expansão; e sob a gerência cinco lideranças — Executivo de Contas, Especialista de Growth com os Gestores de Tráfego, Gestor de Produção Estratégica com Videomaker e Editor, Líder Editorial 01 com Líder Editorial 02, e Diretor de Arte com dois Designers.">
+            <svg viewBox="0 0 820 784" role="img" aria-label="Organograma do squad FZA: Danilo Fiuza como fundador e CEO; abaixo o Gerente de Operações e Expansão; sob a gerência três posições — Executivo de Contas, Especialista de Growth com os Gestores de Tráfego, e Gestor de Produção Estratégica, que comanda Videomaker, Editor, Líder Editorial 01 com Líder Editorial 02, e Diretor de Arte com dois Designers.">
 
-              <!-- CEO -->
               <rect class="og-ceo" x="20" y="16" width="780" height="58" rx="14"></rect>
               <text class="og-name lg inv" x="48" y="42">Danilo Fiuza</text>
               <text class="og-role inv" x="48" y="60">Fundador e CEO</text>
@@ -481,74 +542,66 @@ td.who{color:var(--amber-deep)}
 
               <path class="og-line" d="M38 74 L38 123 L56 123"></path>
 
-              <!-- Gerência -->
               <rect class="og-mgr" x="56" y="94" width="744" height="58" rx="14"></rect>
               <text class="og-name on" x="84" y="120">Gerente de Operações e Expansão</text>
               <text class="og-role on" x="84" y="138">Lidera a operação em 5 frentes</text>
-              <text class="og-role on" x="776" y="128" text-anchor="end">única gerência da estrutura</text>
+              <text class="og-role on" x="776" y="128" text-anchor="end">3 reportes diretos</text>
 
-              <!-- espinha das lideranças -->
-              <path class="og-line" d="M74 152 L74 660"></path>
-              <path class="og-line" d="M74 198 L92 198 M74 266 L92 266 M74 382 L92 382 M74 544 L92 544 M74 660 L92 660"></path>
+              <path class="og-line" d="M74 152 L74 388"></path>
+              <path class="og-line" d="M74 198 L92 198 M74 266 L92 266 M74 388 L92 388"></path>
 
-              <!-- 1 · Executivo de Contas -->
               <rect class="og-lead" x="92" y="172" width="708" height="52" rx="12"></rect>
               <rect class="b-atd" x="104" y="182" width="4" height="32" rx="2"></rect>
               <text class="og-name" x="120" y="195">Executivo de Contas</text>
               <text class="og-role" x="120" y="212">Atendimento, relacionamento e retenção</text>
               <text class="og-frente f-atd" x="784" y="203" text-anchor="end">ATENDIMENTO</text>
 
-              <!-- 2 · Especialista de Growth -->
               <rect class="og-lead" x="92" y="240" width="708" height="52" rx="12"></rect>
               <rect class="b-perf" x="104" y="250" width="4" height="32" rx="2"></rect>
               <text class="og-name" x="120" y="263">Especialista de Growth</text>
               <text class="og-role" x="120" y="280">Performance, tráfego e CRM</text>
               <text class="og-frente f-perf" x="784" y="271" text-anchor="end">PERFORMANCE</text>
-              <path class="og-line" d="M110 292 L110 320 L128 320"></path>
-              <rect class="og-sub" x="128" y="300" width="672" height="40" rx="10"></rect>
-              <text class="og-sub-name" x="148" y="317">Gestores de Tráfego</text>
-              <text class="og-sub-role" x="148" y="331">Execução das campanhas de mídia paga</text>
+              <path class="og-line" d="M110 292 L110 323 L128 323"></path>
+              <rect class="og-sub" x="128" y="300" width="672" height="46" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="320">Gestores de Tráfego</text>
+              <text class="og-sub-role" x="148" y="335">Execução das campanhas de mídia paga</text>
 
-              <!-- 3 · Gestor de Produção Estratégica -->
-              <rect class="og-lead" x="92" y="356" width="708" height="52" rx="12"></rect>
-              <rect class="b-cont" x="104" y="366" width="4" height="32" rx="2"></rect>
-              <text class="og-name" x="120" y="379">Gestor de Produção Estratégica</text>
-              <text class="og-role" x="120" y="396">Cronograma, captação e edição</text>
-              <text class="og-frente f-cont" x="784" y="387" text-anchor="end">CONTEÚDO E PRODUÇÃO</text>
-              <path class="og-line" d="M110 408 L110 482"></path>
-              <path class="og-line" d="M110 436 L128 436 M110 482 L128 482"></path>
-              <rect class="og-sub" x="128" y="416" width="672" height="40" rx="10"></rect>
-              <text class="og-sub-name" x="148" y="433">Videomaker 01</text>
-              <text class="og-sub-role" x="148" y="447">Captação e produção de vídeo</text>
-              <rect class="og-sub" x="128" y="462" width="672" height="40" rx="10"></rect>
-              <text class="og-sub-name" x="148" y="479">Editor</text>
-              <text class="og-sub-role" x="148" y="493">Edição e finalização de materiais</text>
+              <rect class="og-lead" x="92" y="362" width="708" height="52" rx="12"></rect>
+              <rect class="b-cont" x="104" y="372" width="4" height="32" rx="2"></rect>
+              <text class="og-name" x="120" y="385">Gestor de Produção Estratégica</text>
+              <text class="og-role" x="120" y="402">Comanda todo o time de conteúdo e produção</text>
+              <text class="og-frente f-cont" x="784" y="393" text-anchor="end">CONTEÚDO E PRODUÇÃO</text>
 
-              <!-- 4 · Líder Editorial 01 -->
-              <rect class="og-lead" x="92" y="518" width="708" height="52" rx="12"></rect>
-              <rect class="b-cont" x="104" y="528" width="4" height="32" rx="2"></rect>
-              <text class="og-name" x="120" y="541">Líder Editorial 01</text>
-              <text class="og-role" x="120" y="558">Estratégia de conteúdo e calendário</text>
-              <text class="og-frente f-cont" x="784" y="549" text-anchor="end">CONTEÚDO E PRODUÇÃO</text>
-              <path class="og-line" d="M110 570 L110 598 L128 598"></path>
-              <rect class="og-sub" x="128" y="578" width="672" height="40" rx="10"></rect>
-              <text class="og-sub-name" x="148" y="595">Líder Editorial 02</text>
-              <text class="og-sub-role" x="148" y="609">Mesmas atribuições da liderança editorial</text>
+              <path class="og-line" d="M110 414 L110 651"></path>
+              <path class="og-line" d="M110 445 L128 445 M110 497 L128 497 M110 549 L128 549 M110 651 L128 651"></path>
 
-              <!-- 5 · Diretor de Arte -->
-              <rect class="og-lead" x="92" y="634" width="708" height="52" rx="12"></rect>
-              <rect class="b-cont" x="104" y="644" width="4" height="32" rx="2"></rect>
-              <text class="og-name" x="120" y="657">Diretor de Arte</text>
-              <text class="og-role" x="120" y="674">Criativos, peças e campanhas</text>
-              <text class="og-frente f-cont" x="784" y="665" text-anchor="end">CONTEÚDO E PRODUÇÃO</text>
-              <path class="og-line" d="M110 686 L110 760"></path>
-              <path class="og-line" d="M110 714 L128 714 M110 760 L128 760"></path>
-              <rect class="og-sub" x="128" y="694" width="672" height="40" rx="10"></rect>
-              <text class="og-sub-name" x="148" y="711">Designer 01</text>
-              <text class="og-sub-role" x="148" y="725">Criação de artes e peças</text>
-              <rect class="og-sub" x="128" y="740" width="672" height="40" rx="10"></rect>
-              <text class="og-sub-name" x="148" y="757">Designer 02</text>
-              <text class="og-sub-role" x="148" y="771">Criação de artes e peças</text>
+              <rect class="og-sub" x="128" y="422" width="672" height="46" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="442">Videomaker 01</text>
+              <text class="og-sub-role" x="148" y="457">Captação e produção de vídeo</text>
+
+              <rect class="og-sub" x="128" y="474" width="672" height="46" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="494">Editor</text>
+              <text class="og-sub-role" x="148" y="509">Edição e finalização de materiais</text>
+
+              <rect class="og-sub" x="128" y="526" width="672" height="46" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="546">Líder Editorial 01</text>
+              <text class="og-sub-role" x="148" y="561">Estratégia de conteúdo e calendário</text>
+              <path class="og-line" d="M146 572 L146 600 L164 600"></path>
+              <rect class="og-sub" x="164" y="580" width="636" height="40" rx="9"></rect>
+              <text class="og-sub-name" x="184" y="597">Líder Editorial 02</text>
+              <text class="og-sub-role" x="184" y="611">Mesmas atribuições da liderança editorial</text>
+
+              <rect class="og-sub" x="128" y="628" width="672" height="46" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="648">Diretor de Arte</text>
+              <text class="og-sub-role" x="148" y="663">Criativos, peças e campanhas</text>
+              <path class="og-line" d="M146 674 L146 748"></path>
+              <path class="og-line" d="M146 702 L164 702 M146 748 L164 748"></path>
+              <rect class="og-sub" x="164" y="682" width="636" height="40" rx="9"></rect>
+              <text class="og-sub-name" x="184" y="699">Designer 01</text>
+              <text class="og-sub-role" x="184" y="713">Criação de artes e peças</text>
+              <rect class="og-sub" x="164" y="728" width="636" height="40" rx="9"></rect>
+              <text class="og-sub-name" x="184" y="745">Designer 02</text>
+              <text class="og-sub-role" x="184" y="759">Criação de artes e peças</text>
             </svg>
           </div>
           <div class="legend">
@@ -556,13 +609,13 @@ td.who{color:var(--amber-deep)}
             <span><i class="d-perf"></i>Performance</span>
             <span><i class="d-cont"></i>Conteúdo e Produção</span>
           </div>
-          <figcaption>Cada recuo é um nível de chefia: quem está recuado responde a quem está acima e à esquerda. A barra colorida marca a frente de cada liderança. As cinco lideranças respondem à mesma gerência, e é ela que responde ao CEO.</figcaption>
+          <figcaption>Cada recuo é um nível de chefia: quem está recuado responde a quem está acima e à esquerda. A barra colorida marca a frente de cada liderança, e vale para todo mundo que está abaixo dela.</figcaption>
         </figure>
 
         <div class="body">
           <div class="note">
             <h4>O que a estrutura mostra</h4>
-            <p>Conteúdo e Produção concentra três das cinco lideranças e oito das treze posições — é a maior operação do squad. Atendimento tem uma única posição e nenhuma equipe abaixo dela, então toda a relação com o cliente passa por uma pessoa só.</p>
+            <p>Oito das treze posições ficam sob o Gestor de Produção Estratégica — ele tem quatro reportes diretos e responde por toda a cadeia de conteúdo, do roteiro à postagem. Atendimento é o oposto: uma posição só, sem equipe abaixo, por onde passa toda a relação com o cliente.</p>
           </div>
         </div>
       </section>
@@ -570,7 +623,7 @@ td.who{color:var(--amber-deep)}
       <section id="s02">
         <div class="pill">seção 02</div>
         <h2>Funções e responsabilidades</h2>
-        <p class="lede">O que está escrito abaixo é exatamente o que consta no Organograma do Squad, sem nada acrescentado. Onde o documento original não detalha as responsabilidades, a ficha diz isso em vez de preencher com suposição.</p>
+        <p class="lede">O que está escrito abaixo é o que consta no Organograma do Squad, sem nada acrescentado. Onde o documento original não detalha as responsabilidades, a ficha diz isso em vez de preencher com suposição.</p>
 
         <div class="cards">
 
@@ -593,54 +646,39 @@ td.who{color:var(--amber-deep)}
           <article class="role role--wide">
             <div class="role-top"><h4>Gerente de Operações e Expansão</h4><span class="tag">5 FRENTES</span></div>
             <div class="reports">Responde a: Fundador e CEO</div>
-            <p class="mission">Lidera a operação em cinco frentes simultâneas e é o único elo entre as cinco lideranças e o CEO.</p>
+            <p class="mission">Lidera a operação em cinco frentes simultâneas e é o único elo entre a operação e o CEO.</p>
             <div class="frentes">
-              <div class="frente">
-                <h5>Comercial</h5>
-                <ul>
-                  <li>Fechar contratos (Closer).</li>
-                  <li>Conduzir reuniões comerciais.</li>
-                  <li>Negociar propostas.</li>
-                  <li>Auxiliar na criação de novas ofertas.</li>
-                </ul>
-              </div>
-              <div class="frente">
-                <h5>Operações</h5>
-                <ul>
-                  <li>Liderar os departamentos.</li>
-                  <li>Acompanhar indicadores.</li>
-                  <li>Garantir qualidade das entregas.</li>
-                  <li>Evitar retrabalho.</li>
-                  <li>Resolver gargalos.</li>
-                </ul>
-              </div>
-              <div class="frente">
-                <h5>Processos</h5>
-                <ul>
-                  <li>Implantar IA.</li>
-                  <li>Implantar sistemas.</li>
-                  <li>Otimizar processos.</li>
-                  <li>Automatizar rotinas.</li>
-                  <li>Buscar melhorias.</li>
-                </ul>
-              </div>
-              <div class="frente">
-                <h5>Relacionamento</h5>
-                <ul>
-                  <li>Resolver clientes críticos.</li>
-                  <li>Acompanhar satisfação.</li>
-                  <li>Participar das reuniões estratégicas.</li>
-                  <li>Garantir retenção.</li>
-                </ul>
-              </div>
-              <div class="frente">
-                <h5>Expansão</h5>
-                <ul>
-                  <li>Buscar oportunidades de crescimento.</li>
-                  <li>Identificar novas soluções.</li>
-                  <li>Apoiar a evolução da empresa.</li>
-                </ul>
-              </div>
+              <div class="frente"><h5>Comercial</h5><ul>
+                <li>Fechar contratos (Closer).</li>
+                <li>Conduzir reuniões comerciais.</li>
+                <li>Negociar propostas.</li>
+                <li>Auxiliar na criação de novas ofertas.</li>
+              </ul></div>
+              <div class="frente"><h5>Operações</h5><ul>
+                <li>Liderar os departamentos.</li>
+                <li>Acompanhar indicadores.</li>
+                <li>Garantir qualidade das entregas.</li>
+                <li>Evitar retrabalho.</li>
+                <li>Resolver gargalos.</li>
+              </ul></div>
+              <div class="frente"><h5>Processos</h5><ul>
+                <li>Implantar IA.</li>
+                <li>Implantar sistemas.</li>
+                <li>Otimizar processos.</li>
+                <li>Automatizar rotinas.</li>
+                <li>Buscar melhorias.</li>
+              </ul></div>
+              <div class="frente"><h5>Relacionamento</h5><ul>
+                <li>Resolver clientes críticos.</li>
+                <li>Acompanhar satisfação.</li>
+                <li>Participar das reuniões estratégicas.</li>
+                <li>Garantir retenção.</li>
+              </ul></div>
+              <div class="frente"><h5>Expansão</h5><ul>
+                <li>Buscar oportunidades de crescimento.</li>
+                <li>Identificar novas soluções.</li>
+                <li>Apoiar a evolução da empresa.</li>
+              </ul></div>
             </div>
           </article>
 
@@ -688,10 +726,10 @@ td.who{color:var(--amber-deep)}
             <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
           </article>
 
-          <article class="role">
-            <div class="role-top"><h4>Gestor de Produção Estratégica</h4><span class="tag ft-cont">CONTEÚDO</span></div>
-            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
-            <p class="mission">Cronograma, captação e edição.</p>
+          <article class="role role--wide">
+            <div class="role-top"><h4>Gestor de Produção Estratégica</h4><span class="tag ft-cont">CONTEÚDO · 4 REPORTES</span></div>
+            <div class="reports">Responde a: Gerente de Operações e Expansão · comanda Videomaker, Editor, Líder Editorial 01 e Diretor de Arte</div>
+            <p class="mission">Cronograma, captação e edição — e o acompanhamento de prazo de toda a produção.</p>
             <dl>
               <div><dt>Responsabilidades</dt><dd><ul>
                 <li>Planejar cronograma de produção.</li>
@@ -706,6 +744,14 @@ td.who{color:var(--amber-deep)}
                 <li>Automatizar rotinas.</li>
                 <li>Identificar novas soluções.</li>
               </ul></dd></div>
+              <div><dt>No Nexus 2.0 (seções 03 e 04)</dt><dd><ul>
+                <li>Acompanhar a Jornada dos 20 Dias e realocar o time se o prazo estiver em risco.</li>
+                <li>Revisar os materiais de Cards e de Reels antes da aprovação.</li>
+                <li>Sinalizar no planejamento o conteúdo que vai para tráfego pago.</li>
+                <li>Lançar materiais extras — junto com o Gerente, são os únicos que podem.</li>
+                <li>Abrir subtarefas de alteração e refação — junto com o Atendimento, são os únicos que podem.</li>
+                <li>Priorizar demandas — junto com o Gerente e o CEO, são os únicos que podem.</li>
+              </ul></dd></div>
             </dl>
           </article>
 
@@ -713,19 +759,23 @@ td.who{color:var(--amber-deep)}
             <div class="role-top"><h4>Videomaker 01</h4><span class="tag ft-cont">CONTEÚDO</span></div>
             <div class="reports">Responde a: Gestor de Produção Estratégica</div>
             <p class="mission">Captação e produção de vídeo.</p>
-            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+            <dl>
+              <div><dt>No Nexus 2.0</dt><dd><ul>
+                <li>Captação e edição dos Reels, na Jornada dos 20 Dias e no Planejamento Mensal.</li>
+              </ul></dd></div>
+            </dl>
           </article>
 
           <article class="role">
             <div class="role-top"><h4>Editor</h4><span class="tag ft-cont">CONTEÚDO</span></div>
             <div class="reports">Responde a: Gestor de Produção Estratégica</div>
             <p class="mission">Edição e finalização de materiais.</p>
-            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+            <p class="pending">O organograma não detalha as responsabilidades desta posição, e o fluxo do Nexus atribui a edição ao Videomaker. Vale definir onde entra o Editor.</p>
           </article>
 
           <article class="role">
             <div class="role-top"><h4>Líder Editorial 01</h4><span class="tag ft-cont">CONTEÚDO</span></div>
-            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
+            <div class="reports">Responde a: Gestor de Produção Estratégica</div>
             <p class="mission">Estratégia de conteúdo e calendário.</p>
             <dl>
               <div><dt>Responsabilidades</dt><dd><ul>
@@ -742,6 +792,11 @@ td.who{color:var(--amber-deep)}
                 <li>Identificar quais formatos geram mais resultado.</li>
                 <li>Alinhar ajustes com o Gestor de Growth.</li>
               </ul></dd></div>
+              <div><dt>No Nexus 2.0</dt><dd><ul>
+                <li>Briefing da Tríade, planejamento dos Pilares, planejamento de Cards e de Reels.</li>
+                <li>Preencher as abas Card e Reels dentro de cada Job.</li>
+                <li>Postagem de todo o material aprovado.</li>
+              </ul></dd></div>
             </dl>
           </article>
 
@@ -754,7 +809,7 @@ td.who{color:var(--amber-deep)}
 
           <article class="role">
             <div class="role-top"><h4>Diretor de Arte</h4><span class="tag ft-cont">CONTEÚDO</span></div>
-            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
+            <div class="reports">Responde a: Gestor de Produção Estratégica</div>
             <p class="mission">Criativos, peças e campanhas.</p>
             <dl>
               <div><dt>Responsabilidades</dt><dd><ul>
@@ -763,6 +818,10 @@ td.who{color:var(--amber-deep)}
                 <li>Revisar materiais.</li>
                 <li>Criar materiais estratégicos.</li>
               </ul></dd></div>
+              <div><dt>No Nexus 2.0</dt><dd><ul>
+                <li>Criação do Moodboard e da Tríade na entrada do cliente.</li>
+                <li>Criação dos Cards do Planejamento Mensal.</li>
+              </ul></dd></div>
             </dl>
           </article>
 
@@ -770,16 +829,325 @@ td.who{color:var(--amber-deep)}
             <div class="role-top"><h4>Designer 01</h4><span class="tag ft-cont">CONTEÚDO</span></div>
             <div class="reports">Responde a: Diretor de Arte</div>
             <p class="mission">Criação de artes e peças.</p>
-            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+            <dl>
+              <div><dt>No Nexus 2.0</dt><dd><ul>
+                <li>Executar as alterações e refações abertas no Job, dar check na tarefa e tachar o texto da ALT.</li>
+              </ul></dd></div>
+            </dl>
           </article>
 
           <article class="role">
             <div class="role-top"><h4>Designer 02</h4><span class="tag ft-cont">CONTEÚDO</span></div>
             <div class="reports">Responde a: Diretor de Arte</div>
             <p class="mission">Criação de artes e peças.</p>
-            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+            <dl>
+              <div><dt>No Nexus 2.0</dt><dd><ul>
+                <li>Executar as alterações e refações abertas no Job, dar check na tarefa e tachar o texto da ALT.</li>
+              </ul></dd></div>
+            </dl>
           </article>
 
+        </div>
+      </section>
+
+      <section id="s03">
+        <div class="pill">seção 03</div>
+        <h2>Sistema Nexus 2.0</h2>
+        <p class="lede">O Nexus 2.0 é onde todo trabalho da agência acontece. Um cliente novo entra em uma Jornada de 20 Dias com três Jobs; passado esse prazo, ele migra para o Planejamento Mensal, que se repete todo mês. Quem cadastra o cliente e abre os Jobs é sempre o Gerente.</p>
+
+        <figure>
+          <div class="scroller">
+            <svg viewBox="0 0 820 176" role="img" aria-label="Ciclo do cliente no Nexus: contrato assinado, cadastro feito pelo gerente, Jornada dos 20 Dias com três Jobs e, em seguida, o Planejamento Mensal que se repete todo mês.">
+              <defs>
+                <marker id="mk-cy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+                </marker>
+              </defs>
+              <text class="dg-cap" x="16" y="14">Ciclo do cliente</text>
+              <line class="dg-thin" x1="16" y1="22" x2="804" y2="22"></line>
+
+              <rect class="dg-node" x="16" y="40" width="176" height="64" rx="12"></rect>
+              <text class="dg-t" x="104" y="66" text-anchor="middle">Contrato assinado</text>
+              <text class="dg-t sm" x="104" y="86" text-anchor="middle">comercial</text>
+              <line class="dg-line" x1="192" y1="72" x2="220" y2="72" marker-end="url(#mk-cy)"></line>
+
+              <rect class="dg-node" x="220" y="40" width="176" height="64" rx="12"></rect>
+              <text class="dg-t" x="308" y="66" text-anchor="middle">Cadastro no Nexus</text>
+              <text class="dg-t sm" x="308" y="86" text-anchor="middle">Gerente · abre 3 Jobs</text>
+              <line class="dg-line" x1="396" y1="72" x2="424" y2="72" marker-end="url(#mk-cy)"></line>
+
+              <rect class="dg-node" x="424" y="40" width="176" height="64" rx="12"></rect>
+              <text class="dg-t" x="512" y="66" text-anchor="middle">Jornada dos 20 Dias</text>
+              <text class="dg-t sm" x="512" y="86" text-anchor="middle">prazo: 20 dias corridos</text>
+              <line class="dg-line" x1="600" y1="72" x2="628" y2="72" marker-end="url(#mk-cy)"></line>
+
+              <rect class="dg-chip" x="628" y="40" width="176" height="64" rx="12"></rect>
+              <text class="dg-t on" x="716" y="66" text-anchor="middle">Planejamento Mensal</text>
+              <text class="dg-t on" x="716" y="86" text-anchor="middle" font-size="11">3 Jobs recorrentes</text>
+
+              <path class="dg-dash" d="M780 104 L780 140 L660 140 L660 108" marker-end="url(#mk-cy)"></path>
+              <text class="dg-lbl" x="720" y="157" text-anchor="middle">se repete todo mês</text>
+            </svg>
+          </div>
+          <figcaption>Os 20 dias são contados a partir do cadastro do cliente, não da assinatura do contrato. Terminada a jornada, o cliente não sai do ciclo: entra no planejamento mensal e permanece nele.</figcaption>
+        </figure>
+
+        <h3 style="margin-top:38px">Jornada dos 20 Dias — cliente novo</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Três Jobs abertos de uma vez, com as subtarefas abaixo. Todos precisam estar concluídos em até 20 dias corridos.</p>
+
+        <div class="jobs">
+          <article class="job">
+            <header><h4>Identidade Visual</h4><span class="jobtag">Job 1</span></header>
+            <ol class="steps">
+              <li><div>Reunião de Kick-off<span class="who">Atendimento</span></div></li>
+              <li><div>Apresentação ao time<span class="who">Gerente</span></div></li>
+              <li><div>Briefing Tríade<span class="who">Líder Editorial</span></div></li>
+              <li><div>Criação Moodboard + Tríade<span class="who">Diretor de Arte</span></div></li>
+              <li><div>Envio da Tríade para aprovação<span class="who">Atendimento</span></div></li>
+              <li><div>Postagem<span class="who">Líder Editorial</span></div></li>
+            </ol>
+          </article>
+
+          <article class="job">
+            <header><h4>Pilares de Conteúdo</h4><span class="jobtag">Job 2 · Reels</span></header>
+            <ol class="steps">
+              <li><div>Planejamento dos Pilares (Reels)<span class="who">Líder Editorial</span></div></li>
+              <li><div>Agendamento<span class="who">Atendimento</span></div></li>
+              <li><div>Captação<span class="who">Videomaker</span></div></li>
+              <li><div>Edição<span class="who">Videomaker</span></div></li>
+              <li><div>Envio para aprovação<span class="who">Atendimento</span></div></li>
+              <li><div>Postagem<span class="who">Líder Editorial</span></div></li>
+            </ol>
+          </article>
+
+          <article class="job">
+            <header><h4>Performance</h4><span class="jobtag">Job 3</span></header>
+            <ol class="steps">
+              <li><div>Solicitar acessos das redes sociais<span class="who">Analista de Growth</span></div></li>
+              <li><div>Otimização das contas<span class="who">Analista de Growth</span></div></li>
+              <li><div>Acesso da conta de anúncios<span class="who">Analista de Growth</span></div></li>
+              <li><div>Criar Dashboard e anexar ao grupo<span class="who">Analista de Growth</span></div></li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="body">
+          <div class="note amber">
+            <h4>Quem segura o prazo dos 20 dias</h4>
+            <p>É o Gestor de Produção. Cabe a ele acompanhar de perto o andamento e, se o prazo estiver em risco, orientar e realocar o time para o conteúdo sair dentro do prazo.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:38px">Planejamento Mensal</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Três Jobs recorrentes, cadastrados pelo Gerente no início de cada mês. Os números levantados na Reunião Mensal alimentam o Direcionamento que abre os outros dois Jobs.</p>
+
+        <div class="jobs">
+          <article class="job">
+            <header><h4>Reunião Mensal</h4><span class="jobtag">Job 1</span></header>
+            <ol class="steps">
+              <li><div>Coleta de dados e números<span class="who">Analista de Growth</span></div></li>
+              <li><div>Reunião Mensal — apresentação dos números<span class="who">Atendimento + Analista de Growth</span></div></li>
+            </ol>
+          </article>
+
+          <article class="job">
+            <header><h4>Planejamento de Cards</h4><span class="jobtag">Job 2</span></header>
+            <ol class="steps">
+              <li><div>Direcionamento<span class="who">Gerente</span></div></li>
+              <li><div>Planejamento<span class="who">Líder Editorial</span></div></li>
+              <li><div>Criação<span class="who">Diretor de Arte</span></div></li>
+              <li><div>Revisão<span class="who">Gestor de Produção</span></div></li>
+              <li><div>Aprovação<span class="who">Atendimento</span></div></li>
+              <li><div>Postagem<span class="who">Líder Editorial</span></div></li>
+            </ol>
+          </article>
+
+          <article class="job">
+            <header><h4>Planejamento de Reels</h4><span class="jobtag">Job 3</span></header>
+            <ol class="steps">
+              <li><div>Direcionamento<span class="who">Gerente</span></div></li>
+              <li><div>Planejamento<span class="who">Líder Editorial</span></div></li>
+              <li><div>Agendamento<span class="who">Atendimento</span></div></li>
+              <li><div>Captação<span class="who">Videomaker</span></div></li>
+              <li><div>Edição<span class="who">Videomaker</span></div></li>
+              <li><div>Revisão<span class="who">Gestor de Produção</span></div></li>
+              <li><div>Aprovação<span class="who">Atendimento</span></div></li>
+              <li><div>Postagem<span class="who">Líder Editorial</span></div></li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="rules">
+          <div class="rule-card">
+            <h4>Tráfego pago</h4>
+            <p>No planejamento mensal, o Gestor de Produção sinaliza o conteúdo que vai para tráfego pago abrindo uma subtarefa dentro do Job.</p>
+            <p><span class="code">Tráfego | Card 1, 5 e 6</span></p>
+          </div>
+          <div class="rule-card">
+            <h4>Materiais extras</h4>
+            <p>Toda demanda que não faz parte do Planejamento Mensal nem da Jornada dos 20 Dias — um pedido pontual do cliente, por exemplo.</p>
+            <p><b>Só o Gerente e o Gestor de Produção podem lançar.</b></p>
+          </div>
+        </div>
+
+        <div class="body who-map">
+          <div class="note">
+            <h4>Os nomes do Nexus e os cargos do organograma</h4>
+            <p>O fluxo do sistema usa nomes de função, e o organograma usa nomes de cargo. A correspondência é esta: <b>Atendimento</b> é o Executivo de Contas; <b>Analista de Growth</b> é o Especialista de Growth; <b>Gestor de Produção</b> é o Gestor de Produção Estratégica; <b>Líder Editorial</b> são as duas lideranças editoriais; <b>Videomaker</b> é o Videomaker 01. Vale padronizar em um dos dois lados, para ninguém ficar em dúvida sobre quem é quem.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s04">
+        <div class="pill">seção 04</div>
+        <h2>Rotina dentro do Nexus</h2>
+        <p class="lede">As regras que valem para qualquer Job, todo dia. A mais importante delas: todo mundo que participa de uma subtarefa precisa dar check nela e mudar o setor do Job — é isso que faz a produção andar.</p>
+
+        <h3 style="margin-top:32px">Os dez setores</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Todo Job atravessa esta sequência. Quem conclui a sua parte move o Job para o setor seguinte.</p>
+
+        <figure>
+          <div class="scroller">
+            <svg viewBox="0 0 820 190" role="img" aria-label="Os dez setores do Nexus em sequência: Reunião Mensal, Planejamento, Briefing, Criação Interna, Audiovisual, Aprovação, Revisão, Postagem, Tráfego Pago e Concluídos.">
+              <defs>
+                <marker id="mk-pl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+                </marker>
+              </defs>
+              <text class="dg-cap" x="34" y="14">Trajeto de um Job</text>
+              <line class="dg-thin" x1="34" y1="22" x2="786" y2="22"></line>
+
+              <rect class="pl-chip" x="34" y="40" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="102" y="58" text-anchor="middle">01</text>
+              <text class="pl-lbl" x="102" y="75" text-anchor="middle">Reunião Mensal</text>
+              <line class="dg-line" x1="170" y1="63" x2="188" y2="63" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip" x="188" y="40" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="256" y="58" text-anchor="middle">02</text>
+              <text class="pl-lbl" x="256" y="75" text-anchor="middle">Planejamento</text>
+              <line class="dg-line" x1="324" y1="63" x2="342" y2="63" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip" x="342" y="40" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="410" y="58" text-anchor="middle">03</text>
+              <text class="pl-lbl" x="410" y="75" text-anchor="middle">Briefing</text>
+              <line class="dg-line" x1="478" y1="63" x2="496" y2="63" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip" x="496" y="40" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="564" y="58" text-anchor="middle">04</text>
+              <text class="pl-lbl" x="564" y="75" text-anchor="middle">Criação Interna</text>
+              <line class="dg-line" x1="632" y1="63" x2="650" y2="63" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip" x="650" y="40" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="718" y="58" text-anchor="middle">05</text>
+              <text class="pl-lbl" x="718" y="75" text-anchor="middle">Audiovisual</text>
+
+              <path class="dg-line" d="M786 63 L800 63 L800 103 L20 103 L20 143 L34 143" marker-end="url(#mk-pl)"></path>
+
+              <rect class="pl-chip" x="34" y="120" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="102" y="138" text-anchor="middle">06</text>
+              <text class="pl-lbl" x="102" y="155" text-anchor="middle">Aprovação</text>
+              <line class="dg-line" x1="170" y1="143" x2="188" y2="143" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip" x="188" y="120" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="256" y="138" text-anchor="middle">07</text>
+              <text class="pl-lbl" x="256" y="155" text-anchor="middle">Revisão</text>
+              <line class="dg-line" x1="324" y1="143" x2="342" y2="143" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip" x="342" y="120" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="410" y="138" text-anchor="middle">08</text>
+              <text class="pl-lbl" x="410" y="155" text-anchor="middle">Postagem</text>
+              <line class="dg-line" x1="478" y1="143" x2="496" y2="143" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip" x="496" y="120" width="136" height="46" rx="11"></rect>
+              <text class="pl-num" x="564" y="138" text-anchor="middle">09</text>
+              <text class="pl-lbl" x="564" y="155" text-anchor="middle">Tráfego Pago</text>
+              <line class="dg-line" x1="632" y1="143" x2="650" y2="143" marker-end="url(#mk-pl)"></line>
+
+              <rect class="pl-chip end" x="650" y="120" width="136" height="46" rx="11"></rect>
+              <text class="pl-num on" x="718" y="138" text-anchor="middle">10</text>
+              <text class="pl-lbl on" x="718" y="155" text-anchor="middle">Concluídos</text>
+            </svg>
+          </div>
+          <figcaption>Quem acompanha os prazos e realoca os Jobs entre os setores é o Gestor de Produção.</figcaption>
+        </figure>
+
+        <h3 style="margin-top:38px">Alterações e refações</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Quando um material pronto precisa mudar — já postado ou ainda em aprovação — abre-se uma subtarefa dentro do Job. Só o Atendimento e o Gestor de Produção podem abrir.</p>
+
+        <div class="rules">
+          <div class="rule-card">
+            <h4>ALT — alteração</h4>
+            <p>Ajuste simples: um texto errado, uma imagem, uma informação incorreta.</p>
+            <p><span class="code">ALT | CARD 1, 2 e 3</span></p>
+          </div>
+          <div class="rule-card">
+            <h4>REF — refação</h4>
+            <p>Refazer o material inteiro.</p>
+            <p><span class="code">REF | REELS 3</span></p>
+          </div>
+        </div>
+
+        <div class="body">
+          <p style="margin-top:8px">As informações vão na caixa <b>ANOTAÇÕES GERAIS</b>, dentro do Job, sempre no mesmo formato. O número identifica qual alteração é aquela e vai em negrito e vermelho.</p>
+        </div>
+
+        <div class="examples">
+          <div>
+            <div class="lbl">Ao abrir</div>
+            <div class="codeblock"><b>ALT 01</b><br>Card 545<br>Trocar a palavra Feirão para Evento</div>
+          </div>
+          <div>
+            <div class="lbl">Depois de resolvida</div>
+            <div class="codeblock"><b>ALT 01</b><br><s>Card 545</s><br><s>Trocar a palavra Feirão para Evento</s></div>
+          </div>
+        </div>
+        <p style="margin-top:12px;font-size:.9rem;color:var(--muted);max-width:64ch">Quem desenvolve ou finaliza a arte dá check na tarefa e tacha o texto da alteração. É assim que se sabe, olhando o Job, o que já foi resolvido.</p>
+
+        <h3 style="margin-top:38px">Nomenclatura dos Jobs</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Sempre o nome do cliente primeiro, o caractere <span class="code">|</span> como separador, e depois o assunto do Job.</p>
+        <div class="codeblock">GRUPO FZA | PLANEJAMENTO DE AGOSTO<br>GRUPO FZA | LANÇAMENTO DA LOGO<br>GRUPO FZA | CAMPANHA DE ANIVERSÁRIO</div>
+
+        <h3 style="margin-top:38px">As abas do planejamento</h3>
+        <div class="rules">
+          <div class="rule-card">
+            <h4>Aba Card</h4>
+            <p>O Líder Editorial escreve o direcionamento para o designer, o texto criativo da peça e a legenda, anexa referências sempre que possível e define a data de postagem.</p>
+          </div>
+          <div class="rule-card">
+            <h4>Aba Reels</h4>
+            <p>Roteiro completo, com possibilidade de impressão, além da legenda, das referências e da data de postagem.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:38px">Comunicação</h3>
+        <div class="body">
+          <div class="note amber">
+            <h4>Assunto de Job não se trata no WhatsApp</h4>
+            <p>Toda interação sobre um Job acontece na janela de discussão à direita, dentro do próprio Job, usando @ para mencionar quem precisa responder. Tratar do assunto por grupo de WhatsApp ou verbalmente é proibido.</p>
+          </div>
+          <p>O único uso permitido do WhatsApp é o lembrete. Se a pessoa mencionada demorar a responder, você pode cobrar no grupo <b>FZA GERAL</b>, seguindo o padrão:</p>
+          <div class="codeblock">Luana, aguardo resposta no JOB 05<br>Luana, preciso da sua análise no JOB 05<br>Luana, espero retorno da menção que fiz no JOB 05</div>
+          <p>Se ainda assim não houver resposta, o próximo passo é lembrar a pessoa verbalmente. O lembrete nunca substitui a discussão do Job, que continua acontecendo dentro do sistema.</p>
+        </div>
+
+        <h3 style="margin-top:38px">Priorização</h3>
+        <div class="body">
+          <div class="note">
+            <h4>Prioridade que não está no sistema não existe</h4>
+            <p>Só é considerado o que está registrado no Nexus. Apenas o <b>Gestor de Produção</b>, o <b>Gerente</b> e o <b>CEO</b> priorizam demandas — e, na prática, a prioridade é sempre dos materiais em atraso, visíveis em Minhas Atividades.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:38px">Menus do sistema</h3>
+        <div class="rules">
+          <div class="rule-card">
+            <h4>Minhas Atividades</h4>
+            <p>Pipeline individual: o que fazer naquele dia, o que está atrasado e o que está em andamento. É onde a prioridade aparece.</p>
+          </div>
+          <div class="rule-card">
+            <h4>Calendário</h4>
+            <p>Todas as subtarefas são agendadas automaticamente no calendário.</p>
+          </div>
         </div>
       </section>
 
@@ -787,8 +1155,8 @@ td.who{color:var(--amber-deep)}
   </div>
 
   <footer class="colophon">
-    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 0.2 <span class="sep">\\</span> documento interno em construção.</p>
-    <p>Esta versão contém apenas o Organograma do Squad. As demais seções entram conforme as informações forem enviadas.</p>
+    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 0.3 <span class="sep">\\</span> documento interno em construção.</p>
+    <p>Fontes desta versão: Organograma do Squad e Fluxo Nexus 2.0, revisado em 19/08/2026. As demais seções entram conforme as informações forem enviadas.</p>
   </footer>
 
 </div>
