@@ -38,6 +38,7 @@
   --muted:#78736A;
   --amber-soft:#FFF2DC;
   --purple-soft:#EFE6FA;
+  --purple-ink:#FFFFFF;
   --shadow:0 1px 0 rgba(18,17,16,.05);
 
   --display:"Outfit","Archivo","Helvetica Neue",Arial,sans-serif;
@@ -60,6 +61,7 @@
     --muted:#918B81;
     --amber-soft:#332812;
     --purple-soft:#271B3A;
+    --purple-ink:#1C1428;
     --shadow:0 1px 0 rgba(0,0,0,.4);
   }
 }
@@ -74,6 +76,7 @@
   --muted:#918B81;
   --amber-soft:#332812;
   --purple-soft:#271B3A;
+  --purple-ink:#1C1428;
   --shadow:0 1px 0 rgba(0,0,0,.4);
 }
 
@@ -354,6 +357,69 @@ td.who{color:var(--amber-deep)}
   .role,figure,.slot,.note{break-inside:avoid}
   body{background:#fff;color:#000;font-size:11pt}
 }
+
+/* ---------- organograma ---------- */
+.og-ceo{fill:var(--ink);stroke:var(--ink);stroke-width:1.6}
+.og-mgr{fill:var(--amber);stroke:var(--amber-deep);stroke-width:1.6}
+.og-lead{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+.og-sub{fill:var(--surface-2);stroke:var(--rule-2);stroke-width:1.3}
+.og-line{stroke:var(--rule-2);stroke-width:1.5;fill:none}
+.og-name{font-family:var(--display);font-size:13.5px;font-weight:600;fill:var(--ink)}
+.og-name.lg{font-size:16px}
+.og-name.inv{fill:var(--bg)}
+.og-name.on{fill:var(--on-amber)}
+.og-role{font-family:var(--sans);font-size:11px;fill:var(--muted)}
+.og-role.inv{fill:var(--bg);opacity:.72}
+.og-role.on{fill:var(--on-amber);opacity:.78}
+.og-sub-name{font-family:var(--display);font-size:12.5px;font-weight:500;fill:var(--ink)}
+.og-sub-role{font-family:var(--sans);font-size:10.5px;fill:var(--muted)}
+.og-frente{font-family:var(--display);font-size:10px;font-weight:600;letter-spacing:.12em}
+.f-atd{fill:var(--purple)}
+.f-perf{fill:var(--amber-deep)}
+.f-cont{fill:var(--ink-2)}
+.b-atd{fill:var(--purple)}
+.b-perf{fill:var(--amber-deep)}
+.b-cont{fill:var(--ink-2)}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px}
+.legend span{
+  display:inline-flex;align-items:center;gap:7px;font-family:var(--display);
+  font-size:.76rem;font-weight:500;color:var(--ink-2);
+}
+.legend i{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+.legend .d-atd{background:var(--purple)}
+.legend .d-perf{background:var(--amber-deep)}
+.legend .d-cont{background:var(--ink-2)}
+
+/* ---------- variações de etiqueta por frente ---------- */
+.tag.ft-atd{background:var(--purple);color:var(--purple-ink)}
+.tag.ft-perf{background:var(--amber);color:var(--on-amber)}
+.tag.ft-cont{background:var(--ink);color:var(--bg)}
+.tag.ft-ceo{background:transparent;color:var(--ink);border:1.5px solid var(--ink);padding:2px 9px}
+
+/* ---------- ficha larga e frentes ---------- */
+.role--wide{grid-column:1/-1}
+.frentes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:2px}
+.frente{background:var(--surface-2);border-radius:14px;padding:14px 16px}
+.frente h5{
+  margin:0 0 8px;font-family:var(--display);font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--amber-deep);
+}
+.frente ul{padding-left:1em;font-size:.9rem;line-height:1.5;margin:0}
+.pending{
+  font-family:var(--mono);font-size:.72rem;color:var(--muted);
+  border-top:1px dashed var(--rule-2);padding-top:10px;margin-top:2px;
+}
+.counts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.counts div{
+  background:var(--surface);border:2px solid var(--ink);border-radius:14px;
+  padding:10px 16px;min-width:110px;
+}
+.counts b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:600;line-height:1.1}
+.counts span{
+  font-family:var(--display);font-size:.68rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+}
 </style>
 
 <div class="wrap">
@@ -362,7 +428,7 @@ td.who{color:var(--amber-deep)}
     <div class="brandmark" role="img" aria-label="Logotipo do Grupo FZA"></div>
     <div class="rule"></div>
     <div class="masthead-main">
-      <div class="eyebrow">Manual de operação · versão 0.1</div>
+      <div class="eyebrow">Manual de operação · versão 0.2</div>
       <h1>Quem faz o quê no Grupo FZA</h1>
       <p class="sub">Estrutura, cargos e processos reunidos em um só lugar, para que cada pessoa saiba exatamente qual é a <u>sua parte</u> — e a de quem está do lado.</p>
     </div>
@@ -371,8 +437,7 @@ td.who{color:var(--amber-deep)}
 
   <div class="meta">
     <div>Documento interno</div><span class="sep">\\</span>
-    <div>Dono: <b>a definir</b></div><span class="sep">\\</span>
-    <div>Revisão: <b>a cada 3 meses</b></div><span class="sep">\\</span>
+    <div>Fonte desta versão: <b>Organograma do Squad</b></div><span class="sep">\\</span>
     <div>Vale para: <b>toda a equipe</b></div><span class="sep">\\</span>
     <div><i>em construção</i></div>
   </div>
@@ -382,19 +447,8 @@ td.who{color:var(--amber-deep)}
     <aside class="toc">
       <div class="toc-h">Índice</div>
       <nav id="nav" aria-label="Seções do manual">
-        <a href="#s01"><span>01</span>Sobre este manual</a>
-        <a href="#s02"><span>02</span>A empresa</a>
-        <a href="#s03"><span>03</span>Organograma</a>
-        <a href="#s04"><span>04</span>Cargos</a>
-        <a href="#s05"><span>05</span>Processos</a>
-        <a href="#s06"><span>06</span>Quem decide o quê</a>
-        <a href="#s07"><span>07</span>Ritmo da empresa</a>
-        <a href="#s08"><span>08</span>Regras internas</a>
-        <a href="#s09"><span>09</span>Sistemas e documentos</a>
-        <a href="#s10"><span>10</span>Quando dá problema</a>
-        <a href="#s11"><span>11</span>Integração</a>
-        <a href="#s12"><span>12</span>Manutenção</a>
-        <a href="#sX"><span>—</span>Referência visual</a>
+        <a href="#s01"><span>01</span>Organograma</a>
+        <a href="#s02"><span>02</span>Funções e responsabilidades</a>
       </nav>
       <div class="toc-foot">
         <button class="btn" id="printBtn" type="button">Imprimir</button>
@@ -405,258 +459,336 @@ td.who{color:var(--amber-deep)}
 
       <section id="s01">
         <div class="pill">seção 01</div>
-        <h2>Sobre este manual</h2>
-        <p class="lede">Para que serve, quem mantém e como a equipe usa no dia a dia.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Me diga para que este manual existe no Grupo FZA, quem responde por mantê-lo e o que a equipe deve fazer ao encontrar algo desatualizado.</p>
+        <h2>Organograma do squad</h2>
+        <p class="lede">A estrutura tem quatro níveis e treze posições. Toda a operação passa por uma única gerência, que sustenta cinco frentes ao mesmo tempo — é o ponto mais carregado da estrutura e o primeiro lugar onde um gargalo aparece.</p>
+
+        <div class="counts">
+          <div><b>13</b><span>posições</span></div>
+          <div><b>4</b><span>níveis</span></div>
+          <div><b>5</b><span>lideranças</span></div>
+          <div><b>3</b><span>frentes</span></div>
+        </div>
+
+        <figure>
+          <div class="scroller">
+            <svg viewBox="0 0 820 800" role="img" aria-label="Organograma do squad FZA: Danilo Fiuza como fundador e CEO no topo; abaixo o Gerente de Operações e Expansão; e sob a gerência cinco lideranças — Executivo de Contas, Especialista de Growth com os Gestores de Tráfego, Gestor de Produção Estratégica com Videomaker e Editor, Líder Editorial 01 com Líder Editorial 02, e Diretor de Arte com dois Designers.">
+
+              <!-- CEO -->
+              <rect class="og-ceo" x="20" y="16" width="780" height="58" rx="14"></rect>
+              <text class="og-name lg inv" x="48" y="42">Danilo Fiuza</text>
+              <text class="og-role inv" x="48" y="60">Fundador e CEO</text>
+              <text class="og-role inv" x="776" y="50" text-anchor="end">gestão geral · administrativo · RH · produtos</text>
+
+              <path class="og-line" d="M38 74 L38 123 L56 123"></path>
+
+              <!-- Gerência -->
+              <rect class="og-mgr" x="56" y="94" width="744" height="58" rx="14"></rect>
+              <text class="og-name on" x="84" y="120">Gerente de Operações e Expansão</text>
+              <text class="og-role on" x="84" y="138">Lidera a operação em 5 frentes</text>
+              <text class="og-role on" x="776" y="128" text-anchor="end">única gerência da estrutura</text>
+
+              <!-- espinha das lideranças -->
+              <path class="og-line" d="M74 152 L74 660"></path>
+              <path class="og-line" d="M74 198 L92 198 M74 266 L92 266 M74 382 L92 382 M74 544 L92 544 M74 660 L92 660"></path>
+
+              <!-- 1 · Executivo de Contas -->
+              <rect class="og-lead" x="92" y="172" width="708" height="52" rx="12"></rect>
+              <rect class="b-atd" x="104" y="182" width="4" height="32" rx="2"></rect>
+              <text class="og-name" x="120" y="195">Executivo de Contas</text>
+              <text class="og-role" x="120" y="212">Atendimento, relacionamento e retenção</text>
+              <text class="og-frente f-atd" x="784" y="203" text-anchor="end">ATENDIMENTO</text>
+
+              <!-- 2 · Especialista de Growth -->
+              <rect class="og-lead" x="92" y="240" width="708" height="52" rx="12"></rect>
+              <rect class="b-perf" x="104" y="250" width="4" height="32" rx="2"></rect>
+              <text class="og-name" x="120" y="263">Especialista de Growth</text>
+              <text class="og-role" x="120" y="280">Performance, tráfego e CRM</text>
+              <text class="og-frente f-perf" x="784" y="271" text-anchor="end">PERFORMANCE</text>
+              <path class="og-line" d="M110 292 L110 320 L128 320"></path>
+              <rect class="og-sub" x="128" y="300" width="672" height="40" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="317">Gestores de Tráfego</text>
+              <text class="og-sub-role" x="148" y="331">Execução das campanhas de mídia paga</text>
+
+              <!-- 3 · Gestor de Produção Estratégica -->
+              <rect class="og-lead" x="92" y="356" width="708" height="52" rx="12"></rect>
+              <rect class="b-cont" x="104" y="366" width="4" height="32" rx="2"></rect>
+              <text class="og-name" x="120" y="379">Gestor de Produção Estratégica</text>
+              <text class="og-role" x="120" y="396">Cronograma, captação e edição</text>
+              <text class="og-frente f-cont" x="784" y="387" text-anchor="end">CONTEÚDO E PRODUÇÃO</text>
+              <path class="og-line" d="M110 408 L110 482"></path>
+              <path class="og-line" d="M110 436 L128 436 M110 482 L128 482"></path>
+              <rect class="og-sub" x="128" y="416" width="672" height="40" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="433">Videomaker 01</text>
+              <text class="og-sub-role" x="148" y="447">Captação e produção de vídeo</text>
+              <rect class="og-sub" x="128" y="462" width="672" height="40" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="479">Editor</text>
+              <text class="og-sub-role" x="148" y="493">Edição e finalização de materiais</text>
+
+              <!-- 4 · Líder Editorial 01 -->
+              <rect class="og-lead" x="92" y="518" width="708" height="52" rx="12"></rect>
+              <rect class="b-cont" x="104" y="528" width="4" height="32" rx="2"></rect>
+              <text class="og-name" x="120" y="541">Líder Editorial 01</text>
+              <text class="og-role" x="120" y="558">Estratégia de conteúdo e calendário</text>
+              <text class="og-frente f-cont" x="784" y="549" text-anchor="end">CONTEÚDO E PRODUÇÃO</text>
+              <path class="og-line" d="M110 570 L110 598 L128 598"></path>
+              <rect class="og-sub" x="128" y="578" width="672" height="40" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="595">Líder Editorial 02</text>
+              <text class="og-sub-role" x="148" y="609">Mesmas atribuições da liderança editorial</text>
+
+              <!-- 5 · Diretor de Arte -->
+              <rect class="og-lead" x="92" y="634" width="708" height="52" rx="12"></rect>
+              <rect class="b-cont" x="104" y="644" width="4" height="32" rx="2"></rect>
+              <text class="og-name" x="120" y="657">Diretor de Arte</text>
+              <text class="og-role" x="120" y="674">Criativos, peças e campanhas</text>
+              <text class="og-frente f-cont" x="784" y="665" text-anchor="end">CONTEÚDO E PRODUÇÃO</text>
+              <path class="og-line" d="M110 686 L110 760"></path>
+              <path class="og-line" d="M110 714 L128 714 M110 760 L128 760"></path>
+              <rect class="og-sub" x="128" y="694" width="672" height="40" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="711">Designer 01</text>
+              <text class="og-sub-role" x="148" y="725">Criação de artes e peças</text>
+              <rect class="og-sub" x="128" y="740" width="672" height="40" rx="10"></rect>
+              <text class="og-sub-name" x="148" y="757">Designer 02</text>
+              <text class="og-sub-role" x="148" y="771">Criação de artes e peças</text>
+            </svg>
+          </div>
+          <div class="legend">
+            <span><i class="d-atd"></i>Atendimento</span>
+            <span><i class="d-perf"></i>Performance</span>
+            <span><i class="d-cont"></i>Conteúdo e Produção</span>
+          </div>
+          <figcaption>Cada recuo é um nível de chefia: quem está recuado responde a quem está acima e à esquerda. A barra colorida marca a frente de cada liderança. As cinco lideranças respondem à mesma gerência, e é ela que responde ao CEO.</figcaption>
+        </figure>
+
+        <div class="body">
+          <div class="note">
+            <h4>O que a estrutura mostra</h4>
+            <p>Conteúdo e Produção concentra três das cinco lideranças e oito das treze posições — é a maior operação do squad. Atendimento tem uma única posição e nenhuma equipe abaixo dela, então toda a relação com o cliente passa por uma pessoa só.</p>
+          </div>
         </div>
       </section>
 
       <section id="s02">
         <div class="pill">seção 02</div>
-        <h2>A empresa</h2>
-        <p class="lede">O que o Grupo FZA faz, para quem, e a promessa que sustenta as decisões do dia a dia.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Missão, visão, valores, unidades do grupo e região de atuação. Boa parte disso já está no Portfólio Institucional que você me enviou — posso extrair de lá assim que você autorizar.</p>
-        </div>
-      </section>
+        <h2>Funções e responsabilidades</h2>
+        <p class="lede">O que está escrito abaixo é exatamente o que consta no Organograma do Squad, sem nada acrescentado. Onde o documento original não detalha as responsabilidades, a ficha diz isso em vez de preencher com suposição.</p>
 
-      <section id="s03">
-        <div class="pill amber">seção 03 · próxima</div>
-        <h2>Organograma</h2>
-        <p class="lede">A estrutura do grupo em diagrama: quem responde para quem, e quais são as áreas.</p>
-        <div class="slot slot--next">
-          <div class="tagline">Pronta para receber</div>
-          <p>Pode mandar o organograma em qualquer formato — imagem, PDF ou escrito em lista. De cada posição eu preciso saber:</p>
-          <ul>
-            <li>O nome do cargo</li>
-            <li>A quem ele responde</li>
-            <li>Em qual área ou empresa do grupo ele fica</li>
-            <li>Se houver, quem ocupa o cargo hoje</li>
-          </ul>
-          <p>Com isso eu desenho o organograma em diagrama vetorial, no estilo desta página, e já crio as fichas vazias de cada cargo na seção 04.</p>
-        </div>
-      </section>
-
-      <section id="s04">
-        <div class="pill">seção 04</div>
-        <h2>Cargos e responsabilidades</h2>
-        <p class="lede">Uma ficha por cargo: missão, rotina, responsabilidades, o que não é do cargo e como o cargo é medido.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando o organograma</div>
-          <p>Esta seção se monta a partir da seção 03 — cada cargo do organograma vira uma ficha em branco, e aí você me passa o conteúdo de uma por vez.</p>
-        </div>
-      </section>
-
-      <section id="s05">
-        <div class="pill">seção 05</div>
-        <h2>Processos passo a passo</h2>
-        <p class="lede">Os fluxos principais do grupo desenhados com os pontos de decisão.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Quais processos devem entrar e o passo a passo de cada um, marcando onde alguém precisa decidir. O Método FZA — diagnóstico, posicionamento, atração, conversão e performance — já está descrito no portfólio e pode virar o primeiro fluxograma.</p>
-        </div>
-      </section>
-
-      <section id="s06">
-        <div class="pill">seção 06</div>
-        <h2>Quem decide o quê</h2>
-        <p class="lede">As alçadas do grupo: quem decide, quem executa e quem precisa ser avisado.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Liste as decisões que se repetem — desconto, contratação, aprovação de campanha, exceção de política — e quem tem autonomia para cada uma.</p>
-        </div>
-      </section>
-
-      <section id="s07">
-        <div class="pill">seção 07</div>
-        <h2>Ritmo da empresa</h2>
-        <p class="lede">O que acontece todo dia, toda semana, todo mês e todo trimestre.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Horários, reuniões fixas, fechamentos e prazos recorrentes.</p>
-        </div>
-      </section>
-
-      <section id="s08">
-        <div class="pill">seção 08</div>
-        <h2>Regras internas</h2>
-        <p class="lede">Poucas regras, todas com um motivo declarado.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Jornada e ponto, canais de comunicação, uso de sistemas e dados, segurança e patrimônio.</p>
-        </div>
-      </section>
-
-      <section id="s09">
-        <div class="pill">seção 09</div>
-        <h2>Sistemas e documentos</h2>
-        <p class="lede">Onde fica cada informação e quem é responsável por mantê-la.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Quais sistemas o grupo usa, o que cada um guarda, quem mantém e quem tem acesso.</p>
-        </div>
-      </section>
-
-      <section id="s10">
-        <div class="pill">seção 10</div>
-        <h2>Quando dá problema</h2>
-        <p class="lede">O primeiro passo de cada situação que sai do roteiro.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>As situações que mais travam a equipe e o que deve ser feito primeiro em cada uma.</p>
-        </div>
-      </section>
-
-      <section id="s11">
-        <div class="pill">seção 11</div>
-        <h2>Integração de quem chega</h2>
-        <p class="lede">O roteiro dos primeiros dias de um novo integrante.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>O que acontece no primeiro dia, na primeira semana e nos primeiros 90 dias.</p>
-        </div>
-      </section>
-
-      <section id="s12">
-        <div class="pill">seção 12</div>
-        <h2>Manutenção deste manual</h2>
-        <p class="lede">Quem aprova mudanças, com que frequência e como a equipe fica sabendo.</p>
-        <div class="slot">
-          <div class="tagline">Aguardando conteúdo</div>
-          <p>Dono do documento, periodicidade da revisão, como pedir alteração e o controle de versões.</p>
-        </div>
-      </section>
-
-      <!-- ============ REFERÊNCIA VISUAL — REMOVER QUANDO O CONTEÚDO ENTRAR ============ -->
-      <section id="sX">
-        <div class="pill">referência visual</div>
-        <h2>Os elementos deste manual</h2>
-        <p class="lede">Amostra dos componentes, montados a partir do Portfólio Institucional do Grupo FZA. Esta seção sai do ar assim que o manual estiver preenchido.</p>
-
-        <div class="bracket">
-          <p class="eyebrow-sm" style="margin-bottom:8px">De onde veio a estética</p>
-          <p style="font-size:.97rem;color:var(--ink-2)">Amostrei as cores diretamente das páginas do PDF e reaproveitei três marcas registradas do material: a <b>faixa de chevrons</b> — o mesmo ângulo do “A” da assinatura —, a <b>cápsula arredondada</b> usada nos rótulos, e o <b>cartão de borda cheia com canto arredondado</b>, que no portfólio aparece nos blocos de prazos e fluxos. O logo é o próprio arquivo do PDF, recortado e transformado em máscara: ele assume a cor do tema, sem fundo branco em volta.</p>
-        </div>
-
-        <h3 style="margin-top:36px">Cores da marca</h3>
-        <div class="swatches">
-          <div class="sw"><i style="background:#FFBB45"></i><span><b>Âmbar FZA</b>#FFBB45</span></div>
-          <div class="sw"><i style="background:#CD8800"></i><span><b>Âmbar profundo</b>#CD8800</span></div>
-          <div class="sw"><i style="background:#0D0D0D"></i><span><b>Preto FZA</b>#0D0D0D</span></div>
-          <div class="sw"><i style="background:#7E41CF"></i><span><b>Roxo</b>#7E41CF</span></div>
-          <div class="sw"><i style="background:linear-gradient(75deg,#0B0B0B,#6B4304 62%,#E8A63A)"></i><span><b>Gradiente capa</b>abertura</span></div>
-          <div class="sw"><i style="background:var(--surface-2)"></i><span><b>Superfície</b>fundo de apoio</span></div>
-        </div>
-        <p style="margin-top:12px;font-size:.87rem;color:var(--muted)">O roxo aparece no portfólio só em “presença &amp; autoridade”. Mantive como reserva: entra em um único ponto quando o âmbar já estiver ocupado sinalizando outra coisa.</p>
-
-        <h3 style="margin-top:38px">Tipografia</h3>
-        <div class="typespec">
-          <div>
-            <div class="lbl">Título de seção · Outfit 600</div>
-            <div class="t-display">Cargos e responsabilidades</div>
-          </div>
-          <div>
-            <div class="lbl">Subtítulo · Outfit 600</div>
-            <div class="t-h">Coordenador de performance</div>
-          </div>
-          <div>
-            <div class="lbl">Texto corrido · Archivo 400</div>
-            <p class="t-body">Cada ficha traz a missão do cargo em uma frase, a rotina do dia, as responsabilidades e — a parte mais importante — o que não é responsabilidade daquele cargo.</p>
-          </div>
-          <div>
-            <div class="lbl">Dados e códigos · IBM Plex Mono</div>
-            <div class="t-mono">PERF-02 <span class="sep">\\</span> atualizado em 00/00/0000 <span class="sep">\\</span> R$ 0.000,00</div>
-          </div>
-        </div>
-        <p style="margin-top:14px;font-size:.87rem;color:var(--muted)">O portfólio usa uma geométrica proprietária nos títulos e uma grotesca no texto. Como a página só pode carregar fontes do Google Fonts, usei a <b>Outfit</b> como equivalente da geométrica e a <b>Archivo</b> no lugar da grotesca. Se o manual da marca indicar as fontes oficiais, me diga os nomes que eu troco.</p>
-
-        <h3 style="margin-top:38px">Ficha de cargo</h3>
         <div class="cards">
-          <article class="role">
-            <div class="role-top"><h4>Nome do cargo</h4><span class="tag">ÁRE-00</span></div>
-            <div class="reports">Responde a: cargo do líder direto</div>
-            <p class="mission">A missão do cargo em uma frase — o que deixaria de acontecer no grupo se este cargo não existisse.</p>
+
+          <article class="role role--wide">
+            <div class="role-top"><h4>Danilo Fiuza</h4><span class="tag ft-ceo">FUNDADOR E CEO</span></div>
+            <div class="reports">Topo da estrutura</div>
+            <p class="mission">Responde pela gestão geral da empresa e pelas áreas que não estão sob a gerência de operações.</p>
             <dl>
-              <div><dt>Rotina</dt><dd><ul><li>O que essa pessoa faz todo dia, na ordem</li><li>Segundo item da rotina</li></ul></dd></div>
-              <div><dt>Responsabilidades</dt><dd><ul><li>Aquilo que é cobrado deste cargo</li><li>Segunda responsabilidade</li></ul></dd></div>
-              <div><dt>Não é deste cargo</dt><dd><ul><li>O que pertence a outra área</li></ul></dd></div>
-              <div><dt>Como medimos</dt><dd>Os indicadores que dizem se o cargo está indo bem</dd></div>
+              <div><dt>Função</dt><dd><ul>
+                <li>Administrativo / Financeiro</li>
+                <li>Recursos Humanos</li>
+                <li>Implantação de novos produtos</li>
+                <li>Otimização de processos</li>
+                <li>Análise de métricas gerais</li>
+                <li>Gestão geral</li>
+              </ul></dd></div>
             </dl>
           </article>
-        </div>
 
-        <h3 style="margin-top:38px">Tabela</h3>
-        <div class="tablewrap">
-          <table>
-            <caption>Exemplo de matriz de decisão</caption>
-            <thead>
-              <tr><th>Decisão</th><th>Quem decide</th><th>Quem executa</th><th>Quem precisa saber</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Primeira decisão recorrente</td><td class="who">Cargo</td><td>Cargo</td><td>Área</td></tr>
-              <tr><td>Segunda decisão recorrente</td><td class="who">Cargo</td><td>Cargo</td><td>Área</td></tr>
-              <tr><td>Terceira decisão recorrente</td><td class="who">Cargo</td><td>Cargo</td><td>Área</td></tr>
-            </tbody>
-          </table>
-        </div>
+          <article class="role role--wide">
+            <div class="role-top"><h4>Gerente de Operações e Expansão</h4><span class="tag">5 FRENTES</span></div>
+            <div class="reports">Responde a: Fundador e CEO</div>
+            <p class="mission">Lidera a operação em cinco frentes simultâneas e é o único elo entre as cinco lideranças e o CEO.</p>
+            <div class="frentes">
+              <div class="frente">
+                <h5>Comercial</h5>
+                <ul>
+                  <li>Fechar contratos (Closer).</li>
+                  <li>Conduzir reuniões comerciais.</li>
+                  <li>Negociar propostas.</li>
+                  <li>Auxiliar na criação de novas ofertas.</li>
+                </ul>
+              </div>
+              <div class="frente">
+                <h5>Operações</h5>
+                <ul>
+                  <li>Liderar os departamentos.</li>
+                  <li>Acompanhar indicadores.</li>
+                  <li>Garantir qualidade das entregas.</li>
+                  <li>Evitar retrabalho.</li>
+                  <li>Resolver gargalos.</li>
+                </ul>
+              </div>
+              <div class="frente">
+                <h5>Processos</h5>
+                <ul>
+                  <li>Implantar IA.</li>
+                  <li>Implantar sistemas.</li>
+                  <li>Otimizar processos.</li>
+                  <li>Automatizar rotinas.</li>
+                  <li>Buscar melhorias.</li>
+                </ul>
+              </div>
+              <div class="frente">
+                <h5>Relacionamento</h5>
+                <ul>
+                  <li>Resolver clientes críticos.</li>
+                  <li>Acompanhar satisfação.</li>
+                  <li>Participar das reuniões estratégicas.</li>
+                  <li>Garantir retenção.</li>
+                </ul>
+              </div>
+              <div class="frente">
+                <h5>Expansão</h5>
+                <ul>
+                  <li>Buscar oportunidades de crescimento.</li>
+                  <li>Identificar novas soluções.</li>
+                  <li>Apoiar a evolução da empresa.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
 
-        <h3 style="margin-top:38px">Diagrama</h3>
-        <figure>
-          <div class="scroller">
-            <svg viewBox="0 0 700 300" role="img" aria-label="Amostra do estilo de diagrama: etapa, ponto de decisão com saída alternativa e etapa final destacada em âmbar.">
-              <defs>
-                <marker id="mk-x" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
-                </marker>
-              </defs>
+          <article class="role">
+            <div class="role-top"><h4>Executivo de Contas</h4><span class="tag ft-atd">ATENDIMENTO</span></div>
+            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
+            <p class="mission">Atendimento, relacionamento e retenção.</p>
+            <dl>
+              <div><dt>Responsabilidades</dt><dd><ul>
+                <li>Atendimento, reuniões e relacionamento.</li>
+                <li>Acompanhar demandas e prazos.</li>
+                <li>Acompanhar métricas.</li>
+                <li>Qualidade e temperatura dos clientes.</li>
+                <li>Antecipar conflitos e erros com clientes.</li>
+                <li>Buscar melhorias.</li>
+                <li>Agendamento de produções.</li>
+                <li>Gestão de agendas.</li>
+                <li>Garantir retenção.</li>
+              </ul></dd></div>
+            </dl>
+          </article>
 
-              <text class="dg-cap" x="30" y="16">Amostra</text>
-              <line class="dg-thin" x1="30" y1="24" x2="670" y2="24"></line>
+          <article class="role">
+            <div class="role-top"><h4>Especialista de Growth</h4><span class="tag ft-perf">PERFORMANCE</span></div>
+            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
+            <p class="mission">Performance, tráfego e CRM.</p>
+            <dl>
+              <div><dt>Responsabilidades</dt><dd><ul>
+                <li>Acompanhar métricas.</li>
+                <li>Buscar melhorias em campanhas.</li>
+                <li>Apresentar métricas e relatórios.</li>
+                <li>Implantação de setup.</li>
+                <li>Manter ROAS positivo.</li>
+                <li>Análise e acompanhamento do CRM.</li>
+                <li>Otimizar funis para oportunidades.</li>
+                <li>Gerir os gestores de tráfego.</li>
+              </ul></dd></div>
+            </dl>
+          </article>
 
-              <rect class="dg-node" x="60" y="44" width="280" height="50" rx="12"></rect>
-              <text class="dg-t" x="200" y="74" text-anchor="middle">Etapa do processo</text>
-              <line class="dg-line" x1="200" y1="94" x2="200" y2="120" marker-end="url(#mk-x)"></line>
-              <text class="dg-lbl" x="212" y="113">o que precisa estar pronto</text>
+          <article class="role">
+            <div class="role-top"><h4>Gestores de Tráfego</h4><span class="tag ft-perf">PERFORMANCE</span></div>
+            <div class="reports">Respondem a: Especialista de Growth</div>
+            <p class="mission">Execução das campanhas de mídia paga.</p>
+            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+          </article>
 
-              <polygon class="dg-dec" points="200,126 310,162 200,198 90,162"></polygon>
-              <text class="dg-t" x="200" y="166" text-anchor="middle">Ponto de decisão</text>
-              <line class="dg-line" x1="310" y1="162" x2="412" y2="162" marker-end="url(#mk-x)"></line>
-              <text class="dg-flag" x="340" y="154">Não</text>
-              <rect class="dg-side" x="420" y="136" width="240" height="52" rx="12"></rect>
-              <text class="dg-t sm" x="540" y="166" text-anchor="middle">Caminho alternativo</text>
-              <line class="dg-line" x1="200" y1="198" x2="200" y2="224" marker-end="url(#mk-x)"></line>
-              <text class="dg-flag" x="210" y="218">Sim</text>
+          <article class="role">
+            <div class="role-top"><h4>Gestor de Produção Estratégica</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
+            <p class="mission">Cronograma, captação e edição.</p>
+            <dl>
+              <div><dt>Responsabilidades</dt><dd><ul>
+                <li>Planejar cronograma de produção.</li>
+                <li>Validar roteiros criados por IA.</li>
+                <li>Captar e editar materiais.</li>
+                <li>Demandar produções.</li>
+                <li>Garantir que o material esteja alinhado à estratégia.</li>
+                <li>Organizar banco de imagens e vídeos.</li>
+                <li>Aprovar ou solicitar ajustes.</li>
+                <li>Coordenar demandas com equipe interna ou fornecedores.</li>
+                <li>Analisar métricas e resultados dos conteúdos.</li>
+                <li>Automatizar rotinas.</li>
+                <li>Identificar novas soluções.</li>
+              </ul></dd></div>
+            </dl>
+          </article>
 
-              <rect class="dg-chip" x="60" y="232" width="280" height="50" rx="12"></rect>
-              <text class="dg-t on" x="200" y="262" text-anchor="middle">Etapa final</text>
-            </svg>
-          </div>
-          <figcaption>Caixa clara é uma etapa, losango é onde alguém decide, caixa tracejada é o desvio e a caixa âmbar fecha o fluxo. É esse mesmo vocabulário em todos os fluxogramas do manual.</figcaption>
-        </figure>
+          <article class="role">
+            <div class="role-top"><h4>Videomaker 01</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Gestor de Produção Estratégica</div>
+            <p class="mission">Captação e produção de vídeo.</p>
+            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+          </article>
 
-        <h3 style="margin-top:38px">Blocos de destaque</h3>
-        <div class="body">
-          <div class="note">
-            <h4>Destaque comum</h4>
-            <p>Para regras, definições e avisos que valem para todo mundo. Borda cheia, canto arredondado — o mesmo cartão dos blocos de prazos do portfólio.</p>
-          </div>
-          <div class="note amber">
-            <h4>Destaque forte</h4>
-            <p>Reservado para o que não pode passar batido: falta grave, risco de segurança, prazo legal. Se tudo for âmbar, nada é âmbar.</p>
-          </div>
+          <article class="role">
+            <div class="role-top"><h4>Editor</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Gestor de Produção Estratégica</div>
+            <p class="mission">Edição e finalização de materiais.</p>
+            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Líder Editorial 01</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
+            <p class="mission">Estratégia de conteúdo e calendário.</p>
+            <dl>
+              <div><dt>Responsabilidades</dt><dd><ul>
+                <li>Aplicar as estratégias de conteúdo.</li>
+                <li>Criar e validar briefing de campanha.</li>
+                <li>Revisar e aprovar copies geradas por IA.</li>
+                <li>Revisar documentos produzidos por IA.</li>
+                <li>Garantir que o conteúdo siga o posicionamento do cliente.</li>
+                <li>Organizar o calendário editorial.</li>
+                <li>Agendar e publicar conteúdos nas redes sociais.</li>
+                <li>Conferir legendas.</li>
+                <li>Garantir que as postagens aconteçam no prazo.</li>
+                <li>Acompanhar métricas dos conteúdos.</li>
+                <li>Identificar quais formatos geram mais resultado.</li>
+                <li>Alinhar ajustes com o Gestor de Growth.</li>
+              </ul></dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Líder Editorial 02</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Líder Editorial 01</div>
+            <p class="mission">Mesmas atribuições da liderança editorial.</p>
+            <p class="pending">Vale a lista do Líder Editorial 01. Se a divisão entre os dois for por cliente, por rede ou por turno, me diga que eu registro aqui.</p>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Diretor de Arte</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Gerente de Operações e Expansão</div>
+            <p class="mission">Criativos, peças e campanhas.</p>
+            <dl>
+              <div><dt>Responsabilidades</dt><dd><ul>
+                <li>Criar criativos.</li>
+                <li>Artes, peças e campanhas.</li>
+                <li>Revisar materiais.</li>
+                <li>Criar materiais estratégicos.</li>
+              </ul></dd></div>
+            </dl>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Designer 01</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Diretor de Arte</div>
+            <p class="mission">Criação de artes e peças.</p>
+            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+          </article>
+
+          <article class="role">
+            <div class="role-top"><h4>Designer 02</h4><span class="tag ft-cont">CONTEÚDO</span></div>
+            <div class="reports">Responde a: Diretor de Arte</div>
+            <p class="mission">Criação de artes e peças.</p>
+            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+          </article>
+
         </div>
       </section>
-      <!-- ========================= FIM DA REFERÊNCIA VISUAL ========================= -->
 
     </main>
   </div>
 
   <footer class="colophon">
-    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 0.1 <span class="sep">\\</span> documento interno em construção.</p>
-    <p>Cores, logo e elementos gráficos extraídos do Portfólio Institucional do Grupo FZA.</p>
+    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 0.2 <span class="sep">\\</span> documento interno em construção.</p>
+    <p>Esta versão contém apenas o Organograma do Squad. As demais seções entram conforme as informações forem enviadas.</p>
   </footer>
 
 </div>
