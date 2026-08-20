@@ -506,6 +506,30 @@ td.who{color:var(--amber-deep)}
 @media (max-width:620px){
   .cadence div{grid-template-columns:1fr;gap:4px}
 }
+
+/* ---------- separador de cargo ---------- */
+.rolehead{
+  margin-top:46px;padding-top:22px;border-top:2px solid var(--ink);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;
+}
+.rolehead:first-of-type{margin-top:30px}
+.rolehead h3{font-family:var(--display);font-size:1.46rem;font-weight:600;letter-spacing:-.024em}
+.rolehead .chip{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--on-amber);
+  background:var(--amber);border-radius:999px;padding:3px 11px;white-space:nowrap;
+}
+
+/* ---------- mensagens-modelo ---------- */
+.msg{
+  background:var(--surface-2);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;
+  padding:15px 18px;font-size:.92rem;line-height:1.62;margin-top:12px;
+}
+.msg p + p{margin-top:10px}
+.msg ul{margin-top:8px;font-size:.9rem}
+.ph{
+  font-family:var(--mono);font-size:.84em;color:var(--amber-deep);
+  background:var(--amber-soft);border-radius:4px;padding:0 5px;
+}
 </style>
 
 <div class="wrap">
@@ -1174,7 +1198,7 @@ td.who{color:var(--amber-deep)}
         <h2>Rotinas fixas por cargo</h2>
         <p class="lede">O que cada cargo tem de compromisso com hora e dia marcados. Por enquanto só o Especialista de Growth está mapeado — os demais entram conforme forem enviados.</p>
 
-        <h3 style="margin-top:32px">Especialista de Growth</h3>
+        <div class="rolehead"><h3>Especialista de Growth</h3><span class="chip">PERFORMANCE</span></div>
         <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">A semana tem dois pontos travados: segunda de manhã para prestar contas e sexta de manhã inteira para analisar.</p>
 
         <figure>
@@ -1266,6 +1290,169 @@ td.who{color:var(--amber-deep)}
             <p>Na primeira segunda do mês caem três compromissos: a apresentação de métricas das 09:00 às 10:00, a reunião de Criativos Campeões e o alinhamento com os gestores de tráfego. Vale definir os horários dos dois últimos para não colidirem.</p>
           </div>
         </div>
+
+        <div class="rolehead"><h3>Executivo de Contas</h3><span class="chip">ATENDIMENTO</span></div>
+        <p style="margin-top:14px;color:var(--ink-2);max-width:64ch">O atendimento acontece por WhatsApp, com contato diário. A rotina se sustenta em dois blocos fixos de manhã, um relatório semanal e um ciclo mensal de reuniões.</p>
+
+        <figure>
+          <div class="scroller">
+            <svg viewBox="0 0 820 160" role="img" aria-label="A manhã do Executivo de Contas: das 7h30 às 8h a daily do Gerente com a equipe; das 8h às 8h30 o alinhamento entre Atendimento e Produção; e, a partir das 8h30, o cronograma do dia ajustado para Líder Editorial, Videomaker e Diretor de Arte.">
+              <defs>
+                <marker id="mk-mn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+                </marker>
+              </defs>
+              <text class="dg-cap" x="14" y="14">A manhã, todo dia</text>
+              <line class="dg-thin" x1="14" y1="22" x2="806" y2="22"></line>
+
+              <text class="dg-lbl" x="134" y="42" text-anchor="middle">07:30 — 08:00</text>
+              <rect class="dg-node" x="14" y="50" width="240" height="68" rx="12"></rect>
+              <text class="dg-t" x="134" y="80" text-anchor="middle">Daily do Gerente</text>
+              <text class="dg-t sm" x="134" y="99" text-anchor="middle">com toda a equipe</text>
+              <line class="dg-line" x1="254" y1="84" x2="290" y2="84" marker-end="url(#mk-mn)"></line>
+
+              <text class="dg-lbl" x="410" y="42" text-anchor="middle">08:00 — 08:30</text>
+              <rect class="dg-node" x="290" y="50" width="240" height="68" rx="12"></rect>
+              <text class="dg-t" x="410" y="76" text-anchor="middle">Alinhamento Atendimento</text>
+              <text class="dg-t" x="410" y="92" text-anchor="middle">e Produção</text>
+              <text class="dg-t sm" x="410" y="108" text-anchor="middle">confere solicitações e Jobs no Nexus</text>
+              <line class="dg-line" x1="530" y1="84" x2="566" y2="84" marker-end="url(#mk-mn)"></line>
+
+              <text class="dg-lbl" x="686" y="42" text-anchor="middle">a partir das 08:30</text>
+              <rect class="dg-chip" x="566" y="50" width="240" height="68" rx="12"></rect>
+              <text class="dg-t on" x="686" y="76" text-anchor="middle">Cronograma do dia ajustado</text>
+              <text class="dg-t on" x="686" y="95" text-anchor="middle" font-size="11">Líder Editorial · Videomaker</text>
+              <text class="dg-t on" x="686" y="109" text-anchor="middle" font-size="11">Diretor de Arte</text>
+            </svg>
+          </div>
+          <figcaption>A meia hora das 08:00 é o que produz o cronograma do dia para os três cargos de produção. Sem ela, o Gestor de Produção não tem como ajustar a fila.</figcaption>
+        </figure>
+
+        <h3 style="margin-top:36px">Relatório semanal · toda segunda, 10:00</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Impreterivelmente às 10:00, em <b>todos</b> os grupos de clientes. A mensagem cobre o status do tráfego pago, os materiais em produção e os próximos eventos.</p>
+        <div class="msg">
+          <p>Bom dia, pessoal! Tudo bem?</p>
+          <p>Passando para compartilhar os resultados da semana no tráfego pago. Atualmente, estamos com <span class="ph">[N]</span> anúncios rodando, acompanhando o desempenho e realizando as otimizações necessárias.</p>
+          <p><b>Resumo de Tráfego Pago | <span class="ph">[data inicial]</span> a <span class="ph">[data final]</span></b><br>
+          Meta Ads<br>
+          • Investimento: <span class="ph">[R$ 0.000,00]</span><br>
+          • Conversas iniciadas: <span class="ph">[00]</span></p>
+          <p><b>Demandas:</b><br>Estamos com <span class="ph">[X]</span> cards em produção e <span class="ph">[Y]</span> Reels em edição.</p>
+          <p><b>Próximos eventos:</b><br>Reunião agendada para o dia <span class="ph">[data]</span> às <span class="ph">[horário]</span>.</p>
+          <p>Seguimos acompanhando as campanhas e realizando as otimizações necessárias!</p>
+        </div>
+
+        <h3 style="margin-top:36px">Reuniões mensais · a partir do dia 20</h3>
+        <div class="cadence">
+          <div>
+            <dt>Dia 20 em diante</dt>
+            <dd>Começa o agendamento das reuniões de Planejamento e de Apresentação de Resultados com <b>todos</b> os clientes da carteira.</dd>
+          </div>
+          <div>
+            <dt>No Nexus 2.0</dt>
+            <dd>O Gerente cria o Job <span class="code">Agendamento de Reuniões</span> com uma subtarefa por cliente. Ao confirmar a reunião, o Executivo de Contas marca a subtarefa como concluída.</dd>
+          </div>
+          <div>
+            <dt>Meta diária</dt>
+            <dd>No mínimo <b>duas reuniões por dia</b> — de preferência uma de manhã e uma à tarde.</dd>
+          </div>
+        </div>
+
+        <h3 style="margin-top:36px">Gestão de crises</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Manter a carteira saudável é responsabilidade do Executivo de Contas. Qualquer insatisfação ou crise é tratada junto com o Gerente, e toda crise é mapeada e protocolada internamente por WhatsApp.</p>
+        <div class="codeblock">PROTOCOLO DE CRISE<br>
+        • Cliente:<br>
+        • Solicitante ou reclamante:<br>
+        • Descrição do problema:<br>
+        • Data e horário do ocorrido:<br>
+        • Como o cliente tomou conhecimento?<br>
+        • O problema ainda está ativo?<br>
+        • É uma reclamação pontual ou recorrente?<br>
+        • Nível de risco: só insatisfação ou risco de cancelamento?<br>
+        • Existe risco financeiro envolvido?<br>
+        • Existe risco de exposição pública ou reputacional?<br>
+        • Há prazo crítico para a resolução?</div>
+        <div class="body" style="margin-top:16px">
+          <div class="note amber">
+            <h4>O Gerente tem 24 horas</h4>
+            <p>Enviado o protocolo, o Gerente tem até 24 horas para apresentar uma tratativa ou uma solução.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:36px">Silêncio máximo de 48 horas</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Nenhum grupo de cliente pode ficar mais de 48 horas sem interação. Se o silêncio chegar nesse ponto, o Executivo de Contas move o grupo: pede uma atualização, se coloca à disposição ou compartilha um insight relevante do segmento daquele cliente.</p>
+
+        <h3 style="margin-top:36px">Indicadores que ele acompanha</h3>
+        <div class="tablewrap">
+          <table>
+            <caption>KPIs do Executivo de Contas</caption>
+            <thead><tr><th>Indicador</th><th>Foco de acompanhamento</th><th>Ação requerida</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Entregas e prazos</td>
+                <td>No Nexus 2.0: taxa de entregas no prazo contra atrasadas, e o volume de alterações (ALTs).</td>
+                <td>Sinalizar o Gerente na hora, ao identificar anomalia ou reincidência de refação.</td>
+              </tr>
+              <tr>
+                <td>Crises protocoladas</td>
+                <td>Número de ocorrências abertas no mês e taxa de solução.</td>
+                <td>Analisar os gargalos operacionais e atuar antes que a insatisfação se repita.</td>
+              </tr>
+              <tr>
+                <td>Qualidade e retenção</td>
+                <td>Temperatura dos clientes e nível de satisfação.</td>
+                <td>Manter o padrão de atendimento alto, para assegurar a retenção da carteira.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:36px">Agendamento de captações</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Produção externa nunca é marcada direto com o cliente. A ordem é sempre esta:</p>
+        <div class="jobs" style="grid-template-columns:1fr">
+          <article class="job">
+            <header><h4>Da consulta interna ao cliente</h4><span class="jobtag">3 passos</span></header>
+            <ol class="steps">
+              <li><div>O Executivo de Contas consulta o Gestor de Produção<span class="who">antes de falar com o cliente</span></div></li>
+              <li><div>O Gestor de Produção valida a disponibilidade da equipe e sugere a melhor data<span class="who">Gestor de Produção</span></div></li>
+              <li><div>Com a data validada, o Executivo de Contas agenda no grupo do cliente<span class="who">Executivo de Contas</span></div></li>
+            </ol>
+          </article>
+        </div>
+
+        <h3 style="margin-top:36px">Scripts obrigatórios</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">São de uso obrigatório no contato direto com o cliente.</p>
+
+        <h4 style="font-family:var(--display);font-size:.98rem;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:22px">1 · Envio do planejamento mensal para aprovação</h4>
+        <div class="msg">
+          <p>Olá, <span class="ph">[nome do cliente]</span>! Tudo bem?</p>
+          <p>Encaminhei o nosso material de planejamento para sua aprovação.</p>
+          <p>Pedimos a gentileza de realizar a validação em até 24 horas (até amanhã, às <span class="ph">[horário]</span>). Caso não tenhamos retorno dentro desse prazo, consideraremos o conteúdo aprovado e daremos sequência à produção para garantir o cumprimento do seu cronograma sem atrasos.</p>
+          <p>Qualquer dúvida ou ajuste necessário, estamos à disposição!</p>
+        </div>
+
+        <h4 style="font-family:var(--display);font-size:.98rem;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:22px">2 · Envio de material extra, fora do cronograma</h4>
+        <div class="msg">
+          <p>Olá, <span class="ph">[nome do cliente]</span>!</p>
+          <p>Finalizamos a produção do material extra solicitado e ele já está pronto para sua validação! 🎉</p>
+          <p>Fique à vontade para analisar e nos retornar assim que possível. Assim que nos der o ok, daremos continuidade ao fluxo.</p>
+        </div>
+
+        <h4 style="font-family:var(--display);font-size:.98rem;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:22px">3 · Cliente pediu uma alteração</h4>
+        <div class="msg">
+          <p>Perfeito, <span class="ph">[nome do cliente]</span>! Anotamos todos os seus pontos de ajuste. 📝</p>
+          <p>Já encaminhei as solicitações para a nossa equipe de produção. O prazo para a devolutiva do material ajustado é de até 24 horas úteis.</p>
+          <p>Assim que estiver pronto, compartilho aqui no grupo!</p>
+        </div>
+
+        <h4 style="font-family:var(--display);font-size:.98rem;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:22px">4 · Cliente pediu um material novo</h4>
+        <div class="msg">
+          <p>Com certeza, <span class="ph">[nome do cliente]</span>! Vamos produzir esse material para você. ⚡</p>
+          <p>Para que nossa equipe consiga alinhar a ideia com precisão, preciso que responda a algumas perguntas rápidas:</p>
+          <p><span class="ph">[pergunta 1]</span><br><span class="ph">[pergunta 2]</span><br><span class="ph">[pergunta 3]</span></p>
+          <p>Assim que me enviar as respostas, já abrirei o Job para a equipe de produção dar início!</p>
+        </div>
+        <p style="margin-top:12px;font-size:.9rem;color:var(--muted);max-width:64ch">As perguntas do script 4 são orientadas pontualmente pelo Gerente, conforme o material pedido.</p>
       </section>
 
     </main>
