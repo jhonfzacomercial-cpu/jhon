@@ -491,27 +491,8 @@ td.who{color:var(--amber-deep)}
 .wk-t{font-family:var(--sans);font-size:10.5px;font-weight:500;fill:var(--on-amber)}
 .wk-mut{font-family:var(--sans);font-size:10.5px;fill:var(--muted)}
 
-/* ---------- raias do onboarding ---------- */
 .ln-a{fill:var(--purple);stroke:var(--purple);stroke-width:1.4}
-.ln-b{fill:var(--amber);stroke:var(--amber-deep);stroke-width:1.4}
-.ln-c{fill:var(--ink);stroke:var(--ink);stroke-width:1.4}
-.ln-ht{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.07em}
-.ln-ht.w{fill:var(--purple-ink)}
-.ln-ht.on{fill:var(--on-amber)}
-.ln-ht.inv{fill:var(--bg)}
-.ln-step{fill:var(--surface-2);stroke:var(--rule-2);stroke-width:1.3}
-.ln-t{font-family:var(--sans);font-size:11.5px;font-weight:500;fill:var(--ink)}
 
-/* ---------- passos com mensagem ---------- */
-.stepcards{display:flex;flex-direction:column;gap:14px;margin-top:20px}
-.stepcard{
-  background:var(--surface);border:2px solid var(--ink);border-radius:18px;
-  padding:18px 20px 20px;display:flex;flex-direction:column;gap:11px;
-}
-.stepcard header{display:flex;gap:12px;align-items:baseline}
-.stepcard .n{font-family:var(--mono);font-size:.72rem;color:var(--amber-deep);flex:0 0 auto;padding-top:2px}
-.stepcard h4{font-family:var(--display);font-size:1.04rem;font-weight:600;color:var(--ink);letter-spacing:-.012em}
-.stepcard .obj{font-size:.92rem;color:var(--ink-2);max-width:66ch}
 .msg{
   background:var(--surface-2);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;
   padding:15px 18px;font-size:.92rem;line-height:1.62;
@@ -521,12 +502,6 @@ td.who{color:var(--amber-deep)}
 .ph{
   font-family:var(--mono);font-size:.84em;color:var(--amber-deep);
   background:var(--amber-soft);border-radius:4px;padding:0 5px;
-}
-.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
-.checklist li{display:grid;grid-template-columns:15px 1fr;gap:11px;font-size:.93rem;line-height:1.45}
-.checklist li::before{
-  content:"";width:12px;height:12px;margin-top:5px;
-  border:2px solid var(--rule-2);border-radius:3px;
 }
 .cadence{display:flex;flex-direction:column;gap:0;margin-top:18px}
 .cadence div{
@@ -550,7 +525,7 @@ td.who{color:var(--amber-deep)}
     <div class="brandmark" role="img" aria-label="Logotipo do Grupo FZA"></div>
     <div class="rule"></div>
     <div class="masthead-main">
-      <div class="eyebrow">Manual de operação · versão 0.7</div>
+      <div class="eyebrow">Manual de operação · versão 0.8</div>
       <h1>Quem faz o quê no Grupo FZA</h1>
       <p class="sub">Estrutura, cargos e processos reunidos em um só lugar, para que cada pessoa saiba exatamente qual é a <u>sua parte</u> — e a de quem está do lado.</p>
     </div>
@@ -728,6 +703,16 @@ td.who{color:var(--amber-deep)}
                 <li>Apoiar a evolução da empresa.</li>
               </ul></div>
             </div>
+            <dl>
+              <div><dt>No Nexus 2.0 (seções 03 e 04)</dt><dd><ul>
+                <li>Cadastrar o cliente e abrir os Jobs, na entrada e no início de cada mês.</li>
+                <li>Apresentar o cliente novo ao time.</li>
+                <li>Fazer o Direcionamento que abre os Jobs de Cards e de Reels.</li>
+                <li>Lançar materiais extras — junto com o Gestor de Produção, são os únicos que podem.</li>
+                <li>Priorizar demandas — junto com o Gestor de Produção e o CEO, são os únicos que podem.</li>
+                <li>Concluir o Job, movendo-o para Concluídos.</li>
+              </ul></dd></div>
+            </dl>
           </article>
 
           <article class="role">
@@ -745,6 +730,12 @@ td.who{color:var(--amber-deep)}
                 <li>Agendamento de produções.</li>
                 <li>Gestão de agendas.</li>
                 <li>Garantir retenção.</li>
+              </ul></dd></div>
+              <div><dt>No Nexus 2.0</dt><dd><ul>
+                <li>Reunião de Kick-off, junto com o Especialista de Growth e com acompanhamento da Gerência.</li>
+                <li>Agendamento das captações de Reels.</li>
+                <li>Envio para aprovação do cliente e registro da aprovação no Job.</li>
+                <li>Abrir subtarefas de alteração e refação — junto com o Gestor de Produção, são os únicos que podem.</li>
               </ul></dd></div>
             </dl>
           </article>
@@ -764,6 +755,13 @@ td.who{color:var(--amber-deep)}
                 <li>Otimizar funis para oportunidades.</li>
                 <li>Gerir os gestores de tráfego.</li>
               </ul></dd></div>
+              <div><dt>No Nexus 2.0 (seções 03 e 05)</dt><dd><ul>
+                <li>Reunião de Kick-off, junto com o Executivo de Contas e com acompanhamento da Gerência.</li>
+                <li>Solicitar os acessos do cliente — é quem envia o pedido da seção 06.</li>
+                <li>Job Performance da Jornada: otimizar as contas, obter o acesso da conta de anúncios e criar o dashboard.</li>
+                <li>Coleta de dados e números para a Reunião Mensal.</li>
+                <li>Subir no Órbita os criativos sinalizados para tráfego pago.</li>
+              </ul></dd></div>
             </dl>
           </article>
 
@@ -771,7 +769,9 @@ td.who{color:var(--amber-deep)}
             <div class="role-top"><h4>Gestores de Tráfego</h4><span class="tag ft-perf">PERFORMANCE</span></div>
             <div class="reports">Respondem a: Especialista de Growth</div>
             <p class="mission">Execução das campanhas de mídia paga.</p>
-            <p class="pending">O organograma não detalha as responsabilidades desta posição.</p>
+            <dl>
+              <div><dt>Onde trabalham</dt><dd>Só dentro do <b>Órbita</b>. Não têm subtarefa em nenhum Job do Nexus 2.0 — as campanhas são operadas no sistema de anúncios, a partir dos criativos que o Especialista de Growth sobe.</dd></div>
+            </dl>
           </article>
 
           <article class="role role--wide">
@@ -831,7 +831,7 @@ td.who{color:var(--amber-deep)}
                 <li>Garantir que as postagens aconteçam no prazo.</li>
                 <li>Acompanhar métricas dos conteúdos.</li>
                 <li>Identificar quais formatos geram mais resultado.</li>
-                <li>Alinhar ajustes com o Gestor de Growth.</li>
+                <li>Alinhar ajustes com o Especialista de Growth.</li>
               </ul></dd></div>
               <div><dt>No Nexus 2.0</dt><dd><ul>
                 <li>Briefing da Tríade, planejamento dos Pilares, planejamento de Cards e de Reels.</li>
@@ -912,7 +912,7 @@ td.who{color:var(--amber-deep)}
           <article class="job">
             <header><h4>Identidade Visual</h4><span class="jobtag">Job 1</span></header>
             <ol class="steps">
-              <li><div>Reunião de Kick-off<span class="who">Executivo de Contas</span></div></li>
+              <li><div>Reunião de Kick-off<span class="who">Executivo de Contas + Especialista de Growth · acompanhamento da Gerência</span></div></li>
               <li><div>Apresentação ao time<span class="who">Gerente</span></div></li>
               <li><div>Briefing Tríade<span class="who">Líder Editorial</span></div></li>
               <li><div>Criação Moodboard + Tríade<span class="who">Diretor de Arte</span></div></li>
@@ -1021,7 +1021,7 @@ td.who{color:var(--amber-deep)}
 
         <figure>
           <div class="scroller">
-            <svg viewBox="0 0 820 190" role="img" aria-label="Os dez setores do Nexus em sequência: Reunião Mensal, Planejamento, Briefing, Criação Interna, Audiovisual, Aprovação, Revisão, Postagem, Tráfego Pago e Concluídos.">
+            <svg viewBox="0 0 820 190" role="img" aria-label="Os dez setores do Nexus em sequência: Reunião Mensal, Planejamento, Briefing, Criação Interna, Audiovisual, Revisão, Aprovação, Postagem, Tráfego Pago e Concluídos.">
               <defs>
                 <marker id="mk-pl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                   <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
@@ -1058,12 +1058,12 @@ td.who{color:var(--amber-deep)}
 
               <rect class="pl-chip" x="34" y="120" width="136" height="46" rx="11"></rect>
               <text class="pl-num" x="102" y="138" text-anchor="middle">06</text>
-              <text class="pl-lbl" x="102" y="155" text-anchor="middle">Aprovação</text>
+              <text class="pl-lbl" x="102" y="155" text-anchor="middle">Revisão</text>
               <line class="dg-line" x1="170" y1="143" x2="188" y2="143" marker-end="url(#mk-pl)"></line>
 
               <rect class="pl-chip" x="188" y="120" width="136" height="46" rx="11"></rect>
               <text class="pl-num" x="256" y="138" text-anchor="middle">07</text>
-              <text class="pl-lbl" x="256" y="155" text-anchor="middle">Revisão</text>
+              <text class="pl-lbl" x="256" y="155" text-anchor="middle">Aprovação</text>
               <line class="dg-line" x1="324" y1="143" x2="342" y2="143" marker-end="url(#mk-pl)"></line>
 
               <rect class="pl-chip" x="342" y="120" width="136" height="46" rx="11"></rect>
@@ -1081,7 +1081,7 @@ td.who{color:var(--amber-deep)}
               <text class="pl-lbl on" x="718" y="155" text-anchor="middle">Concluídos</text>
             </svg>
           </div>
-          <figcaption>Quem acompanha os prazos e realoca os Jobs entre os setores é o Gestor de Produção.</figcaption>
+          <figcaption>Quem acompanha os prazos e realoca os Jobs entre os setores é o Gestor de Produção. Quem move o Job para Concluídos, encerrando-o, é o Gerente.</figcaption>
         </figure>
 
         <h3 style="margin-top:38px">Alterações e refações</h3>
@@ -1245,7 +1245,7 @@ td.who{color:var(--amber-deep)}
             <caption>Destino das pontuações da análise mensal</caption>
             <thead><tr><th>Pontuação</th><th>Vai para</th></tr></thead>
             <tbody>
-              <tr><td>Comercial</td><td class="who">Gerente Comercial e CEO</td></tr>
+              <tr><td>Comercial</td><td class="who">Gerente e CEO</td></tr>
               <tr><td>CRM</td><td class="who">CEO</td></tr>
               <tr><td>Campanhas</td><td class="who">Gestor de Tráfego</td></tr>
             </tbody>
@@ -1267,56 +1267,10 @@ td.who{color:var(--amber-deep)}
       <section id="s06">
         <div class="pill">seção 06</div>
         <h2>Onboarding de cliente novo</h2>
-        <p class="lede">O roteiro que vai da reunião de kick-off até os primeiros criativos no ar. Ele passa por três mãos, e cada troca é uma passagem de bastão que precisa estar completa antes da seguinte começar.</p>
-
-        <figure>
-          <div class="scroller">
-            <svg viewBox="0 0 820 292" role="img" aria-label="Onboarding em três mãos: o Executivo de Contas faz o kick-off, pede os acessos e adiciona o cliente no Growth FZA; passa o bastão ao Especialista de Growth, que executa os passos 1 a 4; e este passa ao time de criação, que executa o passo 5 do briefing dos criativos.">
-              <defs>
-                <marker id="mk-ln" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
-                </marker>
-              </defs>
-
-              <rect class="ln-a" x="14" y="40" width="228" height="36" rx="11"></rect>
-              <text class="ln-ht w" x="128" y="63" text-anchor="middle">EXECUTIVO DE CONTAS</text>
-              <rect class="ln-step" x="14" y="88" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="128" y="112" text-anchor="middle">Reunião de Kick-off</text>
-              <rect class="ln-step" x="14" y="136" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="128" y="160" text-anchor="middle">Pedido de acessos ao cliente</text>
-              <rect class="ln-step" x="14" y="184" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="128" y="208" text-anchor="middle">Adicionar no Growth FZA</text>
-
-              <text class="dg-lbl" x="269" y="136" text-anchor="middle">passagem</text>
-              <text class="dg-lbl" x="269" y="147" text-anchor="middle">de bastão</text>
-              <line class="dg-line" x1="242" y1="158" x2="296" y2="158" marker-end="url(#mk-ln)"></line>
-
-              <rect class="ln-b" x="296" y="40" width="228" height="36" rx="11"></rect>
-              <text class="ln-ht on" x="410" y="63" text-anchor="middle">ESPECIALISTA DE GROWTH</text>
-              <rect class="ln-step" x="296" y="88" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="410" y="112" text-anchor="middle">1 · Acesso à BM e contatos</text>
-              <rect class="ln-step" x="296" y="136" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="410" y="160" text-anchor="middle">2 · Objetivo, região e público</text>
-              <rect class="ln-step" x="296" y="184" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="410" y="208" text-anchor="middle">3 · Verba e data de pagamento</text>
-              <rect class="ln-step" x="296" y="232" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="410" y="256" text-anchor="middle">4 · Onboarding no Órbita</text>
-
-              <text class="dg-lbl" x="551" y="136" text-anchor="middle">passagem</text>
-              <text class="dg-lbl" x="551" y="147" text-anchor="middle">de bastão</text>
-              <line class="dg-line" x1="524" y1="158" x2="578" y2="158" marker-end="url(#mk-ln)"></line>
-
-              <rect class="ln-c" x="578" y="40" width="228" height="36" rx="11"></rect>
-              <text class="ln-ht inv" x="692" y="63" text-anchor="middle">TIME DE CRIAÇÃO</text>
-              <rect class="ln-step" x="578" y="88" width="228" height="40" rx="10"></rect>
-              <text class="ln-t" x="692" y="112" text-anchor="middle">5 · Briefing para os criativos</text>
-            </svg>
-          </div>
-          <figcaption>O Especialista de Growth só começa o passo 1 depois que o Executivo de Contas fechou as três etapas dele. O time de criação só recebe o briefing quando objetivo, público, região e verba já estão definidos.</figcaption>
-        </figure>
+        <p class="lede">O que precisa acontecer logo depois da reunião de kick-off, antes de o cliente entrar na Jornada dos 20 Dias: os acessos nas mãos da agência, a bio do perfil no lugar e o hub de links no ar.</p>
 
         <h3 style="margin-top:38px">Pedido de acessos — modelo de mensagem</h3>
-        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Enviado pelo Executivo de Contas logo depois da reunião de kick-off.</p>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Enviado pelo Especialista de Growth logo depois da reunião de kick-off.</p>
 
         <div class="msg" style="margin-top:14px">
           <p>Olá <span class="ph">[Nome do cliente]</span>, tudo certo por aí?</p>
@@ -1331,17 +1285,6 @@ td.who{color:var(--amber-deep)}
           <p>Se preferir, os acessos podem ser pegos por mim via AnyDesk, assim mais rapidamente fazemos.</p>
           <p>Ficamos no aguardo para darmos sequência às próximas etapas do projeto!</p>
           <p>Abraços,<br><span class="ph">[Seu nome]</span><br>FZA Marketing</p>
-        </div>
-
-        <div class="body" style="margin-top:18px">
-          <div class="note">
-            <h4>Antes de passar o bastão</h4>
-            <ul class="checklist" style="margin-top:4px">
-              <li>Acessos recebidos e validados</li>
-              <li>Cliente adicionado no <b>Growth FZA</b></li>
-              <li>Só então: passagem de bastão ao Especialista de Growth</li>
-            </ul>
-          </div>
         </div>
 
         <h3 style="margin-top:38px">Bio do perfil</h3>
@@ -1394,93 +1337,13 @@ td.who{color:var(--amber-deep)}
             <p>Direto, forte, urbano. Sem excesso de texto, foco em ação.</p>
           </div>
         </div>
-
-        <h3 style="margin-top:38px">Os cinco passos do Especialista de Growth</h3>
-        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Onboarding técnico e alinhamento de tráfego. Cada passo tem um objetivo e uma mensagem-modelo.</p>
-
-        <div class="stepcards">
-
-          <article class="stepcard">
-            <header><span class="n">01</span><h4>Apresentação, acesso à BM e contatos</h4></header>
-            <p class="obj"><b>Objetivo:</b> romper o gelo, se posicionar como o estrategista responsável e garantir os acessos técnicos e as pessoas de contato.</p>
-            <div class="msg">
-              <p>Olá <span class="ph">[Nome do responsável]</span>, tudo bem?</p>
-              <p>Meu nome é <span class="ph">[seu nome]</span>, sou o responsável pela parte de tráfego pago e inteligência de dados aqui na agência. Daqui para frente, vou cuidar do posicionamento de anúncios e escala da <span class="ph">[Nome da empresa]</span>.</p>
-              <p>Para darmos o pontapé inicial na nossa estratégia, preciso que você me envie o convite de acesso à BM (Gerenciador de Negócios) do Facebook/Instagram ou o ID da conta — para <b>Screedalex13@gmail.com</b> ou <b>Danilofiuza@gmail.com</b>.</p>
-              <p>Além disso, quem serão as pessoas da sua equipe responsáveis pelo atendimento comercial e recepção dos leads que vamos gerar? Preciso do contato deles para alinhar o fluxo.</p>
-              <p>Fico no aguardo para liberarmos essa primeira etapa!</p>
-            </div>
-          </article>
-
-          <article class="stepcard">
-            <header><span class="n">02</span><h4>Alinhamento de objetivo e região</h4></header>
-            <p class="obj"><b>Objetivo:</b> definir a meta principal da campanha e desenhar o perfil do cliente ideal, geográfica e demograficamente.</p>
-            <div class="msg">
-              <p>Acessos recebidos e validados por aqui, <span class="ph">[Nome]</span>! Obrigado.</p>
-              <p>Agora vamos desenhar a meta e o público da nossa primeira campanha. Pensando no momento atual da empresa, o objetivo principal que precisamos focar agora é <span class="ph">[pegar no kick-off]</span> — atração de novos clientes para o WhatsApp, reconhecimento local, conversão de planos ou produtos específicos.</p>
-              <p>Para calibrarmos o público dos anúncios, preciso de algumas informações sobre o seu cliente ideal, se você já tiver mapeado:</p>
-              <ul>
-                <li><b>Localização:</b> a região exata e o raio de quilometragem, ou os bairros específicos que devemos cobrir.</li>
-                <li><b>Perfil demográfico:</b> faixa etária, sexo de preferência, cargo ou profissão principal, estado civil e faixa de renda aproximada.</li>
-                <li><b>Interesses:</b> o que esse cliente costuma buscar, consumir, e quais são os hobbies dele.</li>
-                <li><b>Horário:</b> em que horários vocês conseguem atender os leads.</li>
-              </ul>
-              <p>Caso não tenha todas essas informações validadas, não se preocupe: nós faremos um estudo de público por trás, com base no seu mercado, para começarmos os anúncios de forma segmentada e inteligente.</p>
-            </div>
-            <p class="obj">Neste passo já se realiza a análise de CRM ou a análise semanal do Tintim.</p>
-          </article>
-
-          <article class="stepcard">
-            <header><span class="n">03</span><h4>Verba e cronograma de pagamento</h4></header>
-            <p class="obj"><b>Objetivo:</b> travar o orçamento que será investido e alinhar a data em que o cliente paga o tráfego direto na plataforma, para os anúncios não pausarem.</p>
-            <div class="msg">
-              <p>Alinhado: o foco geográfico e o objetivo estão claros. Vamos para a parte financeira.</p>
-              <p>Qual será a verba mensal disponível exclusivamente para os anúncios nesta primeira fase?</p>
-              <p>E, para os anúncios não pausarem por falta de saldo, qual a melhor data do mês para você fazer o envio dessa verba direto na plataforma de anúncios?</p>
-            </div>
-          </article>
-
-          <article class="stepcard">
-            <header><span class="n">04</span><h4>Onboarding no Órbita</h4></header>
-            <p class="obj"><b>Objetivo:</b> centralizar o cliente na plataforma de gestão e no dashboard. Não há mensagem ao cliente — é o próprio Especialista de Growth quem faz o onboarding para o time.</p>
-          </article>
-
-          <article class="stepcard">
-            <header><span class="n">05</span><h4>Solicitação de criativos — briefing final</h4></header>
-            <p class="obj"><b>Objetivo:</b> repassar ao time de criação tudo que foi coletado, para produzirem as peças certas.</p>
-            <div class="msg">
-              <p>Fala, time! Onboarding do cliente <span class="ph">[Nome da empresa]</span> concluído e pronto para rodar. Seguem os dados para a criação dos criativos:</p>
-              <ul>
-                <li><b>Objetivo da campanha:</b> <span class="ph">[mapeado no passo 2]</span></li>
-                <li><b>Público-alvo e segmentação:</b> <span class="ph">[faixa etária, sexo, renda, interesses ou o resultado do estudo interno]</span></li>
-                <li><b>Localização das campanhas:</b> <span class="ph">[raio ou bairros]</span></li>
-                <li><b>Verba alinhada:</b> <span class="ph">[definida no passo 3]</span></li>
-                <li><b>Referências:</b> <span class="ph">[buscar de acordo com o documento de referências]</span></li>
-              </ul>
-              <p>Preciso que a gente desenvolva os primeiros criativos com foco nessa estratégia. Qual o nosso prazo interno para aprovação das peças com o cliente e início do tráfego?</p>
-            </div>
-          </article>
-
-        </div>
-
-        <div class="body" style="margin-top:26px">
-          <div class="note">
-            <h4>Ações marcadas no documento, ainda sem passo a passo</h4>
-            <p>O ebook original traz estas ações entre colchetes, sem descrever como executá-las. Ficam registradas aqui até serem detalhadas.</p>
-            <ul class="checklist" style="margin-top:4px">
-              <li>Onboarding no Tintim ou no CRM</li>
-              <li>Auditoria do Tintim ou do CRM</li>
-              <li>Definição de metas, métricas da Meta e plano de ação</li>
-            </ul>
-          </div>
-        </div>
       </section>
 
     </main>
   </div>
 
   <footer class="colophon">
-    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 0.7 <span class="sep">\\</span> documento interno em construção.</p>
+    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 0.8 <span class="sep">\\</span> documento interno em construção.</p>
     <p>Fontes desta versão: Organograma do Squad, Fluxo Nexus 2.0, Rotinas e Tarefas Fixas e Onboarding passo a passo. As demais seções entram conforme as informações forem enviadas.</p>
   </footer>
 
