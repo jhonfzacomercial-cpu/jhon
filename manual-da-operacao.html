@@ -557,6 +557,42 @@ td.who{color:var(--amber-deep)}
   font-family:var(--mono);font-size:.84em;color:var(--amber-deep);
   background:var(--amber-soft);border-radius:4px;padding:0 5px;
 }
+
+/* ---------- painel de métricas do cliente ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:20px}
+.stat{
+  background:var(--surface);border:2px solid var(--ink);border-radius:16px;
+  padding:16px 18px 18px;border-top:5px solid var(--amber);
+}
+.stat .lbl{
+  font-family:var(--display);font-size:.7rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+}
+.stat .val{
+  font-family:var(--mono);font-size:1.5rem;color:var(--ink);margin-top:8px;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+}
+.slidebox{
+  margin-top:18px;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--surface);
+}
+.slidebox .head{
+  background:var(--ink);color:var(--bg);padding:13px 18px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline;
+}
+.slidebox .head b{font-family:var(--display);font-size:.86rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.slidebox .head span{font-family:var(--mono);font-size:.72rem;opacity:.8}
+.slidebox .body2{padding:18px}
+.blocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:16px}
+.block{background:var(--surface-2);border-radius:14px;padding:14px 16px}
+.block h5{
+  margin:0 0 7px;font-family:var(--display);font-size:.68rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--amber-deep);
+}
+.block p{font-size:.9rem;color:var(--ink-2);line-height:1.5}
+
+/* ---------- escada de punições ---------- */
+.pl-chip.crit{fill:var(--amber-soft);stroke:var(--alert);stroke-width:1.6}
+.pl-lbl.crit{fill:var(--alert)}
 </style>
 
 <div class="wrap">
@@ -565,7 +601,7 @@ td.who{color:var(--amber-deep)}
     <div class="brandmark" role="img" aria-label="Logotipo do Grupo FZA"></div>
     <div class="rule"></div>
     <div class="masthead-main">
-      <div class="eyebrow">Manual de operação · versão 2.7</div>
+      <div class="eyebrow">Manual de operação · versão 3.0</div>
       <h1>Quem faz o quê no Grupo FZA</h1>
       <p class="sub">Estrutura, cargos e processos reunidos em um só lugar, para que cada pessoa saiba exatamente qual é a <u>sua parte</u> — e a de quem está do lado.</p>
     </div>
@@ -590,6 +626,7 @@ td.who{color:var(--amber-deep)}
         <a href="#s04"><span>04</span>Sistema Nexus 2.0</a>
         <a href="#s05"><span>05</span>Rotina dentro do Nexus</a>
         <a href="#s06"><span>06</span>Rotinas fixas por cargo</a>
+        <a href="#s07"><span>07</span>Manual do Colaborador</a>
       </nav>
       <div class="toc-foot">
         <button class="btn" id="printBtn" type="button">Imprimir</button>
@@ -1642,6 +1679,27 @@ td.who{color:var(--amber-deep)}
           </table>
         </div>
 
+
+        <h3 style="margin-top:36px">Modelo de apresentação de métricas</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">É o formato fixo que o Especialista de Growth leva à reunião mensal com o cliente. Três números no topo, o período coberto e três blocos de leitura.</p>
+
+        <div class="slidebox">
+          <div class="head"><b>Apresentação de métricas</b><span>de XX/XX/XXXX até XX/XX/XXXX</span></div>
+          <div class="body2">
+            <div class="stats">
+              <div class="stat"><div class="lbl">Visualizações</div><div class="val">00000</div></div>
+              <div class="stat"><div class="lbl">Conversas iniciadas</div><div class="val">000</div></div>
+              <div class="stat"><div class="lbl">R$ conversão</div><div class="val">R$ 00.000,00</div></div>
+            </div>
+            <div class="blocks">
+              <div class="block"><h5>Meta dos 30 dias</h5><p>Resumo do que foi combinado para o mês e onde a operação chegou.</p></div>
+              <div class="block"><h5>Meta dos 90 dias</h5><p>Resumo do ciclo maior, que se fecha na revisão trimestral de estratégia.</p></div>
+              <div class="block"><h5>Conquistas</h5><p>O que saiu do previsto para melhor no período.</p></div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:12px;font-size:.87rem;color:var(--muted);max-width:64ch">Os três números vêm da análise de sexta. As metas de 30 e 90 dias conversam com as duas etapas apresentadas no onboarding: estruturação nos meses 1 a 3, resultados a partir do mês 4.</p>
+
         <div class="body" style="margin-top:26px">
           <div class="note">
             <h4>Órbita — o segundo sistema</h4>
@@ -1954,11 +2012,219 @@ td.who{color:var(--amber-deep)}
         </div>
       </section>
 
+
+      <section id="s07">
+        <div class="pill">seção 07</div>
+        <h2>Manual do Colaborador</h2>
+        <p class="lede">Conduta, ética e rotinas do dia a dia na agência. Vale para todo mundo, a leitura é obrigatória e a ciência é formalizada pelo termo no fim desta seção.</p>
+
+        <h3 style="margin-top:34px">1 · Conduta e ética</h3>
+
+        <div class="body" style="margin-top:16px">
+          <div class="note">
+            <h4>1.1 · Confidencialidade e sigilo</h4>
+            <p>São confidenciais: estratégias de marketing, dados financeiros, informações de clientes e fornecedores, processos, know-how, códigos-fonte, algoritmos e materiais criativos em desenvolvimento.</p>
+            <p><b>O que se espera:</b> sigilo absoluto; não compartilhar senhas; não fotografar nem divulgar processos internos; proteger documentos; não usar informação para benefício próprio ou de terceiros; comunicar vazamento imediatamente.</p>
+            <p><b>Vigência:</b> durante todo o vínculo e por <b>2 anos</b> depois do término. <b>Penalidades:</b> advertência formal, suspensão, rescisão e possíveis ações judiciais.</p>
+          </div>
+        </div>
+
+        <div class="rules">
+          <div class="rule-card">
+            <h4>1.2 · Proteção de dados (LGPD)</h4>
+            <p>Dados pessoais de clientes, parceiros e terceiros são tratados em estrita conformidade com a LGPD e com as políticas internas, respeitando a privacidade e a titularidade dos dados.</p>
+          </div>
+          <div class="rule-card">
+            <h4>1.3 · Propriedade intelectual</h4>
+            <p>Todo material, estratégia, documento, software e obra produzida para a agência é propriedade do Grupo FZA. É vedado copiar, usar para outra finalidade sem autorização, compartilhar com terceiros não envolvidos ou aproveitar conceitos e designs para fins pessoais.</p>
+          </div>
+          <div class="rule-card">
+            <h4>1.7 · Relações afetivas</h4>
+            <p>Não são proibidas, desde que não interfiram no ambiente profissional, na produtividade ou na imparcialidade das decisões. A empresa precisa ser informada, para evitar conflito de interesse.</p>
+          </div>
+          <div class="rule-card">
+            <h4>1.8 · Jeitos diferentes de trabalhar</h4>
+            <p>Cada pessoa pensa, cria e produz de um jeito. Evite conversa em tom alto e brincadeira em excesso, tenha bom senso com música, risada e vídeo, saiba dosar a própria energia e respeite a diferença — é dela que nasce a criatividade coletiva.</p>
+          </div>
+        </div>
+
+        <h4 style="font-family:var(--display);font-size:.98rem;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:26px">1.4 · Conflito de interesses</h4>
+        <ul style="margin-top:10px;max-width:66ch;font-size:.95rem">
+          <li>Proibido prestar serviço similar a concorrente durante a vigência do contrato.</li>
+          <li>Proibido usar recursos da agência — equipamento, tempo, material — em trabalho externo ou pessoal.</li>
+          <li>Proibido aceitar presente ou vantagem de fornecedor que possa influenciar decisão.</li>
+          <li>Relação pessoal ou profissional com concorrente ou cliente deve ser declarada.</li>
+        </ul>
+
+        <h4 style="font-family:var(--display);font-size:.98rem;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:26px">1.5 · Redes sociais e comunicação externa</h4>
+        <ul style="margin-top:10px;max-width:66ch;font-size:.95rem">
+          <li>Não publicar foto do ambiente interno nem divulgar processo ou promoção antes do lançamento oficial, sem autorização.</li>
+          <li>Manter discrição sobre assunto interno em ambiente público.</li>
+          <li>Não usar a marca da agência em perfil pessoal sem autorização prévia.</li>
+          <li>Proibido comentário negativo sobre cliente, fornecedor ou campanha em andamento.</li>
+        </ul>
+
+        <div class="body" style="margin-top:24px">
+          <div class="note amber">
+            <h4>1.6 · O que é falta grave na convivência</h4>
+            <p>É expressamente proibido: comentário ofensivo, piada ou insinuação sobre gênero, orientação sexual, aparência física, religião, raça, condição social ou característica pessoal; palavrão e vocabulário de baixo calão que constranja colega ou cliente; conversa de cunho sexual, mesmo em tom de brincadeira; e discussão político-ideológica que gere conflito, desrespeito ou tensão.</p>
+            <p>Conduta que comprometa o respeito e o bom convívio é <b>falta grave</b>, sujeita a medida disciplinar.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:38px">2 · Ouvidoria interna</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">Um canal permanente de escuta e apoio ao colaborador, conduzido pela <b>Conselheira Interna</b>.</p>
+        <div class="rules">
+          <div class="rule-card">
+            <h4>Quando procurar</h4>
+            <p>Conflito ou desconforto no ambiente; desrespeito às normas de conduta, incluindo assédio e discriminação; questão pessoal que esteja afetando o trabalho e você queira tratar em sigilo; sugestão ou crítica sobre clima, cultura e processo interno.</p>
+          </div>
+          <div class="rule-card">
+            <h4>Como funciona</h4>
+            <p>O atendimento é confidencial e <b>nenhum relato gera retaliação</b>. A Conselheira acolhe, orienta e, quando necessário, encaminha o tema à Diretoria de forma protegida, buscando solução justa para todas as partes.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:38px">3 · Ambiente de trabalho</h3>
+
+        <div class="tablewrap">
+          <table>
+            <caption>Horário de funcionamento</caption>
+            <thead><tr><th>Dia</th><th>Manhã</th><th>Tarde</th></tr></thead>
+            <tbody>
+              <tr><td>Segunda a quinta</td><td class="num">07:00 — 12:00</td><td class="num">14:00 — 18:00</td></tr>
+              <tr><td>Sexta-feira</td><td class="num">07:00 — 12:00</td><td class="num">14:00 — 17:00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:12px;font-size:.9rem;color:var(--ink-2);max-width:64ch">Eventualmente pode haver trabalho interno aos sábados. O <b>ponto eletrônico é obrigatório</b>.</p>
+
+        <div class="tablewrap">
+          <table>
+            <caption>Pausas e almoço</caption>
+            <thead><tr><th>Pausa</th><th>Janela</th><th>Duração</th></tr></thead>
+            <tbody>
+              <tr><td>Café da manhã</td><td class="num">08:30 — 10:00</td><td class="num">15 minutos</td></tr>
+              <tr><td>Café da tarde</td><td class="num">15:30 — 17:00</td><td class="num">15 minutos</td></tr>
+              <tr><td>Almoço na agência</td><td class="num">12:00 — 13:00</td><td>para evitar cheiro no ambiente</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="body" style="margin-top:22px">
+          <div class="note">
+            <h4>3.2 · Pontualidade e assiduidade</h4>
+            <p>Respeitar rigorosamente os horários de trabalho e de reunião. A presença é imprescindível — ausência por motivo particular é avisada ao gestor ou à diretoria com a maior antecedência possível.</p>
+          </div>
+        </div>
+
+        <h4 style="font-family:var(--display);font-size:.98rem;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:26px">3.3 · Uso de ativos e instalações</h4>
+        <div class="rules">
+          <div class="rule-card">
+            <h4>Obrigações</h4>
+            <p>Desligar o computador e tirar da tomada ao sair; o último a sair confere portas e luzes; usar fone durante o expediente, salvo comum acordo; salvar os materiais nas pastas certas do servidor; desligar o timesheet ao sair da mesa; manter a cozinha limpa, lavando copo e xícara; avisar a gestão quando faltar produto; preservar a confidencialidade das estratégias; representar a marca com integridade nas redes; deixar a sala de reunião organizada; e arrumar a arquibancada depois do cochilo do almoço.</p>
+          </div>
+          <div class="rule-card">
+            <h4>Proibições expressas</h4>
+            <p>Trabalhar embriagado ou sob efeito de drogas; fumar ou comer no ambiente de trabalho, já que refeição é na cozinha; sair do local sem autorização prévia; prestar serviço a concorrente, sujeito a demissão por justa causa; usar equipamento da agência — câmera, carro, drone — para fim pessoal; enviar arquivo a terceiro sem autorização; jogar resto de comida no lixo da pia; deixar resto de comida na geladeira de um dia para o outro; comentário negativo sobre cliente ou desabafo em voz alta; e deixar moto ou bicicleta na frente da porta de entrada.</p>
+          </div>
+          <div class="rule-card">
+            <h4>Regras específicas</h4>
+            <p>Compras: apenas <b>uma pessoa</b> sai para comprar para todos, salvo autorização da diretoria. Almoço na agência: apenas <b>um ar-condicionado</b> ligado. Objetos pessoais: bolsa e mochila no baú da arquibancada da cozinha. Carro da empresa: retirar objeto, equipamento e lixo depois do uso, e avisar a gestão quando o combustível estiver acabando. Mesa: sem xícara com resto de café, sem roupa ou objeto pessoal.</p>
+          </div>
+          <div class="rule-card">
+            <h4>3.5 · Higiene e espaços comuns</h4>
+            <p>Manter a boa higiene nos banheiros é demonstração de respeito com todos. Depois do uso: dar descarga, conferir a limpeza do vaso e usar os produtos disponíveis. O banheiro é coletivo — o cuidado de cada um faz diferença para todos.</p>
+          </div>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <caption>3.4 · Pagamentos</caption>
+            <thead><tr><th>Item</th><th>Prazo</th><th>Forma</th></tr></thead>
+            <tbody>
+              <tr><td>Salário</td><td class="num">até o 5º dia útil do mês seguinte</td><td class="who">PIX</td></tr>
+              <tr><td>13º — 1ª parcela</td><td class="num">até 30 de novembro</td><td class="who">PIX</td></tr>
+              <tr><td>13º — 2ª parcela</td><td class="num">até 20 de dezembro</td><td class="who">PIX</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="body" style="margin-top:24px">
+          <div class="note amber">
+            <h4>3.6 · O manual também tem leveza</h4>
+            <p>Aqui você pode, e deve: usar a criatividade e abusar dela se for para fazer bonito; ter ideia maluca, desde que traga boa solução; rir, porque bom humor faz parte do processo criativo; errar e tentar de novo, porque a inovação nasce das tentativas; colaborar, trocar e aprender; ser você mesmo, com respeito e autenticidade; se divertir enquanto trabalha; e se orgulhar do que faz, porque cada entrega carrega o DNA da FZA.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:38px">4 · Relacionamentos externos</h3>
+        <div class="cadence">
+          <div><dt>Clientes</dt><dd>Excelência no atendimento, ética, respeito e profissionalismo. Encantar por estratégia inovadora, sem favorecimento nem discriminação.</dd></div>
+          <div><dt>Fornecedores e parceiros</dt><dd>Relação por critério técnico e transparente. Não se admite trabalho irregular, violação de direitos humanos, corrupção ou quebra de confidencialidade.</dd></div>
+          <div><dt>Concorrência</dt><dd>Relação profissional e respeitosa, sem prática desleal.</dd></div>
+          <div><dt>Órgãos públicos</dt><dd>Ética, transparência e rigor com a legislação anticorrupção. Proibido qualquer pagamento ou favorecimento a agente público.</dd></div>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <caption>Brindes, presentes e hospitalidades</caption>
+            <thead><tr><th>Situação</th><th>Diretriz</th></tr></thead>
+            <tbody>
+              <tr><td class="who">Brindes e presentes</td><td>Aceitáveis se forem gentileza cordial, como material de escritório, sem gerar influência ou favorecimento.</td></tr>
+              <tr><td class="who">Recusa constrangedora</td><td>Aceite em nome da FZA e comunique prontamente a Diretoria.</td></tr>
+              <tr><td class="who">Agentes públicos</td><td>Recusar em qualquer circunstância.</td></tr>
+              <tr><td class="who">Almoços e jantares</td><td>Permitidos em horário comercial, se justificados por reunião de trabalho e dentro da razoabilidade.</td></tr>
+              <tr><td class="who">Em negociação</td><td>Proibido aceitar convite de almoço ou jantar durante negociação com fornecedor, veículo de mídia ou parceiro.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:38px">5 · Aplicação de punições</h3>
+        <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">O descumprimento sujeita o colaborador às medidas previstas nas políticas internas e na legislação trabalhista, <b>de forma gradativa</b>, conforme a gravidade.</p>
+
+        <figure>
+          <div class="scroller">
+            <svg viewBox="0 0 820 100" role="img" aria-label="Escada de punições em quatro degraus: advertência verbal, advertência formal, suspensão e, por último, rescisão contratual.">
+              <defs>
+                <marker id="mk-pu" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path class="dg-head" d="M0 0 L10 5 L0 10 z"></path>
+                </marker>
+              </defs>
+              <rect class="pl-chip" x="16" y="26" width="176" height="48" rx="12"></rect>
+              <text class="pl-lbl" x="104" y="55" text-anchor="middle">Advertência verbal</text>
+              <line class="dg-line" x1="192" y1="50" x2="220" y2="50" marker-end="url(#mk-pu)"></line>
+              <rect class="pl-chip" x="220" y="26" width="176" height="48" rx="12"></rect>
+              <text class="pl-lbl" x="308" y="55" text-anchor="middle">Advertência formal</text>
+              <line class="dg-line" x1="396" y1="50" x2="424" y2="50" marker-end="url(#mk-pu)"></line>
+              <rect class="pl-chip" x="424" y="26" width="176" height="48" rx="12"></rect>
+              <text class="pl-lbl" x="512" y="55" text-anchor="middle">Suspensão</text>
+              <line class="dg-line" x1="600" y1="50" x2="628" y2="50" marker-end="url(#mk-pu)"></line>
+              <rect class="pl-chip crit" x="628" y="26" width="176" height="48" rx="12"></rect>
+              <text class="pl-lbl crit" x="716" y="55" text-anchor="middle">Rescisão contratual</text>
+            </svg>
+          </div>
+          <figcaption>Inclui justa causa nos casos previstos em lei, como prestação de serviço a concorrente. Situação sensível entre colaboradores pode ir primeiro à Ouvidoria, que medeia antes de qualquer medida disciplinar, quando cabível.</figcaption>
+        </figure>
+
+        <h3 style="margin-top:38px">Termo de Ciência e Compromisso</h3>
+        <div class="msg" style="margin-top:14px">
+          <p>Eu, <span class="ph">[nome completo]</span>, portador(a) do CPF nº <span class="ph">[000.000.000-00]</span>, colaborador(a) da empresa FZA Marketing, declaro para os devidos fins que:</p>
+          <ul>
+            <li>Recebi um exemplar, físico ou digital, do Manual de Conduta do Colaborador;</li>
+            <li>Li atentamente todo o seu conteúdo, compreendi e estou ciente das normas, diretrizes, responsabilidades e comportamentos esperados pela empresa;</li>
+            <li>Comprometo-me a cumprir e respeitar integralmente as orientações contidas neste manual, mantendo postura ética, profissional e colaborativa no ambiente de trabalho;</li>
+            <li>Tenho conhecimento de que o descumprimento das normas poderá acarretar medidas disciplinares, conforme previsto nas políticas internas e na legislação vigente.</li>
+          </ul>
+          <p>Declaro, ainda, estar ciente de que este termo ficará arquivado no meu prontuário funcional, como comprovação de ciência e concordância com o conteúdo do referido Manual.</p>
+          <p>Três Lagoas, <span class="ph">[dia]</span> / <span class="ph">[mês]</span> / <span class="ph">[ano]</span></p>
+          <p><span class="ph">[assinatura do colaborador]</span> &nbsp;&nbsp; <span class="ph">[assinatura da empresa]</span></p>
+        </div>
+      </section>
     </main>
   </div>
 
   <footer class="colophon">
-    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 2.7 <span class="sep">\\</span> documento interno em construção.</p>
+    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 3.0 <span class="sep">\\</span> documento interno em construção.</p>
     <p>Fontes desta versão: Organograma do Squad, Fluxo Nexus 2.0, Rotinas e Tarefas Fixas e Onboarding passo a passo. As demais seções entram conforme as informações forem enviadas.</p>
   </footer>
 
