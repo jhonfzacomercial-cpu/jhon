@@ -616,6 +616,29 @@ td.who{color:var(--amber-deep)}
   font-family:var(--mono);font-size:.71rem;color:var(--muted);letter-spacing:.03em;
 }
 @media (max-width:620px){.signoff .cell{border-right:none;border-bottom:1px solid var(--rule)}}
+
+/* ---------- atalho minha rotina ---------- */
+.vig{color:var(--amber-deep);font-weight:600}
+.jump{
+  margin:22px 0 4px;padding:16px 18px 17px;
+  border:2px solid var(--ink);border-radius:18px;background:var(--surface);box-shadow:var(--shadow);
+}
+.jump h2{
+  font-family:var(--display);font-size:.72rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--amber-deep);margin:0 0 4px;
+}
+.jump p{margin:0 0 13px;font-size:.88rem;color:var(--muted);line-height:1.5}
+.jump .pills{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{
+  display:inline-block;text-decoration:none;color:var(--ink);
+  font-family:var(--display);font-size:.85rem;font-weight:500;
+  border:1.5px solid var(--rule);border-radius:999px;padding:7px 15px;
+  transition:border-color .15s,background .15s;
+}
+.jump a:hover,.jump a:focus-visible{border-color:var(--amber);background:var(--surface-2)}
+.rolehead{scroll-margin-top:24px}
+@media (max-width:920px){.rolehead{scroll-margin-top:64px}.jump{margin-top:16px}}
+@media print{.jump{display:none}}
 </style>
 
 <div class="wrap">
@@ -624,7 +647,7 @@ td.who{color:var(--amber-deep)}
     <div class="brandmark" role="img" aria-label="Logotipo do Grupo FZA"></div>
     <div class="rule"></div>
     <div class="masthead-main">
-      <div class="eyebrow">Manual de operação · versão 3.1</div>
+      <div class="eyebrow">Manual de operação · versão 3.2</div>
       <h1>Quem faz o quê no Grupo FZA</h1>
       <p class="sub">Estrutura, cargos e processos reunidos em um só lugar, para que cada pessoa saiba exatamente qual é a <u>sua parte</u> — e a de quem está do lado.</p>
     </div>
@@ -635,8 +658,22 @@ td.who{color:var(--amber-deep)}
     <div>Documento interno</div><span class="sep">\\</span>
     <div>12 documentos consolidados</div><span class="sep">\\</span>
     <div>Vale para: <b>toda a equipe</b></div><span class="sep">\\</span>
-    <div><i>em construção</i></div>
+    <div><b class="vig">vigente</b></div>
   </div>
+
+  <nav class="jump" aria-label="Atalho para a rotina de cada cargo">
+    <h2>Minha rotina</h2>
+    <p>Clique no seu cargo para ir direto ao que você precisa fazer no dia a dia.</p>
+    <div class="pills">
+      <a href="#r-gerente">Gerente de Operações e Expansão</a>
+      <a href="#r-producao">Gestor de Produção Estratégica</a>
+      <a href="#r-contas">Executivo de Contas</a>
+      <a href="#r-growth">Especialista de Growth</a>
+      <a href="#r-editorial">Líder Editorial</a>
+      <a href="#r-arte">Diretor de Arte</a>
+      <a href="#r-video">Videomaker</a>
+    </div>
+  </nav>
 
   <div class="grid">
 
@@ -1453,7 +1490,7 @@ td.who{color:var(--amber-deep)}
           </div>
         </div>
 
-        <div class="rolehead"><h3>Gerente de Operações e Expansão</h3><span class="chip">CINCO FRENTES</span></div>
+        <div class="rolehead" id="r-gerente"><h3>Gerente de Operações e Expansão</h3><span class="chip">CINCO FRENTES</span></div>
         <p style="margin-top:14px;color:var(--ink-2);max-width:64ch">É quem abre o dia da agência e responde por cinco frentes ao mesmo tempo. A rotina fixa dele é curta; o que ocupa a agenda são as tratativas que só ele resolve.</p>
 
         <div class="cadence">
@@ -1544,7 +1581,7 @@ td.who{color:var(--amber-deep)}
           </table>
         </div>
 
-        <div class="rolehead"><h3>Gestor de Produção Estratégica</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
+        <div class="rolehead" id="r-producao"><h3>Gestor de Produção Estratégica</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
         <p style="margin-top:14px;color:var(--ink-2);max-width:64ch">É o dono da operação de produção. Tem autonomia total para gerenciar a equipe, decidir e resolver o dia a dia — só chega à Gerência o que for crítico ou tiver risco contratual ou financeiro.</p>
 
         <div class="body" style="margin-top:20px">
@@ -1620,7 +1657,7 @@ td.who{color:var(--amber-deep)}
           </table>
         </div>
 
-        <div class="rolehead"><h3>Especialista de Growth</h3><span class="chip">PERFORMANCE</span></div>
+        <div class="rolehead" id="r-growth"><h3>Especialista de Growth</h3><span class="chip">PERFORMANCE</span></div>
         <p style="margin-top:10px;color:var(--ink-2);max-width:64ch">A semana tem dois pontos travados: segunda de manhã para prestar contas e sexta de manhã para analisar, das 08:00 ao meio-dia, logo depois da daily.</p>
 
         <figure>
@@ -1734,7 +1771,7 @@ td.who{color:var(--amber-deep)}
           </div>
         </div>
 
-        <div class="rolehead"><h3>Executivo de Contas</h3><span class="chip">ATENDIMENTO</span></div>
+        <div class="rolehead" id="r-contas"><h3>Executivo de Contas</h3><span class="chip">ATENDIMENTO</span></div>
         <p style="margin-top:14px;color:var(--ink-2);max-width:64ch">O atendimento acontece por WhatsApp, com contato diário. A rotina se sustenta em dois blocos fixos de manhã, um relatório semanal e um ciclo mensal de reuniões.</p>
 
         <figure>
@@ -1903,7 +1940,7 @@ td.who{color:var(--amber-deep)}
         </div>
         <p style="margin-top:12px;font-size:.9rem;color:var(--muted);max-width:64ch">As perguntas do script 4 são orientadas pontualmente pelo Gerente, conforme o material pedido.</p>
 
-        <div class="rolehead"><h3>Líder Editorial</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
+        <div class="rolehead" id="r-editorial"><h3>Líder Editorial</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
         <p style="margin-top:14px;color:var(--ink-2);max-width:64ch">Duas janelas de publicação em todo dia útil e mais dois compromissos na semana. Some a isso a manhã que já é fixa para toda a produção: às 07:30 a daily do Gerente e, a partir das 08:30, o cronograma do dia ajustado pelo Gestor de Produção.</p>
 
         <figure>
@@ -1985,8 +2022,15 @@ td.who{color:var(--amber-deep)}
           </div>
         </div>
 
-        <div class="rolehead"><h3>Diretor de Arte</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
+        <div class="rolehead" id="r-arte"><h3>Diretor de Arte</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
         <p style="margin-top:14px;color:var(--ink-2);max-width:64ch">Não tem reunião fixa própria: o dia dele nasce do cronograma que o Gestor de Produção ajusta às 08:30, depois da daily. O que ele tem de particular é uma autonomia.</p>
+
+        <div class="body" style="margin-top:20px">
+          <div class="note warn">
+            <h4>Primeiro as ALTs e refações — via de regra</h4>
+            <p>Terminada a daily, a <b>primeira coisa do dia</b> é resolver as <b>alterações e refações</b> em aberto. Só depois de zerar as duas, quando houver, é que se parte para os demais Jobs. Não existe começar peça nova com ALT ou REF pendente.</p>
+          </div>
+        </div>
 
         <div class="body" style="margin-top:20px">
           <div class="note amber">
@@ -2015,8 +2059,15 @@ td.who{color:var(--amber-deep)}
           </div>
         </div>
 
-        <div class="rolehead"><h3>Videomaker</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
+        <div class="rolehead" id="r-video"><h3>Videomaker</h3><span class="chip">CONTEÚDO E PRODUÇÃO</span></div>
         <p style="margin-top:14px;color:var(--ink-2);max-width:64ch">Também sem reunião fixa própria — a agenda dele é o cronograma das 08:30 e as captações agendadas pelo Executivo de Contas, sempre validadas antes pelo Gestor de Produção.</p>
+
+        <div class="body" style="margin-top:20px">
+          <div class="note warn">
+            <h4>Primeiro as ALTs e refações — via de regra</h4>
+            <p>Terminada a daily, a <b>primeira coisa do dia</b> é resolver as <b>alterações e refações</b> em aberto. Só depois de zerar as duas, quando houver, é que se parte para os demais Jobs. Não existe começar peça nova com ALT ou REF pendente.</p>
+          </div>
+        </div>
 
         <h3 style="margin-top:26px">O que ele faz</h3>
         <div class="cadence">
@@ -2231,9 +2282,9 @@ td.who{color:var(--amber-deep)}
 
         <h3 style="margin-top:38px">Termo de Ciência e Compromisso</h3>
         <div class="msg" style="margin-top:14px">
-          <p>Eu, <span class="ph">[nome completo]</span>, portador(a) do CPF nº <span class="ph">[000.000.000-00]</span>, colaborador(a) da empresa FZA Marketing, declaro para os devidos fins que:</p>
+          <p>Eu, <span class="ph">[nome completo]</span>, portador(a) do CPF nº <span class="ph">[000.000.000-00]</span>, colaborador(a) do Grupo FZA, declaro para os devidos fins que:</p>
           <ul>
-            <li>Recebi um exemplar, físico ou digital, do Manual de Conduta do Colaborador;</li>
+            <li>Recebi acesso ao Manual de Operação do Grupo FZA, no qual está contido o Manual do Colaborador (seção 07);</li>
             <li>Li atentamente todo o seu conteúdo, compreendi e estou ciente das normas, diretrizes, responsabilidades e comportamentos esperados pela empresa;</li>
             <li>Comprometo-me a cumprir e respeitar integralmente as orientações contidas neste manual, mantendo postura ética, profissional e colaborativa no ambiente de trabalho;</li>
             <li>Tenho conhecimento de que o descumprimento das normas poderá acarretar medidas disciplinares, conforme previsto nas políticas internas e na legislação vigente.</li>
@@ -2264,7 +2315,7 @@ td.who{color:var(--amber-deep)}
         <div class="who2" style="margin-top:12px">Thais Fiuza<span>Conselheira Interna</span></div>
       </div>
     </div>
-    <div class="foot">Grupo FZA · Manual de Operação · versão 3.1 · documento interno</div>
+    <div class="foot">Grupo FZA · Manual de Operação · versão 3.2 · documento interno</div>
   </div>
 
   <footer class="colophon">
