@@ -593,6 +593,29 @@ td.who{color:var(--amber-deep)}
 /* ---------- escada de punições ---------- */
 .pl-chip.crit{fill:var(--amber-soft);stroke:var(--alert);stroke-width:1.6}
 .pl-lbl.crit{fill:var(--alert)}
+
+/* ---------- responsabilidade documental ---------- */
+.signoff{
+  margin-top:44px;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--surface);
+}
+.signoff .head{
+  background:var(--ink);color:var(--bg);padding:13px 20px;
+  font-family:var(--display);font-size:.76rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+}
+.signoff .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.signoff .cell{padding:18px 20px 20px;border-right:1px solid var(--rule)}
+.signoff .cell:last-child{border-right:none}
+.signoff .sgrole{
+  font-family:var(--display);font-size:.68rem;font-weight:600;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--amber-deep);margin-bottom:9px;
+}
+.signoff .who2{font-family:var(--display);font-size:1rem;font-weight:600;color:var(--ink);line-height:1.35}
+.signoff .who2 span{display:block;font-family:var(--sans);font-size:.82rem;font-weight:400;color:var(--muted);margin-top:3px}
+.signoff .foot{
+  border-top:1px solid var(--rule);padding:12px 20px;background:var(--surface-2);
+  font-family:var(--mono);font-size:.71rem;color:var(--muted);letter-spacing:.03em;
+}
+@media (max-width:620px){.signoff .cell{border-right:none;border-bottom:1px solid var(--rule)}}
 </style>
 
 <div class="wrap">
@@ -601,7 +624,7 @@ td.who{color:var(--amber-deep)}
     <div class="brandmark" role="img" aria-label="Logotipo do Grupo FZA"></div>
     <div class="rule"></div>
     <div class="masthead-main">
-      <div class="eyebrow">Manual de operação · versão 3.0</div>
+      <div class="eyebrow">Manual de operação · versão 3.1</div>
       <h1>Quem faz o quê no Grupo FZA</h1>
       <p class="sub">Estrutura, cargos e processos reunidos em um só lugar, para que cada pessoa saiba exatamente qual é a <u>sua parte</u> — e a de quem está do lado.</p>
     </div>
@@ -610,7 +633,7 @@ td.who{color:var(--amber-deep)}
 
   <div class="meta">
     <div>Documento interno</div><span class="sep">\\</span>
-    <div>4 documentos consolidados</div><span class="sep">\\</span>
+    <div>12 documentos consolidados</div><span class="sep">\\</span>
     <div>Vale para: <b>toda a equipe</b></div><span class="sep">\\</span>
     <div><i>em construção</i></div>
   </div>
@@ -2223,9 +2246,29 @@ td.who{color:var(--amber-deep)}
     </main>
   </div>
 
+  <div class="signoff">
+    <div class="head">Responsabilidade documental</div>
+    <div class="grid3">
+      <div class="cell">
+        <div class="sgrole">Elaborado por</div>
+        <div class="who2">Jhonatas Marchini<span>Gerente de Operações e Expansão</span></div>
+      </div>
+      <div class="cell">
+        <div class="sgrole">Revisado por</div>
+        <div class="who2">Danilo Fiuza<span>Fundador e CEO</span></div>
+        <div class="who2" style="margin-top:12px">Thais Fiuza<span>Conselheira Interna</span></div>
+      </div>
+      <div class="cell">
+        <div class="sgrole">Aprovado por</div>
+        <div class="who2">Danilo Fiuza<span>Fundador e CEO</span></div>
+        <div class="who2" style="margin-top:12px">Thais Fiuza<span>Conselheira Interna</span></div>
+      </div>
+    </div>
+    <div class="foot">Grupo FZA · Manual de Operação · versão 3.1 · documento interno</div>
+  </div>
+
   <footer class="colophon">
-    <p>Manual de operação do Grupo FZA <span class="sep">\\</span> versão 3.0 <span class="sep">\\</span> documento interno em construção.</p>
-    <p>Fontes desta versão: Organograma do Squad, Fluxo Nexus 2.0, Rotinas e Tarefas Fixas e Onboarding passo a passo. As demais seções entram conforme as informações forem enviadas.</p>
+    <p>Fontes desta versão: Organograma do Squad FZA <span class="sep">\\</span> Fluxo do Sistema FZA revisado <span class="sep">\\</span> Rotina de Trabalho do Especialista de Growth <span class="sep">\\</span> Onboarding passo a passo <span class="sep">\\</span> Manual do Executivo de Contas <span class="sep">\\</span> Onboarding Grupo FZA (apresentação) <span class="sep">\\</span> Manual Operacional do Líder Editorial <span class="sep">\\</span> Manual Operacional do Gerente Geral V2 <span class="sep">\\</span> Manual Operacional do Gestor de Produção <span class="sep">\\</span> Diretor de Arte e Videomaker <span class="sep">\\</span> Modelo de métricas <span class="sep">\\</span> Manual do Colaborador.</p>
   </footer>
 
 </div>
