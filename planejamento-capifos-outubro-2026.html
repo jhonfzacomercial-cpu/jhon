@@ -1,0 +1,926 @@
+<title>Planejamento Capifós Outubro 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap">
+
+<style>
+/* =========================================================================
+   GRUPO FZA — PLANEJAMENTO MENSAL
+   Cliente: Capifós Nutrição Animal · Ciclo: outubro de 2026
+   Identidade herdada do Manual da Operação (mesmos tokens e mesmas faces).
+   ========================================================================= */
+
+:root{
+  --amber:#FFBB45;
+  --amber-deep:#CD8800;
+  --purple:#7E41CF;
+  --on-amber:#141210;
+  --panel:#0D0D0D;
+  --panel-ink:#FFFFFF;
+  --panel-muted:#B3ACA0;
+
+  --bg:#FAF9F6;
+  --surface:#FFFFFF;
+  --surface-2:#F1EFE9;
+  --rule:#DFDBD1;
+  --rule-2:#B6B0A4;
+  --ink:#121110;
+  --ink-2:#3E3A34;
+  --muted:#78736A;
+  --amber-soft:#FFF2DC;
+  --purple-soft:#EFE6FA;
+  --green:#2F6B4F;
+  --green-soft:#E4F0E9;
+  --alert:#B03024;
+  --alert-soft:#FBE9E7;
+
+  --display:"Outfit","Archivo","Helvetica Neue",Arial,sans-serif;
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+  --col:860px;
+  --chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='18' viewBox='0 0 28 18'%3E%3Cpath d='M-2 14 L5 4 L12 14 L19 4 L26 14 L33 4' fill='none' stroke='%23FFBB45' stroke-width='6.5'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D0D0D; --surface:#161615; --surface-2:#201F1C;
+    --rule:#2C2A26; --rule-2:#4B4740;
+    --ink:#F4F2EE; --ink-2:#D6D1C8; --muted:#8F897E;
+    --amber-soft:#2A2113; --purple-soft:#1F1730;
+    --green:#7BC49B; --green-soft:#16241D;
+    --alert:#E08A80; --alert-soft:#2A1614;
+    --panel:#000000;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D0D0D; --surface:#161615; --surface-2:#201F1C;
+  --rule:#2C2A26; --rule-2:#4B4740;
+  --ink:#F4F2EE; --ink-2:#D6D1C8; --muted:#8F897E;
+  --amber-soft:#2A2113; --purple-soft:#1F1730;
+  --green:#7BC49B; --green-soft:#16241D;
+  --alert:#E08A80; --alert-soft:#2A1614;
+  --panel:#000000;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--col); margin:0 auto; padding-inline:20px; padding-block:0 72px}
+h1,h2,h3,h4{font-family:var(--display); text-wrap:balance; margin:0}
+p{margin:0}
+b{font-weight:600}
+
+/* ---------- capa ---------- */
+.cover{
+  background:var(--panel); color:var(--panel-ink);
+  margin-inline:-20px; padding:38px 20px 30px; margin-bottom:34px;
+}
+.cover-in{max-width:var(--col); margin:0 auto}
+.chevrons{height:18px; background-image:var(--chevron); background-repeat:repeat-x; background-size:28px 18px; opacity:.9}
+.eyebrow{
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--amber); margin-top:22px;
+}
+.cover h1{font-size:clamp(1.9rem,6vw,2.7rem); font-weight:600; line-height:1.1; margin-top:8px; letter-spacing:-.01em}
+.cover .sub{color:var(--panel-muted); margin-top:12px; max-width:56ch; font-size:1.02rem}
+.jobname{
+  display:inline-block; margin-top:22px; font-family:var(--mono); font-size:.82rem;
+  background:var(--amber); color:var(--on-amber); padding:7px 13px; border-radius:7px;
+}
+.cover-meta{
+  display:flex; flex-wrap:wrap; gap:0 34px; margin-top:26px;
+  border-top:1px solid rgba(255,255,255,.14); padding-top:18px;
+}
+.cover-meta div{padding-block:6px}
+.cover-meta dt{font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase; color:var(--panel-muted)}
+.cover-meta dd{margin:2px 0 0; font-family:var(--display); font-size:1.02rem; font-weight:500}
+
+/* ---------- seções ---------- */
+section{margin-top:52px; scroll-margin-top:16px}
+.pill{
+  display:inline-block; font-family:var(--mono); font-size:.66rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--amber-deep); background:var(--amber-soft);
+  border-radius:99px; padding:5px 12px;
+}
+section > h2{font-size:1.52rem; font-weight:600; margin-top:12px; letter-spacing:-.01em}
+.lede{color:var(--ink-2); margin-top:10px; max-width:64ch}
+h3{font-size:1.08rem; font-weight:600; margin-top:34px}
+.note-text{color:var(--ink-2); max-width:64ch; margin-top:10px}
+
+/* ---------- direcionamento ---------- */
+.direc{
+  margin-top:20px; border:1px solid var(--rule); border-left:3px solid var(--amber);
+  background:var(--surface); border-radius:4px; padding:22px 22px 24px;
+}
+.direc h3{margin-top:0; font-size:1.14rem}
+.direc p + p{margin-top:12px}
+.direc p{color:var(--ink-2); max-width:62ch}
+
+/* ---------- pilares ---------- */
+.pilares{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:14px; margin-top:20px}
+.pilar{border:1px solid var(--rule); background:var(--surface); border-radius:4px; padding:16px 16px 18px; display:flex; flex-direction:column; gap:7px}
+.pilar-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+.pilar h4{font-size:1rem; font-weight:600}
+.pilar .qtd{font-family:var(--mono); font-size:.74rem; color:var(--muted); white-space:nowrap; font-variant-numeric:tabular-nums}
+.pilar p{font-size:.9rem; color:var(--ink-2)}
+
+/* ---------- calendário ---------- */
+.calwrap{overflow-x:auto; margin-top:20px; border:1px solid var(--rule); border-radius:4px; background:var(--surface)}
+.cal{min-width:620px; display:grid; grid-template-columns:repeat(7,1fr)}
+.cal .dow{
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); padding:11px 8px; text-align:center; border-bottom:1px solid var(--rule);
+  background:var(--surface-2);
+}
+.cal .day{
+  min-height:82px; padding:8px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  display:flex; flex-direction:column; gap:5px;
+}
+.cal .day:nth-child(7n+7){border-right:0}
+.cal .num{font-family:var(--mono); font-size:.76rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.cal .off{background:var(--surface-2)}
+.cal .off .num{opacity:.5}
+.cal .feriado .num{color:var(--alert)}
+.slot{
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.04em; line-height:1.35;
+  border-radius:4px; padding:4px 6px; display:block;
+}
+.slot.reels{background:var(--panel); color:var(--amber)}
+.slot.card{background:var(--amber); color:var(--on-amber)}
+.slot .hr{display:block; opacity:.72; font-size:.56rem}
+.legenda-cal{display:flex; flex-wrap:wrap; gap:16px; margin-top:12px; font-size:.82rem; color:var(--muted)}
+.legenda-cal span{display:flex; align-items:center; gap:7px}
+.dot{width:11px; height:11px; border-radius:3px; display:inline-block}
+.dot.reels{background:var(--panel); border:1px solid var(--rule-2)}
+.dot.card{background:var(--amber)}
+
+/* ---------- fichas ---------- */
+.ficha{border:1px solid var(--rule); background:var(--surface); border-radius:4px; margin-top:18px; overflow:hidden}
+.ficha > header{
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px;
+  padding:13px 18px; border-bottom:1px solid var(--rule); background:var(--surface-2);
+}
+.tag{font-family:var(--mono); font-size:.72rem; font-weight:500; padding:4px 9px; border-radius:5px; letter-spacing:.04em}
+.tag.reels{background:var(--panel); color:var(--amber)}
+.tag.card{background:var(--amber); color:var(--on-amber)}
+.ficha header h4{font-size:1.02rem; font-weight:600; flex:1 1 200px; min-width:0}
+.chip{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-2); border:1px solid var(--rule-2); border-radius:99px; padding:3px 9px; white-space:nowrap;
+}
+.chip.trafego{color:var(--purple); border-color:var(--purple); background:var(--purple-soft)}
+.when{font-family:var(--mono); font-size:.74rem; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap}
+.campos{padding:6px 18px 18px}
+.campo{padding-top:15px; margin-top:15px; border-top:1px solid var(--rule)}
+.campo:first-child{border-top:0; margin-top:0}
+.campo > .lbl{
+  font-family:var(--mono); font-size:.64rem; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--muted); display:block; margin-bottom:7px;
+}
+.campo p{color:var(--ink-2); max-width:66ch}
+.campo p + p{margin-top:9px}
+.copy{
+  background:var(--surface-2); border-radius:4px; padding:13px 15px; color:var(--ink);
+  font-size:.95rem; max-width:none; white-space:pre-line;
+}
+.copy b{color:var(--ink)}
+ul.plain{margin:0; padding-left:19px; color:var(--ink-2)}
+ul.plain li{margin-top:5px; max-width:64ch}
+ul.plain li::marker{color:var(--amber-deep)}
+
+/* roteiro */
+.roteiro{list-style:none; margin:0; padding:0; display:flex; flex-direction:column}
+.roteiro li{display:flex; gap:14px; padding:11px 0; border-top:1px dashed var(--rule)}
+.roteiro li:first-child{border-top:0; padding-top:2px}
+.roteiro .tc{
+  font-family:var(--mono); font-size:.72rem; color:var(--amber-deep); white-space:nowrap;
+  padding-top:2px; font-variant-numeric:tabular-nums; min-width:62px;
+}
+.roteiro .cena{flex:1; min-width:0}
+.roteiro .cena .nome{font-family:var(--display); font-weight:600; font-size:.92rem; display:block}
+.roteiro .cena .imagem{font-size:.88rem; color:var(--muted); display:block; margin-top:2px}
+.roteiro .cena .fala{display:block; margin-top:6px; color:var(--ink); font-size:.95rem}
+.roteiro .cena .fala::before{content:"— "; color:var(--muted)}
+
+/* ---------- tabela ---------- */
+.tablewrap{overflow-x:auto; margin-top:18px; border:1px solid var(--rule); border-radius:4px}
+table{border-collapse:collapse; width:100%; min-width:520px; background:var(--surface)}
+caption{text-align:left; padding:13px 16px; font-family:var(--mono); font-size:.64rem; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); background:var(--surface-2); border-bottom:1px solid var(--rule)}
+th,td{text-align:left; padding:11px 16px; border-bottom:1px solid var(--rule); font-size:.93rem; vertical-align:top}
+thead th{font-family:var(--mono); font-size:.64rem; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:400}
+tbody tr:last-child td{border-bottom:0}
+td.who{color:var(--muted); font-size:.88rem}
+td.num{font-family:var(--mono); font-variant-numeric:tabular-nums; color:var(--muted); white-space:nowrap}
+
+/* ---------- avisos ---------- */
+.note{border:1px solid var(--rule); border-left:3px solid var(--rule-2); background:var(--surface); border-radius:4px; padding:16px 18px; margin-top:16px}
+.note.amber{border-left-color:var(--amber); background:var(--amber-soft)}
+.note.alert{border-left-color:var(--alert); background:var(--alert-soft)}
+.note h4{font-size:.95rem; font-weight:600; margin-bottom:6px}
+.note p{color:var(--ink-2); font-size:.93rem; max-width:64ch}
+.note p + p{margin-top:8px}
+.code{font-family:var(--mono); font-size:.86rem; background:var(--surface-2); border:1px solid var(--rule); border-radius:5px; padding:2px 7px; white-space:nowrap}
+.codeblock{font-family:var(--mono); font-size:.86rem; background:var(--panel); color:var(--amber); border-radius:5px; padding:13px 15px; margin-top:12px; overflow-x:auto; line-height:1.8}
+
+/* pendências */
+.pend{display:flex; flex-direction:column; gap:0; margin-top:18px; border:1px solid var(--rule); border-radius:4px; background:var(--surface)}
+.pend > div{display:flex; gap:14px; padding:13px 16px; border-top:1px solid var(--rule); align-items:flex-start}
+.pend > div:first-child{border-top:0}
+.pend .q{font-family:var(--mono); font-size:.68rem; color:var(--alert); border:1px solid var(--alert); border-radius:4px; padding:2px 7px; white-space:nowrap; margin-top:2px}
+.pend .t{flex:1; min-width:0}
+.pend .t b{display:block; font-family:var(--display); font-size:.95rem}
+.pend .t span{font-size:.89rem; color:var(--muted)}
+
+footer{margin-top:60px; padding-top:22px; border-top:1px solid var(--rule); color:var(--muted); font-size:.86rem}
+footer .chevrons{margin-bottom:20px; opacity:.55}
+a{color:var(--amber-deep)}
+:focus-visible{outline:2px solid var(--amber-deep); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+@media (max-width:520px){
+  .cover-meta{gap:0 22px}
+  .ficha > header{padding:12px 14px}
+  .campos{padding:6px 14px 16px}
+}
+</style>
+
+<header class="cover">
+  <div class="cover-in">
+    <div class="chevrons" role="presentation"></div>
+    <div class="eyebrow">Grupo FZA \\ Planejamento Mensal</div>
+    <h1>Capifós Nutrição Animal</h1>
+    <p class="sub">Ciclo de outubro de 2026. Seis Reels e quatro Cards, todos ancorados em um único tema: a virada da seca para as águas — o mês em que o pasto fica bonito e o produtor tira o suplemento do cocho.</p>
+    <div class="jobname">CAPIFÓS | PLANEJAMENTO DE OUTUBRO</div>
+    <dl class="cover-meta">
+      <div><dt>Público</dt><dd>Pequeno produtor e sítio</dd></div>
+      <div><dt>Volume</dt><dd>6 Reels · 4 Cards</dd></div>
+      <div><dt>Etapa</dt><dd>Planejamento Mensal</dd></div>
+      <div><dt>Aprovação</dt><dd>até 2 dias úteis</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="direcionamento">
+    <div class="pill">bloco 01</div>
+    <h2>Direcionamento do mês</h2>
+    <p class="lede">Subtarefa do <b>Gerente</b>, primeira do Job 2 e do Job 3. É o que os números da Reunião Mensal pedem para este ciclo — e é daqui que o Líder Editorial parte.</p>
+
+    <div class="direc">
+      <h3>A virada das águas</h3>
+      <p>Outubro é o mês em que a chuva volta e o pasto rebrota. Para o pequeno produtor isso soa como alívio: o capim está verde, o bicho está comendo, e o suplemento mineral vira a primeira despesa a ser cortada.</p>
+      <p>É exatamente o contrário do que a nutrição pede. O pasto novo das águas é quase todo água — o animal enche o rúmen de volume e ingere pouco mineral por quilo consumido, logo depois de atravessar uma seca que já o deixou em déficit. Quem tira o cocho em outubro paga a conta em fevereiro, na cria fraca e no ganho que não veio.</p>
+      <p><b>O mês inteiro serve a essa única frase:</b> capim verde não é ração completa. Todo conteúdo volta para ela, e o pedido ao produtor é sempre o mesmo — chamar no WhatsApp para montar o cocho do sítio dele.</p>
+    </div>
+
+    <div class="note">
+      <h4>Números da Reunião Mensal</h4>
+      <p>O Job 1 do ciclo — Reunião Mensal — alimenta este bloco. O <b>Especialista de Growth</b> traz alcance, seguidores, conversas iniciadas e custo por conversa de setembro; o <b>Executivo de Contas</b> apresenta. Os números entram aqui antes de o Líder Editorial abrir o planejamento, e reordenam os pilares se apontarem para outro lado.</p>
+    </div>
+  </section>
+
+  <section id="pilares">
+    <div class="pill">bloco 02</div>
+    <h2>Pilares de conteúdo</h2>
+    <p class="lede">Quatro pilares, dez peças. A distribuição é intencional: o produtor pequeno chega pelo conteúdo que resolve um problema dele hoje, não pelo anúncio do produto.</p>
+
+    <div class="pilares">
+      <div class="pilar">
+        <div class="pilar-top"><h4>Cocho Certo</h4><span class="qtd">4 peças · 40%</span></div>
+        <p>Manejo prático e aplicável no mesmo dia. É o pilar que traz alcance novo e salvamento: o produtor guarda para consultar.</p>
+      </div>
+      <div class="pilar">
+        <div class="pilar-top"><h4>Linha Capifós</h4><span class="qtd">2 peças · 20%</span></div>
+        <p>Qual produto para qual criação, e como ler o que está escrito no saco. Oferta que ensina antes de vender.</p>
+      </div>
+      <div class="pilar">
+        <div class="pilar-top"><h4>Prova no Sítio</h4><span class="qtd">2 peças · 20%</span></div>
+        <p>Produtor real, cocho real, resultado que dá para ver. É o que sustenta o preço na hora da conversa no WhatsApp.</p>
+      </div>
+      <div class="pilar">
+        <div class="pilar-top"><h4>Gente do Campo</h4><span class="qtd">2 peças · 20%</span></div>
+        <p>Quem está por trás da marca: o técnico na estrada, a fábrica, a data que fala com quem vive de criação.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="calendario">
+    <div class="pill">bloco 03</div>
+    <h2>Calendário de postagem</h2>
+    <p class="lede">Todas as datas caem em dia útil, nas duas janelas fixas do Líder Editorial: <b>08:30</b> e <b>17:00</b>. Cards saem de manhã, quando o produtor confere o celular antes do trato; Reels saem às 17:00, no fim da lida.</p>
+
+    <div class="calwrap">
+      <div class="cal">
+        <div class="dow">Dom</div><div class="dow">Seg</div><div class="dow">Ter</div><div class="dow">Qua</div><div class="dow">Qui</div><div class="dow">Sex</div><div class="dow">Sáb</div>
+
+        <div class="day off"><span class="num">27</span></div>
+        <div class="day off"><span class="num">28</span></div>
+        <div class="day off"><span class="num">29</span></div>
+        <div class="day off"><span class="num">30</span></div>
+        <div class="day"><span class="num">01</span><span class="slot reels">REELS 01<span class="hr">17:00</span></span></div>
+        <div class="day"><span class="num">02</span><span class="slot card">CARD 01<span class="hr">08:30</span></span></div>
+        <div class="day off"><span class="num">03</span></div>
+
+        <div class="day off"><span class="num">04</span></div>
+        <div class="day"><span class="num">05</span></div>
+        <div class="day"><span class="num">06</span><span class="slot reels">REELS 02<span class="hr">17:00</span></span></div>
+        <div class="day"><span class="num">07</span></div>
+        <div class="day"><span class="num">08</span><span class="slot card">CARD 02<span class="hr">08:30</span></span></div>
+        <div class="day"><span class="num">09</span></div>
+        <div class="day off"><span class="num">10</span></div>
+
+        <div class="day off"><span class="num">11</span></div>
+        <div class="day off feriado"><span class="num">12 · feriado</span></div>
+        <div class="day"><span class="num">13</span><span class="slot reels">REELS 03<span class="hr">17:00</span></span></div>
+        <div class="day"><span class="num">14</span></div>
+        <div class="day"><span class="num">15</span><span class="slot card">CARD 03<span class="hr">08:30</span></span></div>
+        <div class="day"><span class="num">16</span></div>
+        <div class="day off"><span class="num">17</span></div>
+
+        <div class="day off"><span class="num">18</span></div>
+        <div class="day"><span class="num">19</span></div>
+        <div class="day"><span class="num">20</span><span class="slot reels">REELS 04<span class="hr">17:00</span></span></div>
+        <div class="day"><span class="num">21</span></div>
+        <div class="day"><span class="num">22</span><span class="slot reels">REELS 05<span class="hr">17:00</span></span></div>
+        <div class="day"><span class="num">23</span></div>
+        <div class="day off"><span class="num">24</span></div>
+
+        <div class="day off"><span class="num">25</span></div>
+        <div class="day"><span class="num">26</span></div>
+        <div class="day"><span class="num">27</span><span class="slot card">CARD 04<span class="hr">08:30</span></span></div>
+        <div class="day"><span class="num">28</span></div>
+        <div class="day"><span class="num">29</span><span class="slot reels">REELS 06<span class="hr">17:00</span></span></div>
+        <div class="day"><span class="num">30</span></div>
+        <div class="day off"><span class="num">31</span></div>
+      </div>
+    </div>
+    <div class="legenda-cal">
+      <span><i class="dot reels"></i> Reels · 17:00</span>
+      <span><i class="dot card"></i> Card · 08:30</span>
+      <span>12/10 · Nossa Senhora Aparecida — sem publicação</span>
+    </div>
+
+    <div class="note amber">
+      <h4>Por que nada sai no dia 04</h4>
+      <p>O Dia Mundial dos Animais cai num domingo. As janelas de publicação só existem de segunda a sexta, então a peça da data sai na <b>sexta, 02/10, às 08:30</b>, escrita como véspera — e não como post atrasado de segunda.</p>
+    </div>
+  </section>
+
+  <section id="cards">
+    <div class="pill">bloco 04 · aba card</div>
+    <h2>Aba Card</h2>
+    <p class="lede">Quatro peças estáticas. Cada ficha traz o que a aba exige: direcionamento para o designer, texto criativo da peça, legenda, referência e data de postagem. Criação do <b>Diretor de Arte</b>.</p>
+
+    <article class="ficha">
+      <header>
+        <span class="tag card">CARD 01</span>
+        <h4>Dia Mundial dos Animais</h4>
+        <span class="chip">Gente do Campo</span>
+        <span class="when">02/10 · sex · 08:30</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Direcionamento para o designer</span>
+          <p>Peça de respeito, não de festa. Um único retrato em close de animal de criação de sítio — galinha caipira, bezerro ou porco — em foto real, luz de fim de tarde, fundo desfocado. Preto Capifós cobrindo o terço inferior em degradê, texto sobre ele. Nada de vetor, nada de pata de cachorro: o público desta página cria animal para viver, não para companhia.</p>
+          <p>Assinatura da marca no canto inferior direito, discreta. Sem selo de data carimbado no topo.</p>
+        </div>
+        <div class="campo"><span class="lbl">Texto da peça</span>
+          <div class="copy"><b>4 de outubro
+Dia Mundial dos Animais</b>
+
+Aqui o cuidado começa no cocho.</div>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">Domingo é o Dia Mundial dos Animais.
+
+Para quem vive na cidade, é a data do bichinho de estimação. Para quem vive no sítio, é outra coisa: é a vaca que dá o leite da manhã, a galinha que bota o ovo do café, o porco que vai sustentar o fim do ano.
+
+Cuidar desses animais não é fazer festa. É dar água limpa, é olhar o cocho antes de olhar o celular, é não deixar faltar mineral quando o corpo deles mais precisa.
+
+Quem faz isso todo dia sabe: animal bem nutrido não precisa de homenagem. Precisa de manejo.
+
+📲 Chama a gente no WhatsApp e monte o cocho certo para a sua criação.
+
+#NutriçãoAnimal #PequenoProdutor #VidaNoSítio #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências</span>
+          <ul class="plain">
+            <li>Banco de imagem próprio da Capifós, se houver — <b>prioridade para foto de cliente real</b>.</li>
+            <li>Não usar imagem de confinamento industrial: descaracteriza o público de sítio.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag card">CARD 02</span>
+        <h4>Cada criação tem o seu cocho</h4>
+        <span class="chip">Linha Capifós</span>
+        <span class="chip trafego">Tráfego</span>
+        <span class="when">08/10 · qui · 08:30</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Direcionamento para o designer</span>
+          <p>Peça de consulta, feita para ser salva. Quadro de quatro linhas, uma por criação, com ícone em traço simples à esquerda, nome da criação, o produto Capifós indicado e a orientação de consumo. Fundo claro, tipografia grande — vai ser lido em tela pequena, no sol, por gente de meia-idade. Contraste alto, nada de cinza sobre cinza.</p>
+          <p>Faixa âmbar no rodapé com a chamada. Formato 4:5 para ocupar mais tela no feed.</p>
+        </div>
+        <div class="campo"><span class="lbl">Texto da peça</span>
+          <div class="copy"><b>QUAL CAPIFÓS PARA CADA CRIAÇÃO</b>
+
+Gado de leite → [produto] · [g/cab/dia]
+Gado de corte → [produto] · [g/cab/dia]
+Galinha caipira → [produto] · [orientação]
+Suíno de terreiro → [produto] · [orientação]
+
+<b>Salve esse card. Na próxima compra, você confere.</b></div>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">"Compro um saco só e dou para tudo quanto é bicho."
+
+É a frase que a gente mais escuta no balcão — e é onde o dinheiro se perde. Cada criação tem uma exigência diferente. O que serve para a vaca de leite não atende a galinha, e o que a galinha precisa não faz o bezerro ganhar peso.
+
+Dar o produto errado não é só desperdício: é pagar por um nutriente que aquele animal nem consegue aproveitar.
+
+Salva esse card e confere na hora da compra.
+
+📲 Na dúvida, manda foto da sua criação no WhatsApp que a gente indica.
+
+#SalMineral #GalinhaCaipira #GadoDeLeite #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências</span>
+          <ul class="plain">
+            <li>Nomes, níveis de garantia e consumo por cabeça vêm da <b>ficha técnica oficial da Capifós</b> — nada preenchido de memória.</li>
+            <li>Ícones em linha, mesma espessura de traço nos quatro, sem preenchimento.</li>
+          </ul>
+        </div>
+        <div class="campo"><span class="lbl">Tráfego pago</span>
+          <p>Vai para impulsionamento. Público de interesse em pecuária e avicultura de pequena escala, raio regional a partir das revendas. Objetivo: <b>conversa iniciada no WhatsApp</b>.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag card">CARD 03</span>
+        <h4>Checklist do cocho na chuva</h4>
+        <span class="chip">Cocho Certo</span>
+        <span class="when">15/10 · qui · 08:30</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Direcionamento para o designer</span>
+          <p>Lista de cinco itens com caixa de marcar, hierarquia bem clara: número grande, frase curta em negrito, complemento menor. Fundo preto Capifós com texto claro — contrasta com o Card 02 e evita que os dois salvamentos do mês pareçam a mesma peça.</p>
+          <p>Cabeçalho com a estação: "Chegou a chuva". Formato 4:5.</p>
+        </div>
+        <div class="campo"><span class="lbl">Texto da peça</span>
+          <div class="copy"><b>CHEGOU A CHUVA
+CINCO COISAS PARA OLHAR NO COCHO</b>
+
+01 · Tem cobertura? Sal molhado empedra e ninguém lambe.
+02 · O fundo escoa? Água parada estraga o produto embaixo.
+03 · Está perto da água e da sombra?
+04 · Você enche pouco e mais vezes?
+05 · Sobrou mineral de mais de 30 dias? Tira fora.</div>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">A chuva chegou e o cocho é o primeiro a sentir.
+
+Sal mineral molhado empedra. E mineral empedrado o animal não lambe — ele encosta, desiste e volta pro pasto. Você continua gastando e ele continua sem consumir.
+
+Os cinco pontos do card resolvem quase todo problema de consumo que a gente encontra em visita. Nenhum deles custa dinheiro: custa cinco minutos e um olhar.
+
+E tem o mais importante, o número 4: encher pouco e mais vezes é melhor que encher o cocho até a boca uma vez por mês. Mineral parado perde qualidade e o animal recusa.
+
+Salva aqui e confere amanhã cedo.
+
+📲 Cocho com problema? Manda foto no WhatsApp.
+
+#ManejoNoCampo #SalMineral #PeriodoDasAguas #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências</span>
+          <ul class="plain">
+            <li>Validar o prazo do item 05 com o responsável técnico da Capifós antes da arte.</li>
+            <li>Mesma família tipográfica do Card 02, tratamento invertido — a série precisa se reconhecer.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag card">CARD 04</span>
+        <h4>Onde encontrar a Capifós</h4>
+        <span class="chip">Prova no Sítio</span>
+        <span class="chip trafego">Tráfego</span>
+        <span class="when">27/10 · ter · 08:30</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Direcionamento para o designer</span>
+          <p>Peça de fechamento de mês, com função comercial explícita. Mapa estilizado da região de atuação — silhueta simples, sem Google Maps — com pontos âmbar marcando as cidades atendidas. Lista das revendas embaixo, em duas colunas, tipografia legível.</p>
+          <p>Se a lista de revendas passar de oito nomes, cortar para as principais e mandar o restante para a legenda.</p>
+        </div>
+        <div class="campo"><span class="lbl">Texto da peça</span>
+          <div class="copy"><b>A CAPIFÓS ESTÁ PERTO DE VOCÊ</b>
+
+[Cidade] · [Revenda]
+[Cidade] · [Revenda]
+[Cidade] · [Revenda]
+[Cidade] · [Revenda]
+
+<b>Não achou a sua cidade? Chama no WhatsApp.</b></div>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">Outubro inteiro a gente falou de uma coisa só: capim verde não é ração completa.
+
+Se você chegou até aqui e quer acertar o cocho antes que as águas entrem de vez, o caminho é curto. Essas são as revendas que trabalham com a Capifós na região — é só chegar e pedir pelo nome.
+
+Não achou a sua cidade na lista? Manda mensagem. A gente indica o ponto mais próximo ou fala direto com você.
+
+📲 [telefone]
+
+#Capifós #NutriçãoAnimal #RevendaAgropecuária</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências</span>
+          <ul class="plain">
+            <li>Lista de revendas e telefone comercial: <b>o cliente precisa enviar até 20/10</b> para a arte entrar em produção.</li>
+            <li>Conferir com o cliente se todas as revendas podem ser nomeadas publicamente.</li>
+          </ul>
+        </div>
+        <div class="campo"><span class="lbl">Tráfego pago</span>
+          <p>Impulsionamento com segmentação por raio a partir de cada cidade da lista. Objetivo: <b>conversa iniciada no WhatsApp</b>. É a peça de conversão do mês.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section id="reels">
+    <div class="pill">bloco 05 · aba reels</div>
+    <h2>Aba Reels</h2>
+    <p class="lede">Seis roteiros completos, prontos para impressão e para levar a campo. Agendamento pelo <b>Executivo de Contas</b>, captação e edição pelo <b>Videomaker</b>. Todos verticais, 9:16, com legenda queimada — o produtor assiste sem som.</p>
+
+    <article class="ficha">
+      <header>
+        <span class="tag reels">REELS 01</span>
+        <h4>O capim verde engana</h4>
+        <span class="chip">Cocho Certo</span>
+        <span class="when">01/10 · qui · 17:00</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Roteiro · 42 segundos</span>
+          <ol class="roteiro">
+            <li><span class="tc">00:00–00:04</span><span class="cena"><span class="nome">Gancho</span><span class="imagem">Plano aberto do pasto rebrotado, mão do apresentador passando na folha nova.</span><span class="fala">Esse capim aí está lindo, não está? Pois é agora que o seu bicho pode emagrecer.</span></span></li>
+            <li><span class="tc">00:04–00:14</span><span class="cena"><span class="nome">O problema</span><span class="imagem">Apresentador corta uma folha e mostra para a câmera.</span><span class="fala">Capim novo de chuva é quase todo água. O animal enche a barriga rápido, se dá por satisfeito — e o que ele comeu tem pouco mineral dentro.</span></span></li>
+            <li><span class="tc">00:14–00:24</span><span class="cena"><span class="nome">A conta que ninguém faz</span><span class="imagem">Corte para o gado no pasto, plano médio.</span><span class="fala">E ele está vindo de uma seca inteira já devendo. Aí o produtor olha o pasto bonito e fala: esse mês eu não compro mineral.</span></span></li>
+            <li><span class="tc">00:24–00:34</span><span class="cena"><span class="nome">A virada</span><span class="imagem">Apresentador ao lado do cocho, apontando.</span><span class="fala">Economizar aqui em outubro é pagar mais caro em fevereiro. Na cria fraca, no leite que caiu, no boi que não fechou.</span></span></li>
+            <li><span class="tc">00:34–00:42</span><span class="cena"><span class="nome">Chamada</span><span class="imagem">Close no apresentador, cocho ao fundo. Selo de WhatsApp na tela.</span><span class="fala">Capim verde não é ração completa. Chama a Capifós que a gente monta o cocho do seu sítio.</span></span></li>
+          </ol>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">Todo ano é a mesma cena: chove, o pasto rebrota, e o cocho fica vazio.
+
+A lógica parece certa — se tem capim, para que gastar com mineral? Só que o pasto das águas tem muito volume e pouco nutriente. O animal come mais e aproveita menos, logo depois de atravessar uma seca que já tirou dele o que tinha de reserva.
+
+O prejuízo não aparece agora. Aparece na próxima estação, quando a cria nasce fraca e o ganho de peso não vem.
+
+Não corte o mineral em outubro. É o mês em que ele trabalha mais.
+
+📲 Chama no WhatsApp e monte o cocho da sua criação.
+
+#PeriodoDasAguas #SalMineral #Pecuária #PequenoProdutor #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências e captação</span>
+          <ul class="plain">
+            <li>Gravar em pasto já rebrotado, <b>até as 9h</b> — luz rasante e sem estouro no verde.</li>
+            <li>Áudio ambiente vivo, sem música por cima da fala. Trilha só no último bloco, baixa.</li>
+            <li>Apresentador: técnico da Capifós ou o próprio proprietário, de roupa de trabalho. Nada de estúdio.</li>
+            <li>Captar 3 planos de cobertura do cocho vazio — servem para os Reels 02 e 03.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag reels">REELS 02</span>
+        <h4>Três erros no cocho quando a chuva chega</h4>
+        <span class="chip">Cocho Certo</span>
+        <span class="chip trafego">Tráfego</span>
+        <span class="when">06/10 · ter · 17:00</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Roteiro · 48 segundos</span>
+          <ol class="roteiro">
+            <li><span class="tc">00:00–00:05</span><span class="cena"><span class="nome">Gancho</span><span class="imagem">Close na mão quebrando uma crosta de sal empedrado no cocho.</span><span class="fala">Se o seu mineral está assim, o animal não está consumindo. E você está pagando.</span></span></li>
+            <li><span class="tc">00:05–00:17</span><span class="cena"><span class="nome">Erro 1 — cocho sem cobertura</span><span class="imagem">Plano do cocho aberto ao tempo, com água acumulada.</span><span class="fala">Chuva em cima do sal empedra tudo. O bicho encosta a língua, não consegue lamber, desiste e volta pro pasto.</span></span></li>
+            <li><span class="tc">00:17–00:29</span><span class="cena"><span class="nome">Erro 2 — encher demais</span><span class="imagem">Apresentador despeja uma quantidade pequena no cocho limpo.</span><span class="fala">Encher até a boca uma vez por mês parece economia de trabalho. Mineral parado perde qualidade e o animal recusa. Pouco e mais vezes.</span></span></li>
+            <li><span class="tc">00:29–00:40</span><span class="cena"><span class="nome">Erro 3 — lugar errado</span><span class="imagem">Plano aberto mostrando cocho, bebedouro e sombra no mesmo enquadramento.</span><span class="fala">Cocho longe da água e da sombra o animal não procura. Ele tem que passar por ali no caminho que já faz todo dia.</span></span></li>
+            <li><span class="tc">00:40–00:48</span><span class="cena"><span class="nome">Chamada</span><span class="imagem">Close no cocho limpo e abastecido. Selo de WhatsApp.</span><span class="fala">Arruma esses três e o consumo sobe sem você gastar um real a mais. Qualquer dúvida, chama a Capifós.</span></span></li>
+          </ol>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">Consumo baixo quase nunca é problema do produto. É problema do cocho.
+
+Esses três erros a gente encontra em praticamente toda visita — e os três se resolvem sem gastar nada:
+
+1. Cobrir o cocho. Sal molhado empedra e empedrado ninguém lambe.
+2. Encher pouco e mais vezes. Mineral parado um mês inteiro perde valor.
+3. Colocar o cocho onde o animal já passa: perto da água e da sombra.
+
+Se o seu saco está durando muito mais do que deveria, não é economia. É sinal de que o bicho não está consumindo.
+
+📲 Manda uma foto do seu cocho no WhatsApp que a gente te diz o que ajustar.
+
+#ManejoNoCampo #SalMineral #DicaDeProdutor #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências e captação</span>
+          <ul class="plain">
+            <li>Gravar no mesmo dia do Reels 01, mesma propriedade — economiza deslocamento do Videomaker.</li>
+            <li>Precisa de um cocho realmente empedrado para o gancho. Se não houver, combinar com o produtor deixar um exposto por alguns dias.</li>
+            <li>Números na tela (1, 2, 3) entram na edição, em âmbar, canto superior.</li>
+          </ul>
+        </div>
+        <div class="campo"><span class="lbl">Tráfego pago</span>
+          <p>É a peça de alcance do mês. Público frio, interesse em pecuária e vida no campo, raio regional. Objetivo: <b>alcance e visualização de vídeo</b>, com retargeting apontando para o Card 04.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag reels">REELS 03</span>
+        <h4>Quem usa, conta</h4>
+        <span class="chip">Prova no Sítio</span>
+        <span class="when">13/10 · ter · 17:00</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Roteiro · 50 segundos · depoimento</span>
+          <p>Não é roteiro decorado. O produtor responde cinco perguntas e a edição monta a narrativa. <b>A pergunta não aparece na tela</b> — só a resposta, cortada para começar já no assunto.</p>
+          <ol class="roteiro">
+            <li><span class="tc">Pergunta 1</span><span class="cena"><span class="nome">Abertura</span><span class="fala">Seu nome, o que o senhor cria aqui e há quanto tempo.</span></span></li>
+            <li><span class="tc">Pergunta 2</span><span class="cena"><span class="nome">O problema antes</span><span class="fala">Como estava a criação antes de o senhor mexer na nutrição? O que incomodava?</span></span></li>
+            <li><span class="tc">Pergunta 3</span><span class="cena"><span class="nome">A mudança</span><span class="fala">O que o senhor mudou no cocho, e quanto tempo levou para perceber diferença?</span></span></li>
+            <li><span class="tc">Pergunta 4</span><span class="cena"><span class="nome">A prova</span><span class="fala">O que o senhor vê hoje que não via antes? (Puxar para o concreto: pelo, cria, leite, ganho.)</span></span></li>
+            <li><span class="tc">Pergunta 5</span><span class="cena"><span class="nome">Recomendação</span><span class="fala">O que o senhor diria pro vizinho que ainda está em dúvida?</span></span></li>
+          </ol>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">Quem fala aqui não é a gente. É [nome], de [cidade], que cria [criação] há [tempo].
+
+Ele mudou uma coisa só no manejo — e conta o que aconteceu depois.
+
+Resultado de nutrição não aparece em uma semana. Aparece no ciclo seguinte, e aparece no animal: no pelo, na cria, no que sobra no fim do mês. Por isso a gente prefere que seja o produtor a contar, e não o nosso material de venda.
+
+Se o seu cocho ainda está em dúvida, a conversa é a mesma que tivemos com ele.
+
+📲 Chama no WhatsApp.
+
+#DepoimentoDeQuemUsa #PequenoProdutor #NutriçãoAnimal #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências e captação</span>
+          <ul class="plain">
+            <li><b>Agendamento é subtarefa do Executivo de Contas</b> e trava toda a peça. Precisa estar fechado até <b>06/10</b> para caber na captação.</li>
+            <li>Cliente indica o produtor. Confirmar autorização de imagem por escrito antes de gravar.</li>
+            <li>Gravar no sítio dele, com a criação ao fundo. Nunca em balcão de revenda.</li>
+            <li>Captar cobertura farta: animais, cocho, mãos, rotina. A edição vive disso.</li>
+            <li>Nenhum número entra na peça sem confirmação do produtor na hora da gravação.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag reels">REELS 04</span>
+        <h4>Como ler o rótulo do sal mineral</h4>
+        <span class="chip">Linha Capifós</span>
+        <span class="chip trafego">Tráfego</span>
+        <span class="when">20/10 · ter · 17:00</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Roteiro · 55 segundos</span>
+          <ol class="roteiro">
+            <li><span class="tc">00:00–00:06</span><span class="cena"><span class="nome">Gancho</span><span class="imagem">Dois sacos lado a lado no balcão, mão apontando o preço de cada um.</span><span class="fala">Esse é mais barato que esse. E pode sair muito mais caro. Deixa eu te mostrar onde.</span></span></li>
+            <li><span class="tc">00:06–00:20</span><span class="cena"><span class="nome">Onde olhar</span><span class="imagem">Close no verso do saco, dedo percorrendo a tabela de níveis de garantia.</span><span class="fala">Vira o saco. Isso aqui é o nível de garantia — é o que tem dentro de verdade. O nome grande da frente não diz nada.</span></span></li>
+            <li><span class="tc">00:20–00:36</span><span class="cena"><span class="nome">O que comparar</span><span class="imagem">Grafismo na tela destacando fósforo e consumo estimado.</span><span class="fala">Olha o fósforo e olha o consumo por cabeça por dia. Sal com pouco fósforo o animal come mais e você compra mais vezes.</span></span></li>
+            <li><span class="tc">00:36–00:48</span><span class="cena"><span class="nome">A conta certa</span><span class="imagem">Apresentador segurando os dois sacos.</span><span class="fala">A conta não é preço do saco. É quanto custa o dia de cada animal. Faz essa conta uma vez e você não erra mais.</span></span></li>
+            <li><span class="tc">00:48–00:55</span><span class="cena"><span class="nome">Chamada</span><span class="imagem">Close no rótulo Capifós. Selo de WhatsApp.</span><span class="fala">Quer que a gente faça essa conta com você? Manda foto do rótulo que você usa hoje no WhatsApp.</span></span></li>
+          </ol>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">O saco mais barato do balcão quase nunca é o mais barato no fim do mês.
+
+O que decide não é o preço na frente do saco — é o que está impresso atrás, no nível de garantia. Dois pontos resolvem a comparação:
+
+• Quanto tem de fósforo.
+• Quanto o animal consome por dia.
+
+Sal fraco o animal come em maior quantidade para tentar compensar. Você volta na revenda antes, compra mais vezes, e ainda assim ele não recebe o que precisa.
+
+A conta certa é: quanto custa alimentar UM animal por UM dia. Faça essa conta uma vez e a decisão fica fácil para sempre.
+
+📲 Manda foto do rótulo que você usa hoje. A gente faz a conta com você, sem compromisso.
+
+#SalMineral #Fósforo #DicaDeCompra #Pecuária #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências e captação</span>
+          <ul class="plain">
+            <li>Gravar em revenda parceira, com autorização prévia do lojista.</li>
+            <li><b>Nunca mostrar marca concorrente identificável.</b> O saco de comparação entra desfocado ou com o rótulo fora de quadro.</li>
+            <li>Os valores de fósforo e consumo da Capifós saem da ficha técnica oficial — validar com o responsável técnico antes da edição.</li>
+            <li>Grafismo de destaque na tela é do Diretor de Arte, entregue ao Videomaker antes da edição.</li>
+          </ul>
+        </div>
+        <div class="campo"><span class="lbl">Tráfego pago</span>
+          <p>Peça de consideração. Público que já assistiu ao Reels 02 ou visitou o perfil. Objetivo: <b>conversa iniciada no WhatsApp</b> — a chamada pede uma ação fácil, mandar uma foto.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag reels">REELS 05</span>
+        <h4>A água é o primeiro nutriente</h4>
+        <span class="chip">Cocho Certo</span>
+        <span class="when">22/10 · qui · 17:00</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Roteiro · 40 segundos</span>
+          <ol class="roteiro">
+            <li><span class="tc">00:00–00:05</span><span class="cena"><span class="nome">Gancho</span><span class="imagem">Close num bebedouro sujo, com limo na parede.</span><span class="fala">Você compra a melhor ração do mercado e serve com essa água aqui. Não adianta.</span></span></li>
+            <li><span class="tc">00:05–00:16</span><span class="cena"><span class="nome">Por quê</span><span class="imagem">Apresentador esvaziando e esfregando o bebedouro.</span><span class="fala">Animal que bebe pouco come pouco. É assim na galinha, no porco e no gado. A água puxa o consumo de tudo o mais.</span></span></li>
+            <li><span class="tc">00:16–00:28</span><span class="cena"><span class="nome">O detalhe do calor</span><span class="imagem">Plano das aves no terreiro em dia quente, boca aberta.</span><span class="fala">E em outubro está calor. Bebedouro no sol esquenta a água, e água quente o bicho recusa. Põe na sombra.</span></span></li>
+            <li><span class="tc">00:28–00:40</span><span class="cena"><span class="nome">Chamada</span><span class="imagem">Bebedouro limpo, água transparente, animais bebendo.</span><span class="fala">Lava duas vezes por semana e põe na sombra. É de graça e é o que mais rende. Capifós — nutrição que começa na água.</span></span></li>
+          </ol>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">A gente fala muito de ração e de mineral. Mas o primeiro nutriente é a água.
+
+Animal que bebe pouco come pouco — vale para a galinha, para o porco e para o gado. E duas coisas derrubam o consumo de água na mesma semana:
+
+• Bebedouro sujo. Limo e resto de ração mudam o gosto e o bicho evita.
+• Bebedouro no sol. Em outubro a água esquenta e o animal recusa.
+
+Lavar duas vezes por semana e passar o bebedouro para a sombra não custa nada e levanta o consumo de toda a criação.
+
+Nutrição boa começa antes do cocho.
+
+📲 Dúvida no manejo? Chama a gente no WhatsApp.
+
+#ManejoNoCampo #BemEstarAnimal #Avicultura #Suinocultura #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências e captação</span>
+          <ul class="plain">
+            <li>Precisa de um bebedouro realmente sujo no gancho — o contraste com o limpo é o argumento inteiro.</li>
+            <li>Gravar em propriedade com aves e suínos, para atender o público de terreiro.</li>
+            <li>Ritmo mais rápido que os anteriores: cortes secos, peça curta.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="ficha">
+      <header>
+        <span class="tag reels">REELS 06</span>
+        <h4>Um dia com o técnico da Capifós</h4>
+        <span class="chip">Gente do Campo</span>
+        <span class="when">29/10 · qui · 17:00</span>
+      </header>
+      <div class="campos">
+        <div class="campo"><span class="lbl">Roteiro · 45 segundos</span>
+          <ol class="roteiro">
+            <li><span class="tc">00:00–00:06</span><span class="cena"><span class="nome">Gancho</span><span class="imagem">Caminhonete saindo ainda no escuro, estrada de terra.</span><span class="fala">Cinco e meia da manhã. Hoje são [n] sítios.</span></span></li>
+            <li><span class="tc">00:06–00:20</span><span class="cena"><span class="nome">A visita</span><span class="imagem">Técnico chegando, apertando a mão do produtor, indo direto ao cocho.</span><span class="fala">A primeira coisa que a gente olha nunca é o saco. É o cocho, é o bebedouro e é o animal.</span></span></li>
+            <li><span class="tc">00:20–00:32</span><span class="cena"><span class="nome">O que a marca faz</span><span class="imagem">Técnico ajoelhado no cocho, mostrando algo ao produtor; ele assente.</span><span class="fala">Não adianta vender produto bom para cocho errado. Por isso a gente vem aqui, olha e ajusta.</span></span></li>
+            <li><span class="tc">00:32–00:45</span><span class="cena"><span class="nome">Fechamento</span><span class="imagem">Fim de tarde, caminhonete na estrada, poeira.</span><span class="fala">Foi assim outubro inteiro. Se você quer a gente no seu cocho em novembro, é só chamar.</span></span></li>
+          </ol>
+        </div>
+        <div class="campo"><span class="lbl">Legenda</span>
+          <div class="copy">Outubro terminando, e a rotina foi essa: estrada, cocho e conversa.
+
+A gente fecha o mês do jeito que ele começou — dizendo que capim verde não é ração completa e que manejo se resolve olhando, não pelo telefone.
+
+Por isso o técnico vai até o sítio. Olha o cocho, olha o bebedouro, olha o animal, e só depois fala de produto. É o que a gente entende por nutrição: estar junto de quem cria.
+
+Novembro já está sendo montado. Se você quer a gente no seu cocho, avisa.
+
+Obrigado a cada produtor que abriu a porteira esse mês. 🤝
+
+📲 WhatsApp na bio.
+
+#GenteDoCampo #AssistênciaTécnica #PequenoProdutor #Capifós</div>
+        </div>
+        <div class="campo"><span class="lbl">Referências e captação</span>
+          <ul class="plain">
+            <li>Captar ao longo do mês, aproveitando as diárias dos Reels 01, 02 e 03 — <b>não abrir deslocamento só para esta peça</b>.</li>
+            <li>Peça de emoção, não de técnica: som ambiente, pouca fala, sem grafismo.</li>
+            <li>Confirmar o número de visitas do gancho com a Capifós antes da edição.</li>
+            <li>Encerra o ciclo e abre gancho para o Direcionamento de novembro.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section id="trafego">
+    <div class="pill">bloco 06</div>
+    <h2>Sinalização de tráfego pago</h2>
+    <p class="lede">O <b>Gestor de Produção</b> abre a subtarefa dentro do Job, no padrão da operação. Quatro peças das dez vão para mídia, cobrindo alcance, consideração e conversão.</p>
+
+    <div class="codeblock">Tráfego | Card 2 e 4<br>Tráfego | Reels 2 e 4</div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>Função de cada peça na mídia</caption>
+        <thead><tr><th>Peça</th><th>Etapa</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td>Reels 02 — Três erros no cocho</td><td class="who">Alcance</td><td>Visualização de vídeo, público frio regional</td></tr>
+          <tr><td>Card 02 — Cada criação tem o seu cocho</td><td class="who">Alcance</td><td>Salvamento e conversa no WhatsApp</td></tr>
+          <tr><td>Reels 04 — Como ler o rótulo</td><td class="who">Consideração</td><td>Conversa no WhatsApp, público que já assistiu</td></tr>
+          <tr><td>Card 04 — Onde encontrar</td><td class="who">Conversão</td><td>Conversa no WhatsApp, raio das revendas</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="fluxo">
+    <div class="pill">bloco 07</div>
+    <h2>Fluxo no Nexus</h2>
+    <p class="lede">Este planejamento é a subtarefa <span class="code">Planejamento</span> dos Jobs 2 e 3. O que vem antes e depois dela é fixo, e cada responsável dá check e move o Job para o setor seguinte.</p>
+
+    <div class="tablewrap">
+      <table>
+        <caption>Job 2 · CAPIFÓS | PLANEJAMENTO DE OUTUBRO — Cards</caption>
+        <thead><tr><th>Subtarefa</th><th>Responsável</th><th>Setor</th></tr></thead>
+        <tbody>
+          <tr><td>Direcionamento</td><td class="who">Gerente</td><td class="num">02</td></tr>
+          <tr><td>Planejamento</td><td class="who">Líder Editorial</td><td class="num">02</td></tr>
+          <tr><td>Criação</td><td class="who">Diretor de Arte</td><td class="num">04</td></tr>
+          <tr><td>Revisão</td><td class="who">Gestor de Produção</td><td class="num">06</td></tr>
+          <tr><td>Aprovação</td><td class="who">Executivo de Contas</td><td class="num">07</td></tr>
+          <tr><td>Postagem</td><td class="who">Líder Editorial</td><td class="num">08</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>Job 3 · CAPIFÓS | PLANEJAMENTO DE OUTUBRO — Reels</caption>
+        <thead><tr><th>Subtarefa</th><th>Responsável</th><th>Setor</th></tr></thead>
+        <tbody>
+          <tr><td>Direcionamento</td><td class="who">Gerente</td><td class="num">02</td></tr>
+          <tr><td>Planejamento</td><td class="who">Líder Editorial</td><td class="num">02</td></tr>
+          <tr><td>Agendamento</td><td class="who">Executivo de Contas</td><td class="num">03</td></tr>
+          <tr><td>Captação</td><td class="who">Videomaker</td><td class="num">05</td></tr>
+          <tr><td>Edição</td><td class="who">Videomaker</td><td class="num">05</td></tr>
+          <tr><td>Revisão</td><td class="who">Gestor de Produção</td><td class="num">06</td></tr>
+          <tr><td>Aprovação</td><td class="who">Executivo de Contas</td><td class="num">07</td></tr>
+          <tr><td>Postagem</td><td class="who">Líder Editorial</td><td class="num">08</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note amber">
+      <h4>A captação é o gargalo do mês</h4>
+      <p>Cinco dos seis Reels dependem de diária a campo. O agendamento do <b>Executivo de Contas</b> precisa estar fechado antes de a produção começar, e as diárias devem ser agrupadas: <b>Reels 01, 02 e 06</b> na mesma propriedade e no mesmo dia; <b>Reels 03</b> no sítio do produtor entrevistado; <b>Reels 04</b> na revenda; <b>Reels 05</b> em propriedade com aves e suínos.</p>
+    </div>
+
+    <div class="note">
+      <h4>Alteração e refação</h4>
+      <p>Pedido do cliente sobre material pronto entra como subtarefa no Job, registrada pelo <b>Executivo de Contas</b> com menção ao Gestor de Produção — nunca por WhatsApp. <span class="code">ALT</span> para ajuste simples, <span class="code">REF</span> para refazer a peça inteira. Prazo de devolução em ambos: <b>24 horas corridas</b>.</p>
+    </div>
+
+    <div class="note">
+      <h4>Aprovação do cliente</h4>
+      <p>O Executivo de Contas envia o material e o cliente tem <b>2 dias úteis</b>. Passado o prazo sem retorno, o planejamento é considerado aprovado — e o Executivo <b>avisa no grupo</b> que a produção vai seguir. A produção não continua calada.</p>
+    </div>
+  </section>
+
+  <section id="pendencias">
+    <div class="pill">bloco 08</div>
+    <h2>O que falta para produzir</h2>
+    <p class="lede">Tudo que está entre colchetes no documento depende de informação da Capifós. Nenhum dado técnico, nome de produto ou número foi preenchido por suposição — e nenhum deve ser.</p>
+
+    <div class="pend">
+      <div><span class="q">até 03/10</span><div class="t"><b>Ficha técnica da linha completa</b><span>Nomes comerciais, níveis de garantia e consumo por cabeça/dia. Trava o Card 02 e o Reels 04.</span></div></div>
+      <div><span class="q">até 06/10</span><div class="t"><b>Produtor para o depoimento</b><span>Indicação do cliente, contato e autorização de imagem. Trava toda a captação do Reels 03.</span></div></div>
+      <div><span class="q">até 06/10</span><div class="t"><b>Revenda parceira para gravar</b><span>Lojista autorizado a receber a equipe no balcão. Trava o Reels 04.</span></div></div>
+      <div><span class="q">até 15/10</span><div class="t"><b>Prazo de validade do mineral no cocho</b><span>Confirmação do responsável técnico para o item 05 do Card 03.</span></div></div>
+      <div><span class="q">até 20/10</span><div class="t"><b>Lista de revendas e telefone comercial</b><span>Cidades, nomes e autorização para citar publicamente. Trava o Card 04.</span></div></div>
+      <div><span class="q">até 26/10</span><div class="t"><b>Número de visitas técnicas do mês</b><span>Para o gancho do Reels 06. Se não houver contagem, a fala sai sem número.</span></div></div>
+    </div>
+
+    <div class="note alert">
+      <h4>Nenhum número entra sem fonte</h4>
+      <p>Autoridade se constrói com dado real. Níveis de garantia, consumo por cabeça, resultado de produtor e quantidade de visitas só vão para a arte ou para a legenda depois de confirmados pela Capifós. Peça que chega na data sem o dado confirmado é publicada <b>sem o número</b>, nunca com estimativa.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="chevrons" role="presentation"></div>
+    <p><b>Grupo FZA</b> \\ Planejamento Mensal — Capifós Nutrição Animal · outubro de 2026</p>
+    <p style="margin-top:6px">Documento gerado a partir do Manual da Operação. Vale o que está registrado no Nexus 2.0: prioridade que não está no sistema não existe.</p>
+  </footer>
+</div>
