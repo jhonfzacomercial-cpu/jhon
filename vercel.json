@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/ia.js": { "maxDuration": 300 },
+    "api/dados.js": { "maxDuration": 30 },
+    "api/status.js": { "maxDuration": 10 }
+  }
+}

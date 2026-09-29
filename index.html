@@ -1,0 +1,1210 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Cérebro Editorial FZA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sidebar de navegação fixa + área de trabalho; gaveta lateral para o conteúdo aberto. Identidade FZA: preto, dourado, roxo, Poppins. */
+:root{
+  color-scheme:dark;
+  --bg:#0A0A0A; --surface:#141316; --surface-2:#1C1B20; --surface-3:#25232B;
+  --fg:#F2F1F4; --muted:#9A97A6; --line:#2A2830; --line-2:#3A3742;
+  --gold:#FFBB46; --gold-2:#EAA935; --gold-ink:#1A1204; --gold-soft:rgba(255,187,70,.12);
+  --purple:#9D7BEA; --purple-soft:rgba(157,123,234,.14);
+  --teal:#4FD1C5; --teal-soft:rgba(79,209,197,.13);
+  --ok:#4ADE80; --warn:#FBBF24; --bad:#F87171;
+  --s-ideia:#7C7889; --s-plan:#60A5FA; --s-prod:#FBBF24; --s-rev:#F97316; --s-apr:#4ADE80; --s-ag:#9D7BEA; --s-pub:#22C55E;
+  --shadow:0 20px 60px rgba(0,0,0,.55);
+  --f-ui:"Poppins",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    color-scheme:light;
+    --bg:#F3F2F6; --surface:#FFFFFF; --surface-2:#F7F6FA; --surface-3:#ECEAF2;
+    --fg:#141218; --muted:#5F5B6D; --line:#E1DEE8; --line-2:#CFCBD9;
+    --gold:#B7780A; --gold-2:#9A6405; --gold-ink:#FFFFFF; --gold-soft:rgba(234,169,53,.16);
+    --purple:#7043CA; --purple-soft:rgba(112,67,202,.10);
+    --teal:#0F8A80; --teal-soft:rgba(15,138,128,.10);
+    --ok:#15803D; --warn:#B45309; --bad:#DC2626;
+    --s-ideia:#8A8698; --s-plan:#2563EB; --s-prod:#D97706; --s-rev:#EA580C; --s-apr:#16A34A; --s-ag:#7043CA; --s-pub:#15803D;
+    --shadow:0 20px 60px rgba(30,20,60,.18);
+  }
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#F3F2F6; --surface:#FFFFFF; --surface-2:#F7F6FA; --surface-3:#ECEAF2;
+  --fg:#141218; --muted:#5F5B6D; --line:#E1DEE8; --line-2:#CFCBD9;
+  --gold:#B7780A; --gold-2:#9A6405; --gold-ink:#FFFFFF; --gold-soft:rgba(234,169,53,.16);
+  --purple:#7043CA; --purple-soft:rgba(112,67,202,.10);
+  --teal:#0F8A80; --teal-soft:rgba(15,138,128,.10);
+  --ok:#15803D; --warn:#B45309; --bad:#DC2626;
+  --s-ideia:#8A8698; --s-plan:#2563EB; --s-prod:#D97706; --s-rev:#EA580C; --s-apr:#16A34A; --s-ag:#7043CA; --s-pub:#15803D;
+  --shadow:0 20px 60px rgba(30,20,60,.18);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;line-height:1.2;text-wrap:balance;font-weight:600}
+h1{font-size:24px;letter-spacing:-.01em}
+h2{font-size:17px}
+h3{font-size:14px}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.eyebrow{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* shell */
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100%}
+.side{position:sticky;top:0;height:100vh;align-self:start;border-right:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:20px;padding:22px 14px}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--gold);color:var(--gold-ink);display:grid;place-items:center;font-weight:700;font-size:13px;letter-spacing:.02em}
+.brand b{display:block;font-size:14px;font-weight:600;line-height:1.1}
+.brand span{font-size:11px;color:var(--muted)}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:8px;color:var(--muted);font-weight:500}
+.nav button:hover{background:var(--surface-2);color:var(--fg)}
+.nav button[aria-current="page"]{background:var(--gold-soft);color:var(--fg)}
+.nav button[aria-current="page"] .ico{color:var(--gold)}
+.nav .l{display:flex;align-items:center;gap:10px}
+.ico{width:18px;height:18px;flex:none}
+.nav .n{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.side-foot{margin-top:auto;display:flex;flex-direction:column;gap:6px;padding:0 8px;font-size:12px;color:var(--muted)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--muted);margin-right:6px;vertical-align:middle}
+.dot.on{background:var(--ok)} .dot.off{background:var(--warn)}
+main{min-width:0;padding-block:28px 60px;padding-inline:32px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.head .t{display:flex;flex-direction:column;gap:4px;min-width:0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.banner{border:1px solid var(--line-2);background:var(--surface-2);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--muted)}
+.banner.warn{border-color:color-mix(in srgb,var(--warn) 50%,transparent);color:var(--fg)}
+
+/* controls */
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:var(--surface-2);padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:500;font-size:13px;white-space:nowrap}
+.btn:hover{border-color:var(--muted)}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:var(--gold-ink);font-weight:600}
+.btn.pri:hover{background:var(--gold-2);border-color:var(--gold-2)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,transparent);background:transparent}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.lbl{font-size:12px;font-weight:500;color:var(--muted)}
+.field .hint{font-size:12px;color:var(--muted)}
+input[type=text],input[type=password],input[type=number],input[type=month],input[type=date],input[type=search],select,textarea{background:var(--surface-2);border:1px solid var(--line-2);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:72px;line-height:1.5}
+select{cursor:pointer}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.filters .field{width:auto;min-width:150px;flex:1 1 150px;max-width:220px}
+
+/* surfaces */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.panel-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.kpi{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.kpi .v{font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .k{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sw{width:9px;height:9px;border-radius:3px;display:inline-block;flex:none}
+
+/* chips */
+.fmt{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.fmt.card{background:var(--gold-soft);color:var(--gold)}
+.fmt.carrossel{background:var(--purple-soft);color:var(--purple)}
+.fmt.reel{background:var(--teal-soft);color:var(--teal)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;white-space:nowrap}
+.st::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--muted))}
+.tag{display:inline-flex;font-size:11px;padding:2px 8px;border-radius:99px;border:1px solid var(--line-2);color:var(--muted);white-space:nowrap}
+.tag.ex{border-color:color-mix(in srgb,var(--purple) 50%,transparent);color:var(--purple)}
+
+/* status bar */
+.sbar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--surface-3);gap:2px}
+.sbar i{display:block;height:100%}
+.slegend{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px 16px;margin-top:14px}
+.slegend div{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.slegend b{font-variant-numeric:tabular-nums;font-weight:600}
+.prog{height:6px;border-radius:3px;background:var(--surface-3);overflow:hidden;min-width:60px}
+.prog i{display:block;height:100%;background:var(--gold)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface-2);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.click{cursor:pointer}
+tr.click:hover td{background:var(--surface-2)}
+.tt{font-weight:500;max-width:420px}
+.empty{padding:36px 20px;text-align:center;color:var(--muted);display:flex;flex-direction:column;gap:10px;align-items:center}
+.empty b{color:var(--fg);font-weight:600;font-size:15px}
+
+/* clientes */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.ccard{all:unset;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.ccard:hover{border-color:var(--line-2)}
+.ccard:focus-visible{outline:2px solid var(--gold)}
+.ccard h3{font-size:16px}
+.ccard .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:8px}
+.avatar{width:40px;height:40px;border-radius:10px;background:var(--surface-3);display:grid;place-items:center;font-weight:600;color:var(--gold);flex:none}
+
+/* ficha */
+.ficha{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:start}
+.toc{position:sticky;top:20px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.toc a{color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:6px;display:flex;gap:8px}
+.toc a:hover{color:var(--fg);background:var(--surface-2)}
+.toc a .mono{font-size:11px;color:var(--gold);min-width:18px}
+.fsec{display:flex;flex-direction:column;gap:12px;padding:20px 0;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+.fsec:first-child{padding-top:0}
+.fsec .sh{display:flex;gap:12px;align-items:baseline}
+.fsec .sh .mono{color:var(--gold);font-size:12px}
+.fsec .desc{font-size:13px;color:var(--muted);max-width:62ch}
+.persona{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tons{display:flex;flex-wrap:wrap;gap:8px}
+.tons label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-2);border-radius:99px;padding:5px 12px;cursor:pointer;font-size:13px;user-select:none}
+.tons input{accent-color:var(--gold)}
+.tons label:has(input:checked){background:var(--gold-soft);border-color:var(--gold);color:var(--fg)}
+.savebar{position:sticky;bottom:0;display:flex;gap:10px;justify-content:flex-end;padding:14px 0 calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 35%);flex-wrap:wrap}
+.meter{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.meter .prog{width:90px}
+
+/* planejamento */
+.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.qty{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.qbox{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--surface-2)}
+.steps{display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.step{flex:1;padding:10px 14px;display:flex;gap:10px;align-items:center;font-size:12px;color:var(--muted);border-right:1px solid var(--line);min-width:0}
+.step:last-child{border-right:0}
+.step .n{width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;flex:none}
+.step.done .n{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
+.step.now{color:var(--fg);background:var(--gold-soft)}
+.step.now .n{border-color:var(--gold);color:var(--gold)}
+.analise{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px;margin-top:12px}
+.analise div{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-top:1px solid var(--line)}
+.analise dt{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.analise dd{margin:0;font-size:13px}
+details summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font-family:var(--f-mono);color:var(--muted)}
+details[open] summary::after{content:"–"}
+.sugs{display:flex;flex-direction:column;gap:10px}
+.sug{display:grid;grid-template-columns:28px 132px minmax(0,1fr) 190px auto;gap:12px;align-items:start;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface)}
+.sug.off{opacity:.55}
+.sug .chk{padding-top:6px}
+.sug .chk input{width:18px;height:18px;accent-color:var(--gold);cursor:pointer}
+.sug .body{display:flex;flex-direction:column;gap:6px;min-width:0}
+.sug .body input.tit{font-weight:500;background:transparent;border-color:transparent;padding:4px 6px;margin-left:-6px}
+.sug .body input.tit:hover,.sug .body input.tit:focus{border-color:var(--line-2);background:var(--surface-2)}
+.sug .sub{font-size:12px;color:var(--muted)}
+.sug .left{display:flex;flex-direction:column;gap:6px}
+.sug .acts{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.genbox{border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);background:var(--gold-soft);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.spin{width:14px;height:14px;border:2px solid var(--line-2);border-top-color:var(--gold);border-radius:50%;animation:sp 0.9s linear infinite;display:inline-block;vertical-align:middle;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}}
+
+/* calendário */
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--line);gap:1px}
+.cal .dow{background:var(--surface-2);padding:8px 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cal .day{background:var(--surface);min-height:118px;padding:8px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.cal .day.out{background:var(--bg)}
+.cal .day.wk{background:var(--surface-2)}
+.cal .day .d{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:4px}
+.cal .day.today .d b{color:var(--gold-ink);background:var(--gold);border-radius:5px;padding:0 5px}
+.cal .fer{font-size:10px;color:var(--purple);font-family:var(--f-ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:5px 7px;border-radius:7px;font-size:12px;border-left:3px solid var(--c);background:var(--surface-2);min-width:0}
+.ev:hover{background:var(--surface-3)}
+.ev:focus-visible{outline:2px solid var(--gold)}
+.ev .top{display:flex;justify-content:space-between;gap:6px;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--c)}
+.ev .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--fg)}
+.ev .cl{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev.card{--c:var(--gold)} .ev.carrossel{--c:var(--purple)} .ev.reel{--c:var(--teal)}
+
+/* gaveta */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--surface);border-left:1px solid var(--line);z-index:41;display:flex;flex-direction:column;box-shadow:var(--shadow);padding-top:env(safe-area-inset-top,0px)}
+.dr-h{padding:18px 20px 14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.dr-h .x{margin-left:auto}
+.dr-b>*{flex-shrink:0}
+.dr-b{overflow-y:auto;padding:18px 20px calc(40px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:18px}
+.meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line)}
+.tabs button{all:unset;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--gold)}
+.tabs button:focus-visible{outline:2px solid var(--gold)}
+.blk{display:flex;flex-direction:column;gap:6px}
+.blk .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.blk p,.blk li{white-space:pre-wrap;font-size:14px}
+.art{aspect-ratio:4/5;max-width:100%;width:340px;border-radius:14px;background:#0A0A0A;color:#F2F1F4;padding:26px 24px;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;position:relative;overflow:hidden;border:1px solid var(--line-2)}
+.art::before{content:"";position:absolute;inset:auto -30% 55% auto;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(112,67,202,.55),transparent 70%)}
+.art .cl{position:absolute;top:20px;left:24px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#FFBB46;font-weight:600}
+.art .hl{font-size:24px;font-weight:700;line-height:1.12;position:relative}
+.art .sb{font-size:13px;color:#C9C6D2;position:relative}
+.art .cta{align-self:flex-start;background:#FFBB46;color:#1A1204;font-weight:600;font-size:12px;padding:7px 14px;border-radius:99px;position:relative}
+.slides{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.slide{flex:0 0 250px;aspect-ratio:4/5;border-radius:12px;background:#0A0A0A;color:#F2F1F4;padding:18px;display:flex;flex-direction:column;gap:8px;scroll-snap-align:start;border:1px solid var(--line-2);overflow:auto}
+.slide .n{font-family:var(--f-mono);font-size:10px;color:#FFBB46;letter-spacing:.08em;text-transform:uppercase}
+.slide .t{font-weight:600;font-size:16px;line-height:1.2}
+.slide .x{font-size:12px;color:#C9C6D2;white-space:pre-wrap}
+.slide .v{margin-top:auto;font-size:11px;color:#9D7BEA;font-style:italic}
+.script{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.script>div{display:grid;grid-template-columns:96px minmax(0,1fr);border-bottom:1px solid var(--line)}
+.script>div:last-child{border-bottom:0}
+.script .k{padding:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--teal);background:var(--surface-2)}
+.script .v{padding:12px 14px;white-space:pre-wrap}
+.legenda{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:16px;white-space:pre-wrap;font-size:14px}
+.legenda .h1{font-weight:600}
+.legenda .ht{color:var(--purple)}
+.qgrp{display:flex;flex-direction:column;gap:4px}
+.qgrp h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.qi{display:flex;gap:10px;font-size:13px;align-items:flex-start}
+.qi .m{font-family:var(--f-mono);font-weight:600;width:16px;flex:none}
+.qi.ok .m{color:var(--ok)} .qi.no .m{color:var(--bad)}
+.flag{display:flex;gap:10px;font-size:13px;padding:8px 12px;border-radius:8px;background:var(--surface-2);border-left:3px solid var(--muted)}
+.flag.erro{border-color:var(--bad)} .flag.aviso{border-color:var(--warn)} .flag.info{border-color:var(--s-plan)}
+.score{font-size:34px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;z-index:60;max-width:calc(100% - 32px)}
+.confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+
+@media (max-width:1000px){
+  .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  .sug{grid-template-columns:28px minmax(0,1fr)}
+  .sug .left,.sug .obj,.sug .acts{grid-column:2}
+  .sug .left{flex-direction:row;flex-wrap:wrap;align-items:center}
+  .sug .acts{flex-direction:row;justify-content:flex-start}
+}
+@media (max-width:760px){
+  .app{grid-template-columns:minmax(0,1fr);align-content:start}
+  .side{position:sticky;top:env(safe-area-inset-top,0px);height:auto;flex-direction:row;align-items:center;padding:10px 16px;gap:12px;border-right:0;border-bottom:1px solid var(--line);z-index:20;overflow-x:auto}
+  .brand span,.side-foot,.nav .n,.nav .l span.lab{display:none}
+  .nav{flex-direction:row}
+  main{padding-inline:16px;padding-block:20px 60px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ficha{grid-template-columns:minmax(0,1fr)}
+  .toc{display:none}
+  .persona,.form-grid,.qty,.analise,.meta-grid{grid-template-columns:minmax(0,1fr)}
+  .steps{flex-direction:column}
+  .step{border-right:0;border-bottom:1px solid var(--line)}
+  .cal{grid-template-columns:minmax(0,1fr)}
+  .cal .dow,.cal .day.out,.cal .day.vazio{display:none}
+  .cal .day{min-height:0}
+  .filters .field{max-width:none}
+  .script>div{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+<div class="app">
+  <aside class="side" id="side"></aside>
+  <main id="main"><div class="wrap"><div class="empty"><span class="spin"></span>Carregando o Cérebro Editorial…</div></div></main>
+</div>
+<div id="drawer-root"></div>
+<div id="toast-root"></div>
+
+<script>
+/* ============================================================
+   CONFIGURAÇÃO
+   ============================================================ */
+const STATUS = ['Ideia','Em planejamento','Em produção','Em revisão','Aprovado','Agendado','Publicado'];
+const STATUS_COR = {'Ideia':'--s-ideia','Em planejamento':'--s-plan','Em produção':'--s-prod','Em revisão':'--s-rev','Aprovado':'--s-apr','Agendado':'--s-ag','Publicado':'--s-pub'};
+const FMT = {
+  card:{nome:'Card',plural:'Cards',cor:'--gold'},
+  carrossel:{nome:'Carrossel',plural:'Carrosséis',cor:'--purple'},
+  reel:{nome:'Reel',plural:'Reels',cor:'--teal'}
+};
+const FMT_ORD = ['card','carrossel','reel'];
+const OBJETIVOS = ['Atrair atenção','Gerar reconhecimento de marca','Educar','Gerar autoridade','Trabalhar uma dor','Trabalhar um desejo','Quebrar objeção','Apresentar produto','Apresentar serviço','Mostrar diferencial','Gerar interação','Gerar leads','Gerar mensagens no WhatsApp','Gerar visitas ao perfil','Gerar salvamentos','Gerar compartilhamentos','Conversão'];
+const TONS = ['Profissional','Técnico','Próximo','Sofisticado','Popular','Educativo','Autoridade','Descontraído'];
+const PERSONA = [['perfil','Perfil'],['necessidades','Necessidades'],['dores','Dores'],['desejos','Desejos'],['comportamentos','Comportamentos'],['motivacoes','Motivações'],['duvidas','Dúvidas'],['objecoes','Objeções']];
+const FICHA = [
+  {k:'nicho',t:'Nicho e Atuação',d:'Segmento de mercado e área específica de atuação da empresa.'},
+  {k:'resumo',t:'O que a empresa faz — Resumo',d:'Descrição clara e objetiva da empresa, seus produtos e/ou serviços.'},
+  {k:'tom',t:'Tom de Voz',d:'Como a empresa deve se comunicar. Marque os tons e descreva nuances.'},
+  {k:'publico',t:'Público-Alvo',d:'Descrição do público que a empresa deseja atingir.'},
+  {k:'persona',t:'Persona',d:'Descrição detalhada do cliente ideal.'},
+  {k:'produtos',t:'Produto / Serviço',d:'Produtos e serviços oferecidos pela empresa.'},
+  {k:'proibidas',t:'Palavras Proibidas',d:'Termos, expressões ou abordagens que nunca devem aparecer. Separe por vírgula. O sistema bloqueia automaticamente.'},
+  {k:'obrigatorias',t:'Palavras Obrigatórias',d:'Termos que devem ser usados quando fizer sentido estratégico. Separe por vírgula.'},
+  {k:'promessa',t:'A Grande Promessa',d:'Principal transformação, benefício ou resultado que a empresa promete entregar.'},
+  {k:'diferenciais',t:'Diferenciais',d:'O que diferencia essa empresa dos concorrentes.'},
+  {k:'objecoes',t:'Objeções Mais Comuns',d:'Principais motivos que fazem o potencial cliente não comprar ou não entrar em contato.'}
+];
+const QUAL = [
+  ['estrategia','Estratégia',['O conteúdo possui objetivo claro','Está relacionado ao tema do mês','Está relacionado ao negócio do cliente','Está adequado à persona']],
+  ['marca','Marca',['Respeita o tom de voz','Utiliza os diferenciais corretos','Respeita palavras proibidas','Utiliza palavras obrigatórias quando apropriado']],
+  ['copy','Copy',['O título gera interesse','Existe promessa ou benefício claro','O conteúdo é específico','Evita clichês','Evita frases genéricas de marketing','A CTA está coerente']],
+  ['seo','SEO',['Existe palavra-chave principal','A palavra-chave aparece naturalmente','Existem termos relacionados','A legenda responde à intenção do usuário']],
+  ['repeticao','Repetição',['Assunto ainda não trabalhado','Headline ainda não utilizada','Abordagem diferente de conteúdos anteriores']]
+];
+// Feriados nacionais de data fixa (evitados na distribuição automática de datas)
+const FERIADOS = {'01-01':'Confraternização','04-21':'Tiradentes','05-01':'Dia do Trabalho','09-07':'Independência','10-12':'N. Sra. Aparecida','11-02':'Finados','11-15':'Proclamação da República','11-20':'Consciência Negra','12-25':'Natal'};
+const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DOW = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+
+/* ============================================================
+   ESTADO
+   ============================================================ */
+const S = {
+  clientes:new Map(), planos:new Map(), conteudos:new Map(),
+  carregado:{clientes:false,planos:false,conteudos:false},
+  modo:'carregando', erroDb:null, iaOk:null, iaMotivo:'',
+  gen:null, sugerindo:new Set(), regerando:new Set(),
+  ui:{view:'painel', clienteId:null, planoId:null, drawer:null, aba:'material', confirm:null,
+      fPainel:{cliente:'',mes:hojeMes()},
+      fCal:{mes:hojeMes(),cliente:'',formato:'',status:''},
+      fBanco:{cliente:'',mes:'',formato:'',status:'',q:''}}
+};
+let sample = null;
+
+/* ============================================================
+   UTILITÁRIOS
+   ============================================================ */
+function h(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function uid(p){return (p||'')+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function agora(){return new Date().toISOString()}
+function pad(n){return String(n).padStart(2,'0')}
+function hojeISO(){const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function hojeMes(){return hojeISO().slice(0,7)}
+function mesNome(m){if(!m)return '';const [y,mm]=m.split('-');return MESES[+mm-1]+' '+y}
+function dataCurta(d){if(!d)return '—';const [y,m,dd]=d.split('-');const w=new Date(+y,+m-1,+dd).getDay();return dd+'/'+m+' · '+DOW[w].toLowerCase()}
+function mesAdd(m,n){const [y,mm]=m.split('-').map(Number);const d=new Date(y,mm-1+n,1);return d.getFullYear()+'-'+pad(d.getMonth()+1)}
+function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+function lista(s){return String(s||'').split(/[,;\n]/).map(x=>x.trim()).filter(Boolean)}
+function iniciais(n){return String(n||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()}
+function numLabel(c){return (FMT[c.formato]?.nome||c.formato)+' '+pad(c.numero||0)}
+function corStatus(s){return 'var('+(STATUS_COR[s]||'--muted')+')'}
+function stChip(s){return `<span class="st" style="--c:${corStatus(s)}">${h(s)}</span>`}
+function fmtChip(f){return `<span class="fmt ${h(f)}">${h(FMT[f]?.nome||f)}</span>`}
+const STOP = new Set('a o e de da do das dos em no na nos nas um uma para por com sem que se sua seu suas seus voce sua ao aos as os ou mais como e é nao não isso esse essa este esta pra pro ja já tem ter ser sao são'.split(' '));
+function tokens(s){return new Set(norm(s).replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!STOP.has(w)))}
+function jaccard(a,b){const A=tokens(a),B=tokens(b);if(!A.size||!B.size)return 0;let i=0;A.forEach(x=>{if(B.has(x))i++});return i/(A.size+B.size-i)}
+function completude(c){if(!c)return 0;let n=0;FICHA.forEach(f=>{if(f.k==='tom'){if((c.tom||[]).length||c.tomNotas)n++}else if(f.k==='persona'){if(Object.values(c.persona||{}).some(v=>String(v).trim()))n++}else if(String(c[f.k]||'').trim())n++});return Math.round(n/FICHA.length*100)}
+function conteudosDe(fn){return [...S.conteudos.values()].filter(fn)}
+function ordenarData(a,b){return (a.data||'9').localeCompare(b.data||'9')||(a.ordem||0)-(b.ordem||0)}
+function headlineDe(c){const g=c.gerado;if(!g)return c.titulo||'';if(c.formato==='card')return g.headline||c.titulo;if(c.formato==='carrossel')return g.laminas?.[0]?.titulo||c.titulo;return g.gancho||c.titulo}
+function ctaDe(c){const g=c.gerado;if(!g)return c.ctaPrevista||'';return c.formato==='card'?(g.ctaVisual||g.legenda?.cta):c.formato==='reel'?g.cta:(g.laminas?.[g.laminas.length-1]?.titulo||g.legenda?.cta)}
+
+/* ============================================================
+   PERSISTÊNCIA (db compartilhado; modo local se indisponível)
+   ============================================================ */
+const filas = new Map();
+function enfileirar(chave,fn){const ant=filas.get(chave)||Promise.resolve();const p=ant.catch(()=>{}).then(fn);filas.set(chave,p);return p}
+async function gravar(coll,id,doc){
+  const d={...doc}; delete d.id;
+  S[coll].set(id,{id,...d}); agendar(); return enviar([{op:'set',coll,id,doc:d}],coll+'/'+id);
+}
+async function alterar(coll,id,patch){const cur=S[coll].get(id);if(!cur)return;return gravar(coll,id,{...cur,...patch,atualizadoEm:agora()})}
+async function apagar(coll,id){S[coll].delete(id);agendar();return enviar([{op:'del',coll,id}],coll+'/'+id)}
+
+/* ============================================================
+   IA — contexto, prompts, validação
+   ============================================================ */
+function fichaTexto(c){
+  const p=c.persona||{};
+  return `CLIENTE: ${c.nome}
+1. NICHO E ATUAÇÃO: ${c.nicho||'—'}
+2. O QUE A EMPRESA FAZ: ${c.resumo||'—'}
+3. TOM DE VOZ: ${(c.tom||[]).join(', ')||'—'}${c.tomNotas?' — '+c.tomNotas:''}
+4. PÚBLICO-ALVO: ${c.publico||'—'}
+5. PERSONA:
+${PERSONA.map(([k,l])=>`   - ${l}: ${p[k]||'—'}`).join('\n')}
+6. PRODUTOS / SERVIÇOS: ${c.produtos||'—'}
+7. PALAVRAS PROIBIDAS (nunca usar, nem variações ou sinônimos diretos): ${c.proibidas||'nenhuma'}
+8. PALAVRAS OBRIGATÓRIAS (usar quando fizer sentido estratégico): ${c.obrigatorias||'nenhuma'}
+9. A GRANDE PROMESSA: ${c.promessa||'—'}
+10. DIFERENCIAIS: ${c.diferenciais||'—'}
+11. OBJEÇÕES MAIS COMUNS: ${c.objecoes||'—'}`;
+}
+function historicoTexto(clienteId,excluir=new Set(),max=70){
+  const itens=conteudosDe(c=>c.clienteId===clienteId&&!excluir.has(c.id)&&(c.gerado||c.titulo)).sort((a,b)=>(b.data||'').localeCompare(a.data||'')).slice(0,max);
+  if(!itens.length) return 'Nenhum conteúdo anterior registrado para este cliente.';
+  return itens.map(c=>{const g=c.gerado||{};const vis=c.formato==='card'?g.sugestaoVisual:c.formato==='reel'?g.visual:g.laminas?.[0]?.visual;
+    return `- [${numLabel(c)} · ${c.mes}] Assunto: ${c.titulo||''} | Headline: ${headlineDe(c)} | Objetivo: ${c.objetivo||''} | Ângulo: ${c.angulo||''} | Palavra-chave: ${c.palavraChave||''} | CTA: ${ctaDe(c)||''}${vis?' | Visual: '+String(vis).slice(0,90):''}`}).join('\n');
+}
+const REGRAS_BASE = `REGRAS INEGOCIÁVEIS
+- A FICHA DO CLIENTE é a base de conhecimento obrigatória. Se algo entrar em conflito com a ficha, a ficha prevalece.
+- Nada de conteúdo genérico: cada peça precisa citar o contexto real do cliente (nicho, persona, produto, diferencial, objeção).
+- Palavras proibidas nunca aparecem, nem em hashtags.
+- Não repita assuntos, headlines, argumentos, CTAs, abordagens nem ideias visuais do HISTÓRICO nem dos outros conteúdos do mês.
+- Português do Brasil, natural, específico, sem clichês ("no mundo de hoje", "você sabia", "não perca", "venha conferir", "qualidade e excelência") e sem frases genéricas de marketing.`;
+function promptSugestoes(pl,cl,extra){
+  const q=pl.qtd; const total=q.card+q.carrossel+q.reel;
+  return `Você é o estrategista editorial sênior do Grupo FZA, agência de marketing. Monte o planejamento editorial mensal deste cliente.
+
+${fichaTexto(cl)}
+
+PLANEJAMENTO
+- Mês: ${mesNome(pl.mes)}
+- Tema(s) principal(is): ${pl.temas}
+- Quantidade EXATA: ${q.card} Card(s), ${q.carrossel} Carrossel(éis), ${q.reel} Reel(s) — total ${total}.
+${pl.instrucoes?'- Orientações da equipe: '+pl.instrucoes:''}
+
+HISTÓRICO DE CONTEÚDOS DO CLIENTE (evite repetir):
+${historicoTexto(cl.id)}
+${extra||''}
+
+ANTES DE PLANEJAR, responda internamente às 10 perguntas: quem é a empresa, quem é o público, qual a persona, qual problema resolvemos, qual desejo exploramos, qual produto/serviço se relaciona, qual diferencial reforçar, quais objeções trabalhar, qual o objetivo de cada conteúdo, qual formato transmite melhor cada mensagem.
+
+${REGRAS_BASE}
+- Os ${total} conteúdos formam um conjunto estratégico ao longo do mês (atração → educação → autoridade → objeções → conversão), não uma lista de posts soltos.
+- Escolha o formato de cada ideia pelo que ela precisa: Card para uma mensagem única e direta; Carrossel para passo a passo, lista, comparação, mitos; Reel para gancho forte, bastidores, demonstração, fala direta.
+- Objetivo de cada conteúdo: escolha exatamente um desta lista: ${OBJETIVOS.join('; ')}.
+- Ordene a lista na sequência de publicação ideal.
+
+Responda SOMENTE com JSON válido neste formato:
+{"analise":{"empresa":"...","publico":"...","persona":"...","problema":"...","desejo":"...","produto":"...","diferencial":"...","objecoes":"...","linhaNarrativa":"como os conteúdos se conectam ao longo do mês"},
+ "conteudos":[{"formato":"card|carrossel|reel","tema":"subtema dentro do tema do mês","objetivo":"um da lista","titulo":"ideia/título de trabalho específico","angulo":"abordagem (ex.: erro comum, comparação, bastidores)","palavraChave":"palavra-chave principal de busca","ctaPrevista":"CTA pensada","porque":"por que essa peça existe no plano (1 frase)"}]}
+A lista "conteudos" deve ter exatamente ${total} itens: ${q.card} com formato "card", ${q.carrossel} com "carrossel" e ${q.reel} com "reel".`;
+}
+function promptUmaSugestao(item,pl,cl){
+  const irmaos=conteudosDe(c=>c.planoId===pl.id&&c.id!==item.id).map(c=>`- ${numLabel(c)}: ${c.titulo} (${c.objetivo}; ângulo: ${c.angulo})`).join('\n');
+  return `Você é o estrategista editorial do Grupo FZA. Crie UMA nova ideia de ${FMT[item.formato].nome} para o planejamento de ${mesNome(pl.mes)} deste cliente, substituindo a ideia "${item.titulo}".
+
+${fichaTexto(cl)}
+
+TEMA DO MÊS: ${pl.temas}
+
+OUTRAS PEÇAS DESTE MÊS (não repetir assunto, ângulo nem CTA):
+${irmaos||'—'}
+
+HISTÓRICO (não repetir):
+${historicoTexto(cl.id,new Set([item.id]),50)}
+
+${REGRAS_BASE}
+Objetivo: um desta lista: ${OBJETIVOS.join('; ')}.
+
+Responda SOMENTE com JSON: {"tema":"...","objetivo":"...","titulo":"...","angulo":"...","palavraChave":"...","ctaPrevista":"...","porque":"..."}`;
+}
+const LEGENDA_SPEC = `LEGENDA (obrigatória), em 5 partes:
+1. "h1": PRIMEIRA LINHA — H1 humano + SEO: contém a palavra-chave principal, responde direto ao que a pessoa procura, gera interesse, soa natural.
+2. "valor": PARÁGRAFO DE VALOR — explica o assunto de forma objetiva e aprofunda (não repete) o que está na peça. Nada institucional ou genérico.
+3. "variacoes": parágrafo curto usando naturalmente sinônimos, variações da palavra-chave e termos do nicho (sem keyword stuffing).
+4. "cta": CTA FINAL coerente com o objetivo.
+5. "hashtags": 5 a 10 hashtags estratégicas ligadas ao assunto, nicho e intenção de busca (nada genérico como #love #instagood).`;
+const QUAL_SPEC = `REVISÃO DE QUALIDADE (faça ANTES de responder e corrija o que falhar):
+ESTRATÉGIA: objetivo claro? ligado ao tema do mês? ligado ao negócio? adequado à persona?
+MARCA: respeita o tom de voz? usa os diferenciais corretos? respeita palavras proibidas? usa palavras obrigatórias quando apropriado?
+COPY: título gera interesse? promessa/benefício claro? é específico? evita clichês? evita frases genéricas de marketing? CTA coerente?
+SEO: tem palavra-chave principal? aparece naturalmente? há termos relacionados? a legenda responde à intenção do usuário?
+REPETIÇÃO: assunto novo? headline nova? abordagem diferente do histórico?
+Reporte o resultado final (depois das correções) em "qualidade" com arrays de true/false na ordem das perguntas, "nota" de 0 a 10 e "correcoes" (o que você ajustou na revisão).`;
+function specFormato(f){
+  if(f==='card') return `FORMATO: CARD ÚNICO
+- "headline": título impactante com foco na dor, desejo, benefício, problema ou oportunidade da persona (curto, cabe na arte).
+- "subheadline": explicação curta da solução, benefício ou diferencial.
+- "ctaVisual": chamada curta na arte (ex.: Saiba mais, Chame no WhatsApp, Solicite seu orçamento, Salve este conteúdo, Link na bio).
+- "sugestaoVisual": conceito de imagem/foto/ilustração que complementa o card (apenas descrever, não gerar imagem).
+JSON: {"headline":"","subheadline":"","ctaVisual":"","sugestaoVisual":"","palavraChave":"","termosRelacionados":[""],"legenda":{"h1":"","valor":"","variacoes":"","cta":"","hashtags":["#..."]},"qualidade":{"estrategia":[true,true,true,true],"marca":[true,true,true,true],"copy":[true,true,true,true,true,true],"seo":[true,true,true,true],"repeticao":[true,true,true],"nota":9,"correcoes":""}}`;
+  if(f==='carrossel') return `FORMATO: CARROSSEL
+Defina tema, objetivo, quantidade de lâminas (variável conforme a complexidade; não limite a 5) e estrutura narrativa.
+Estrutura: Lâmina 1 CAPA (título principal + complemento + sugestão visual; gera curiosidade para deslizar) → Lâmina 2 CONTEXTUALIZAÇÃO/PROBLEMA → lâminas intermediárias de DESENVOLVIMENTO (passo a passo, lista, comparação, erros, estratégias, exemplos, dados, mitos e verdades, problema x solução, antes x depois — escolha o que o tema pede) → PENÚLTIMA: VALOR/CONCLUSÃO (liga ao diferencial do cliente quando fizer sentido) → ÚLTIMA: CTA coerente com o objetivo.
+A legenda complementa as lâminas, sem repeti-las.
+JSON: {"numLaminas":7,"estruturaNarrativa":"ex.: lista de erros","laminas":[{"n":1,"papel":"Capa","titulo":"","texto":"complemento/corpo da lâmina","visual":"sugestão visual"}],"palavraChave":"","termosRelacionados":[""],"legenda":{"h1":"","valor":"","variacoes":"","cta":"","hashtags":["#..."]},"qualidade":{...mesmo formato: estrategia[4], marca[4], copy[6], seo[4], repeticao[3], nota, correcoes}}`;
+  return `FORMATO: REEL (roteiro completo)
+- "gancho": texto EXATO falado nos primeiros segundos (pergunta, afirmação forte, erro comum, dor, desejo, curiosidade, quebra de expectativa, dado ou problema). "tipoGancho": qual desses.
+- "corpo": roteiro completo da fala (valor/tensão), objetivo, que mantém a atenção.
+- "cta": texto EXATO da chamada para ação.
+- "visual": orientações de gravação e edição: cena, enquadramento, ação, B-roll, elementos visuais.
+- "textoNaTela": lista de textos que aparecem no vídeo.
+- "audio": sugestão de áudio/trilha quando fizer sentido.
+- "duracao": duração estimada (ex.: "35–45 s").
+JSON: {"duracao":"","gancho":"","tipoGancho":"","corpo":"","cta":"","visual":"","textoNaTela":[""],"audio":"","palavraChave":"","termosRelacionados":[""],"legenda":{"h1":"","valor":"","variacoes":"","cta":"","hashtags":["#..."]},"qualidade":{...mesmo formato: estrategia[4], marca[4], copy[6], seo[4], repeticao[3], nota, correcoes}}`;
+}
+function promptConteudo(it,pl,cl,ajuste){
+  const irmaos=conteudosDe(c=>c.planoId===it.planoId&&c.id!==it.id).sort(ordenarData).map(c=>`- ${numLabel(c)} (${c.objetivo}): ${headlineDe(c)} | CTA: ${ctaDe(c)||c.ctaPrevista||''}`).join('\n');
+  return `Você é o estrategista editorial e redator sênior do Grupo FZA. Produza o conteúdo COMPLETO abaixo para ${cl.nome}.
+
+${fichaTexto(cl)}
+
+CONTEXTO DO PLANEJAMENTO
+- Mês: ${mesNome(pl?.mes||it.mes)} | Tema do mês: ${pl?.temas||it.tema}
+- Peça: ${numLabel(it)} | Data: ${it.data||'—'}
+- Subtema: ${it.tema||''}
+- Objetivo: ${it.objetivo}  (escolha a abordagem de acordo com esse objetivo)
+- Ideia aprovada: ${it.titulo}
+- Ângulo: ${it.angulo||'livre'}
+- Palavra-chave principal sugerida: ${it.palavraChave||'defina a mais adequada'}
+- CTA pensada: ${it.ctaPrevista||'defina a mais coerente'}
+${ajuste?'- AJUSTE PEDIDO PELA EQUIPE (prioridade): '+ajuste:''}
+
+OUTRAS PEÇAS DO MESMO MÊS (não repetir headline, argumento nem CTA):
+${irmaos||'—'}
+
+HISTÓRICO DO CLIENTE (não repetir):
+${historicoTexto(cl.id,new Set([it.id]),60)}
+
+${REGRAS_BASE}
+
+${specFormato(it.formato)}
+
+${LEGENDA_SPEC}
+
+${QUAL_SPEC}
+
+Responda SOMENTE com o JSON.`;
+}
+function arr(v){return Array.isArray(v)?v.map(x=>String(x??'')).filter(Boolean):(v?[String(v)]:[])}
+function normalizar(g,f){
+  g=g&&typeof g==='object'?g:{};
+  const L=g.legenda||{};
+  const out={legenda:{h1:String(L.h1||''),valor:String(L.valor||''),variacoes:String(L.variacoes||''),cta:String(L.cta||''),hashtags:arr(L.hashtags).map(t=>t.startsWith('#')?t:'#'+t.replace(/\s+/g,''))},
+    palavraChave:String(g.palavraChave||''),termosRelacionados:arr(g.termosRelacionados)};
+  if(f==='card'){Object.assign(out,{headline:String(g.headline||''),subheadline:String(g.subheadline||''),ctaVisual:String(g.ctaVisual||''),sugestaoVisual:String(g.sugestaoVisual||'')})}
+  else if(f==='carrossel'){const lam=(Array.isArray(g.laminas)?g.laminas:[]).map((l,i)=>({n:i+1,papel:String(l?.papel||''),titulo:String(l?.titulo||''),texto:String(l?.texto||''),visual:String(l?.visual||'')}));Object.assign(out,{laminas:lam,numLaminas:lam.length,estruturaNarrativa:String(g.estruturaNarrativa||'')})}
+  else {Object.assign(out,{duracao:String(g.duracao||''),gancho:String(g.gancho||''),tipoGancho:String(g.tipoGancho||''),corpo:String(g.corpo||''),cta:String(g.cta||''),visual:String(g.visual||''),textoNaTela:arr(g.textoNaTela),audio:String(g.audio||'')})}
+  const q=g.qualidade||{};const qo={};QUAL.forEach(([k,,itens])=>{const a=Array.isArray(q[k])?q[k]:[];qo[k]=itens.map((_,i)=>a[i]!==false)});
+  qo.nota=Math.max(0,Math.min(10,Number(q.nota)||0));qo.correcoes=String(q.correcoes||'');
+  return {gerado:out,qualidade:qo};
+}
+function textoTotal(g){return JSON.stringify(g)}
+function termosProibidosEncontrados(g,cl){
+  const txt=' '+norm(textoTotal(g)).replace(/[^a-z0-9#%]+/g,' ')+' ';
+  return lista(cl.proibidas).filter(t=>{const n=norm(t).replace(/[^a-z0-9#%]+/g,' ').trim();return n&&txt.includes(' '+n+' ')});
+}
+function validar(it,g,cl){
+  const flags=[];const L=g.legenda||{};
+  const proib=termosProibidosEncontrados(g,cl);
+  if(proib.length) flags.push({tipo:'erro',codigo:'proibida',msg:'Palavras proibidas encontradas: '+proib.join(', ')+'.'});
+  const falt=['h1','valor','variacoes','cta'].filter(k=>!String(L[k]||'').trim());
+  if(falt.length) flags.push({tipo:'erro',msg:'Legenda incompleta: faltando '+falt.map(k=>({h1:'primeira linha',valor:'parágrafo de valor',variacoes:'termos secundários',cta:'CTA'}[k])).join(', ')+'.'});
+  if((L.hashtags||[]).length<3) flags.push({tipo:'aviso',msg:'Poucas hashtags na legenda.'});
+  if((L.hashtags||[]).length>15) flags.push({tipo:'aviso',msg:'Hashtags demais na legenda (mais de 15).'});
+  const kw=g.palavraChave||it.palavraChave;
+  if(!kw) flags.push({tipo:'aviso',msg:'Sem palavra-chave principal definida.'});
+  else { const kt=[...tokens(kw)];const h1=tokens(L.h1);const hit=kt.filter(t=>h1.has(t)).length; if(kt.length&&hit/kt.length<0.6) flags.push({tipo:'aviso',msg:`A palavra-chave "${kw}" não aparece com clareza na primeira linha da legenda.`}); }
+  const obr=lista(cl.obrigatorias); if(obr.length){const txt=norm(textoTotal(g));const us=obr.filter(o=>txt.includes(norm(o)));if(!us.length)flags.push({tipo:'info',msg:'Nenhuma palavra obrigatória foi usada nesta peça. Verifique se faria sentido.'});}
+  if(it.formato==='carrossel'&&(g.laminas||[]).length<4) flags.push({tipo:'aviso',msg:'Carrossel com menos de 4 lâminas.'});
+  const head=it.formato==='card'?g.headline:it.formato==='carrossel'?g.laminas?.[0]?.titulo:g.gancho;
+  let pior=null;
+  conteudosDe(c=>c.clienteId===it.clienteId&&c.id!==it.id&&c.gerado).forEach(c=>{const s=jaccard(head,headlineDe(c));if(s>=0.5&&(!pior||s>pior.s))pior={s,c}});
+  if(pior) flags.push({tipo:'aviso',codigo:'repeticao',msg:`Headline parecida com ${numLabel(pior.c)} de ${mesNome(pior.c.mes)}: "${headlineDe(pior.c)}".`});
+  const cta=norm(it.formato==='card'?g.ctaVisual:it.formato==='reel'?g.cta:L.cta).trim();
+  if(cta){const igual=conteudosDe(c=>c.planoId===it.planoId&&c.id!==it.id&&c.gerado).find(c=>norm(ctaDe(c)).trim()===cta);if(igual)flags.push({tipo:'aviso',msg:`CTA idêntica à do ${numLabel(igual)} deste mês.`});}
+  return flags;
+}
+function erroIA(e){
+  const c=e?.code;if(c==='upstream_error'&&e?.mensagem)return 'Falha na IA: '+e.mensagem;
+  const m={not_granted:'O uso da IA não foi autorizado nesta visualização. Recarregue a página e permita o acesso quando o Claude pedir.',sampling_disabled:'A IA não está disponível para esta conta.',not_declared:'Esta versão do sistema não tem a IA habilitada.',rate_limited:'A OpenAI limitou o ritmo de uso. Aguarde um minuto e tente de novo.',session_expired:'Sua sessão expirou. Entre novamente no Claude e recarregue.',invalid_json:'A IA respondeu fora do formato esperado. Tente de novo.',refused:'A IA recusou este pedido. Ajuste o tema ou as orientações e tente de novo.',prompt_too_large:'A ficha ou o histórico ficaram grandes demais para uma chamada. Resuma os campos mais longos da ficha.',empty_completion:'A IA não devolveu conteúdo. Tente de novo.',cancelled:'Geração interrompida.',chave_invalida:'A OpenAI recusou a chave configurada no servidor. Confira a variável OPENAI_API_KEY no Vercel.',sem_credito:'Sua conta da OpenAI está sem créditos de API. Adicione créditos em platform.openai.com → Billing. A assinatura do ChatGPT não cobre o uso pela API.',modelo_invalido:'O modelo configurado não está disponível na conta da OpenAI. Ajuste a variável OPENAI_MODEL no Vercel.',network:'Sem conexão com o servidor. Verifique a internet e tente de novo.',sem_chave:'A chave da OpenAI ainda não foi configurada no servidor (variável OPENAI_API_KEY no Vercel).',senha_invalida:'Sua sessão expirou. Entre de novo com a senha da equipe.'};
+  return m[c]||'Falha de conexão com a IA. Tente de novo em instantes.';
+}
+function erroFatal(e){return ['chave_invalida','sem_credito','modelo_invalido','sem_chave','not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed','session_expired','rate_limited'].includes(e?.code)}
+function marcarIA(e){if(['chave_invalida','sem_credito','modelo_invalido','not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].includes(e?.code)){S.iaOk=false;S.iaMotivo=erroIA(e)}}
+
+/* ============================================================
+   AÇÕES DE IA
+   ============================================================ */
+function diasUteis(mes){
+  const [y,m]=mes.split('-').map(Number);const n=new Date(y,m,0).getDate();const out=[];
+  for(let d=1;d<=n;d++){const w=new Date(y,m-1,d).getDay();const k=pad(m)+'-'+pad(d);if(w>0&&w<6&&!FERIADOS[k])out.push(mes+'-'+pad(d))}
+  return out;
+}
+function distribuirDatas(mes,n){const dias=diasUteis(mes);if(!n)return [];if(n===1)return [dias[0]];return Array.from({length:n},(_,i)=>dias[Math.round(i*(dias.length-1)/(n-1))])}
+
+async function gerarSugestoes(planoId){
+  const pl=S.planos.get(planoId);const cl=S.clientes.get(pl?.clienteId);
+  if(!pl||!cl) return;
+  if(!sample){toast('A IA não está disponível nesta visualização.');return}
+  S.sugerindo.add(planoId);await alterar('planos',planoId,{estado:'sugerindo',erro:''});
+  try{
+    const r=await sample.json(promptSugestoes(pl,cl),{cache:false});
+    let itens=Array.isArray(r?.conteudos)?r.conteudos:[];
+    // garante as quantidades exatas pedidas
+    const quer=pl.qtd;const usados={card:0,carrossel:0,reel:0};const escolhidos=[];
+    itens.forEach(x=>{if(!x||typeof x!=='object')return;const nf=norm(x.formato);const f=nf.includes('carro')?'carrossel':nf.includes('reel')?'reel':'card';
+      if(usados[f]<quer[f]){usados[f]++;escolhidos.push({...x,formato:f})}}); // mantém a ordem de publicação sugerida
+    const faltam=FMT_ORD.reduce((s,f)=>s+Math.max(0,quer[f]-usados[f]),0);
+    // apaga sugestões antigas não geradas deste plano
+    for(const c of conteudosDe(c=>c.planoId===planoId&&!c.gerado)) await apagar('conteudos',c.id);
+    const jaGerados=conteudosDe(c=>c.planoId===planoId);
+    const datas=distribuirDatas(pl.mes,escolhidos.length);
+    const cont={card:0,carrossel:0,reel:0};jaGerados.forEach(c=>{cont[c.formato]=Math.max(cont[c.formato],c.numero||0)});
+    let i=0;
+    for(const x of escolhidos){
+      cont[x.formato]++;
+      const id=uid('ct-');
+      await gravar('conteudos',id,{clienteId:cl.id,planoId,mes:pl.mes,formato:x.formato,numero:cont[x.formato],ordem:i,
+        tema:String(x.tema||pl.temas),objetivo:OBJETIVOS.includes(x.objetivo)?x.objetivo:(OBJETIVOS.find(o=>norm(o)===norm(x.objetivo))||'Educar'),
+        titulo:String(x.titulo||''),angulo:String(x.angulo||''),palavraChave:String(x.palavraChave||''),ctaPrevista:String(x.ctaPrevista||''),porque:String(x.porque||''),
+        data:datas[i]||'',status:'Ideia',responsavel:'',observacoes:'',aprovado:true,gerado:null,qualidade:null,flags:[],criadoEm:agora(),atualizadoEm:agora()});
+      i++;
+    }
+    await alterar('planos',planoId,{estado:'revisao',analise:r?.analise||{},erro:faltam?`A IA devolveu ${faltam} ideia(s) a menos que o pedido. Use "Gerar sugestões de novo" ou ajuste as quantidades.`:''});
+    S.iaOk=true;
+  }catch(e){marcarIA(e);await alterar('planos',planoId,{estado:'erro',erro:erroIA(e)})}
+  finally{S.sugerindo.delete(planoId);agendar()}
+}
+async function novaSugestao(id){
+  const it=S.conteudos.get(id);const pl=S.planos.get(it.planoId);const cl=S.clientes.get(it.clienteId);
+  if(!sample)return toast('A IA não está disponível nesta visualização.');
+  S.regerando.add(id);agendar();
+  try{const x=await sample.json(promptUmaSugestao(it,pl,cl),{cache:false});
+    await alterar('conteudos',id,{tema:String(x.tema||it.tema),objetivo:OBJETIVOS.includes(x.objetivo)?x.objetivo:it.objetivo,titulo:String(x.titulo||it.titulo),angulo:String(x.angulo||''),palavraChave:String(x.palavraChave||''),ctaPrevista:String(x.ctaPrevista||''),porque:String(x.porque||'')});
+    toast('Nova sugestão criada.');
+  }catch(e){marcarIA(e);toast(erroIA(e))}
+  finally{S.regerando.delete(id);agendar()}
+}
+async function gerarConteudo(id,ajuste){
+  const it=S.conteudos.get(id);const pl=S.planos.get(it.planoId);const cl=S.clientes.get(it.clienteId);
+  const base=promptConteudo(it,pl,cl,ajuste);
+  let {gerado,qualidade}=normalizar(await sample.json(base,{cache:false}),it.formato);
+  let flags=validar(it,gerado,cl);
+  const pro=flags.find(f=>f.codigo==='proibida');
+  if(pro){
+    const r2=normalizar(await sample.json(base+`\n\nATENÇÃO: sua versão anterior usou termos PROIBIDOS pela ficha (${termosProibidosEncontrados(gerado,cl).join(', ')}). Reescreva o JSON completo sem esses termos nem variações, mantendo a qualidade.\nVERSÃO ANTERIOR:\n${JSON.stringify(gerado)}`,{cache:false}),it.formato);
+    gerado=r2.gerado;qualidade=r2.qualidade;flags=validar(it,gerado,cl);
+    flags.unshift({tipo:'info',msg:'Correção automática aplicada: a primeira versão tinha palavras proibidas e foi reescrita.'});
+  }
+  const cur=S.conteudos.get(id)||it;
+  await gravar('conteudos',id,{...cur,gerado,qualidade,flags,palavraChave:gerado.palavraChave||cur.palavraChave,status:cur.status==='Ideia'?'Em planejamento':cur.status,geradoEm:agora(),atualizadoEm:agora()});
+}
+async function gerarAprovados(planoId,soIds){
+  if(!sample)return toast('A IA não está disponível nesta visualização.');
+  if(S.gen)return toast('Já existe uma geração em andamento.');
+  const itens=(soIds?soIds.map(i=>S.conteudos.get(i)).filter(Boolean):conteudosDe(c=>c.planoId===planoId&&c.aprovado&&!c.gerado)).sort(ordenarData);
+  if(!itens.length)return toast('Nenhuma sugestão aprovada pendente de geração.');
+  S.gen={planoId,total:itens.length,feitos:0,erros:[],atuais:new Set(),parar:false};agendar();
+  let i=0;
+  const worker=async()=>{while(i<itens.length&&!S.gen.parar){const it=itens[i++];S.gen.atuais.add(it.id);agendar();
+    try{await gerarConteudo(it.id);S.iaOk=true}catch(e){marcarIA(e);S.gen.erros.push({id:it.id,msg:erroIA(e)});if(erroFatal(e))S.gen.parar=true}
+    S.gen.atuais.delete(it.id);S.gen.feitos++;agendar()}};
+  await Promise.all([worker(),worker()]);
+  const g=S.gen;S.gen=null;
+  const pend=conteudosDe(c=>c.planoId===planoId&&c.aprovado&&!c.gerado).length;
+  if(!pend) await alterar('planos',planoId,{estado:'gerado'});
+  toast(g.erros.length?`${g.feitos-g.erros.length} conteúdo(s) gerado(s), ${g.erros.length} com falha.`:`${g.feitos} conteúdo(s) gerado(s) e enviados ao calendário.`);
+  if(g.erros.length) S.ultimosErros={planoId,erros:g.erros};
+  agendar();
+}
+async function regerarUm(id,ajuste){
+  if(!sample)return toast('A IA não está disponível nesta visualização.');
+  S.regerando.add(id);agendar();
+  try{await gerarConteudo(id,ajuste);toast('Conteúdo regerado.')}catch(e){marcarIA(e);toast(erroIA(e))}
+  finally{S.regerando.delete(id);agendar()}
+}
+
+/* ============================================================
+   TEXTOS PRONTOS PARA COPIAR
+   ============================================================ */
+function legendaTexto(L){if(!L)return '';return [L.h1,L.valor,L.variacoes,L.cta,(L.hashtags||[]).join(' ')].filter(x=>String(x||'').trim()).join('\n\n')}
+function materialTexto(c){
+  const g=c.gerado;if(!g)return '';const cl=S.clientes.get(c.clienteId);
+  const cab=`${(cl?.nome||'').toUpperCase()}\n${numLabel(c).toUpperCase()} — ${dataCurta(c.data)}\nTEMA: ${c.tema}\nOBJETIVO: ${c.objetivo}\n`;
+  let corpo='';
+  if(c.formato==='card') corpo=`FORMATO DE CARD ÚNICO\n\nTEXTO DA ARTE\nHeadline: ${g.headline}\nSubheadline: ${g.subheadline}\nCTA Visual: ${g.ctaVisual}\n\nSUGESTÃO VISUAL\n${g.sugestaoVisual}`;
+  else if(c.formato==='carrossel') corpo=`CARROSSEL — ${g.laminas.length} LÂMINAS\nEstrutura: ${g.estruturaNarrativa}\n\n`+g.laminas.map(l=>`LÂMINA ${l.n} — ${l.papel.toUpperCase()}\nTítulo: ${l.titulo}\nTexto: ${l.texto}\nVisual: ${l.visual}`).join('\n\n');
+  else corpo=`DURAÇÃO ESTIMADA: ${g.duracao}\n\nGANCHO (${g.tipoGancho})\n${g.gancho}\n\nCORPO\n${g.corpo}\n\nCTA\n${g.cta}\n\nVISUAL\n${g.visual}\n\nTEXTO NA TELA\n${g.textoNaTela.map(t=>'• '+t).join('\n')}${g.audio?'\n\nÁUDIO\n'+g.audio:''}`;
+  return cab+'\n'+corpo+'\n\nLEGENDA\n'+legendaTexto(g.legenda);
+}
+async function copiar(txt){try{await navigator.clipboard.writeText(txt);toast('Copiado.')}catch{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copiado.')}catch{toast('Selecione e copie manualmente.')}ta.remove()}}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+let pend=false, pendForce=false;
+function agendar(force){pendForce=pendForce||!!force;if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;const f=pendForce;pendForce=false;render(f)})}
+function editando(root){const a=document.activeElement;return a&&root.contains(a)&&a.matches('input[type=text],input[type=search],input[type=number],textarea')}
+const VIEWS_FORM = new Set(['ficha','novoPlano','config']);
+function render(force){
+  renderSide();
+  const main=document.getElementById('main');
+  if(force||(!VIEWS_FORM.has(S.ui.view)&&!editando(main))){
+    const a=document.activeElement;const aid=a&&a.id;const sel=aid&&a.selectionStart!=null?[a.selectionStart,a.selectionEnd]:null;
+    main.innerHTML='<div class="wrap">'+viewHtml()+'</div>';
+    if(aid){const n=document.getElementById(aid);if(n){n.focus();if(sel&&n.setSelectionRange)try{n.setSelectionRange(sel[0],sel[1])}catch{}}}
+  } else if(!VIEWS_FORM.has(S.ui.view)) S.adiado=true;
+  renderDrawer(force);
+}
+function viewHtml(){
+  const v=S.ui.view;if(S.login)return vLogin();if(!S.pronto)return `<div class="panel empty"><span class="spin"></span>Conectando ao servidor…</div>`+bannerHtml();
+  return (bannerHtml()+({painel:vPainel,clientes:vClientes,ficha:vFicha,planejamento:vPlanos,novoPlano:vNovoPlano,plano:vPlano,calendario:vCalendario,banco:vBanco,config:vConfig}[v]||vPainel)());
+}
+function bannerHtml(){
+  let b='';
+  if(S.erroConexao) b+=`<div class="banner warn row" style="justify-content:space-between"><span>${h(S.erroConexao)}</span><button class="btn sm" data-act="reconectar">Tentar de novo</button></div>`;
+  if(S.iaOk===false&&S.ui.view!=='config') b+=`<div class="banner warn row" style="justify-content:space-between"><span>${h(S.iaMotivo)}</span><button class="btn sm" data-act="nav" data-v="config">Ver configurações</button></div>`;
+  return b;
+}
+const ICONS={
+  painel:'<path d="M3 13h8V3H3zM13 21h8V11h-8zM3 21h8v-6H3zM13 3v6h8V3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>',
+  clientes:'<circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.4 3.4 0 010 6.5M18 14.8c1.8.7 3 2.4 3.5 5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
+  planejamento:'<path d="M4 5h16M4 12h10M4 19h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17 15l2 2 3-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>',
+  calendario:'<rect x="3" y="4.5" width="18" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
+  config:'<circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
+  banco:'<ellipse cx="12" cy="5.5" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" fill="none" stroke="currentColor" stroke-width="1.7"/>'
+};
+function renderSide(){
+  const v=S.ui.view;const at=k=>(k===v||(k==='clientes'&&v==='ficha')||(k==='planejamento'&&(v==='novoPlano'||v==='plano')))?'aria-current="page"':'';
+  const item=(k,l,n)=>`<button data-act="nav" data-v="${k}" ${at(k)}><span class="l"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg><span class="lab">${l}</span></span>${n!=null?`<span class="n">${n}</span>`:''}</button>`;
+  document.getElementById('side').innerHTML=`
+    <div class="brand"><div class="mark">FZA</div><div><b>Cérebro Editorial</b><span>Grupo FZA</span></div></div>
+    <nav class="nav" aria-label="Seções">
+      ${item('painel','Painel geral')}
+      ${item('clientes','Clientes',S.clientes.size)}
+      ${item('planejamento','Planejamento',S.planos.size)}
+      ${item('calendario','Calendário')}
+      ${item('banco','Banco de conteúdos',S.conteudos.size)}
+      ${item('config','Configurações')}
+    </nav>
+    <div class="side-foot" ${S.login||!S.pronto?'hidden':''}>
+      <div><span class="dot ${S.erroConexao?'off':'on'}"></span>${S.erroConexao?'Sem conexão com o servidor':'Dados compartilhados com a equipe'}</div>
+      <div><span class="dot ${S.iaOk===false||!sample?'off':'on'}"></span>${!sample?'ChatGPT: não configurado':S.iaOk===false?'ChatGPT com problema':'ChatGPT · '+h(S.status?.modelo||'')}</div>
+    </div>`;
+}
+function optClientes(sel,vazio){return `<option value="">${vazio||'Todos os clientes'}</option>`+[...S.clientes.values()].sort((a,b)=>a.nome.localeCompare(b.nome)).map(c=>`<option value="${h(c.id)}" ${c.id===sel?'selected':''}>${h(c.nome)}</option>`).join('')}
+function optLista(arr,sel,vazio){return (vazio!=null?`<option value="">${vazio}</option>`:'')+arr.map(x=>`<option value="${h(x)}" ${x===sel?'selected':''}>${h(x)}</option>`).join('')}
+function optFmt(sel){return `<option value="">Todos os formatos</option>`+FMT_ORD.map(f=>`<option value="${f}" ${f===sel?'selected':''}>${FMT[f].plural}</option>`).join('')}
+function carregando(){return false}
+
+/* ---------- PAINEL ---------- */
+function vPainel(){
+  const f=S.ui.fPainel;
+  const itens=conteudosDe(c=>c.aprovado!==false&&(!f.cliente||c.clienteId===f.cliente)&&(!f.mes||c.mes===f.mes));
+  const porF=Object.fromEntries(FMT_ORD.map(k=>[k,itens.filter(c=>c.formato===k).length]));
+  const porS=Object.fromEntries(STATUS.map(s=>[s,itens.filter(c=>c.status===s).length]));
+  const tot=itens.length;
+  const cl=f.cliente?S.clientes.get(f.cliente):null;
+  const bar=tot?STATUS.filter(s=>porS[s]).map(s=>`<i style="width:${porS[s]/tot*100}%;background:${corStatus(s)}" title="${h(s)}: ${porS[s]}"></i>`).join(''):'';
+  // por cliente
+  const linhas=[...S.clientes.values()].map(c=>{const its=itens.filter(x=>x.clienteId===c.id);const ok=its.filter(x=>['Aprovado','Agendado','Publicado'].includes(x.status)).length;return {c,its,ok,rev:its.filter(x=>x.status==='Em revisão').length,prod:its.filter(x=>x.status==='Em produção').length}}).filter(r=>r.its.length||!f.cliente).filter(r=>!f.cliente||r.c.id===f.cliente).sort((a,b)=>b.its.length-a.its.length);
+  const hoje=hojeISO();
+  const prox=conteudosDe(c=>c.aprovado!==false&&c.data>=hoje&&c.status!=='Publicado'&&(!f.cliente||c.clienteId===f.cliente)).sort(ordenarData).slice(0,8);
+  return `
+  <div class="head"><div class="t"><span class="eyebrow">Visão geral do mês</span><h1>${cl?h(cl.nome)+' · ':''}${f.mes?mesNome(f.mes):'Todos os meses'}</h1></div>
+    <div class="filters">
+      <div class="field"><label for="fp-cliente">Cliente</label><select id="fp-cliente" data-f="fPainel.cliente">${optClientes(f.cliente)}</select></div>
+      <div class="field"><label for="fp-mes">Mês</label><input type="month" id="fp-mes" data-f="fPainel.mes" value="${h(f.mes)}"></div>
+    </div></div>
+  ${carregando()?`<div class="panel empty"><span class="spin"></span>Carregando dados…</div>`:!S.clientes.size?`<div class="panel empty"><b>Comece cadastrando o primeiro cliente</b><span>A Ficha do Cliente é a base de conhecimento que a IA usa para planejar e escrever tudo.</span><div class="row" style="justify-content:center"><button class="btn pri" data-act="novoCliente">Cadastrar cliente</button><button class="btn" data-act="carregarExemplo">Carregar cliente de exemplo</button></div></div>`:`
+  <div class="kpis">
+    <div class="kpi"><span class="k">Total de conteúdos</span><span class="v">${tot}</span></div>
+    ${FMT_ORD.map(k=>`<div class="kpi"><span class="k"><span class="sw" style="background:var(${FMT[k].cor})"></span>${FMT[k].plural}</span><span class="v">${porF[k]}</span></div>`).join('')}
+    <div class="kpi"><span class="k"><span class="sw" style="background:var(--s-pub)"></span>Publicados</span><span class="v">${porS['Publicado']}<span class="muted" style="font-size:14px;font-weight:500"> ${tot?Math.round(porS['Publicado']/tot*100):0}%</span></span></div>
+  </div>
+  <div class="panel">
+    <div class="panel-h"><h2>Status de produção</h2><span class="muted mono" style="font-size:12px">${tot} conteúdos</span></div>
+    ${tot?`<div class="sbar" role="img" aria-label="Distribuição por status">${bar}</div>`:`<p class="muted">Nenhum conteúdo neste filtro. Crie um planejamento para ${f.mes?mesNome(f.mes):'o mês'}.</p>`}
+    <div class="slegend">${STATUS.map(s=>`<div><span class="st" style="--c:${corStatus(s)}">${s}</span><b>${porS[s]}</b></div>`).join('')}</div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><div class="panel-h"><h2>Por cliente</h2><button class="btn sm ghost" data-act="nav" data-v="clientes">Ver clientes</button></div>
+      ${linhas.length?`<div class="tbl-wrap" style="border:0"><table><thead><tr><th>Cliente</th><th>Conteúdos</th><th>Em produção</th><th>Em revisão</th><th>Aprovados+</th></tr></thead><tbody>
+      ${linhas.map(r=>`<tr class="click" data-act="filtrarCliente" data-id="${h(r.c.id)}"><td class="tt">${h(r.c.nome)}</td><td class="mono">${r.its.length}</td><td class="mono">${r.prod}</td><td class="mono">${r.rev}</td><td><div class="row" style="flex-wrap:nowrap"><div class="prog" style="flex:1"><i style="width:${r.its.length?r.ok/r.its.length*100:0}%"></i></div><span class="mono muted" style="font-size:12px">${r.ok}/${r.its.length}</span></div></td></tr>`).join('')}
+      </tbody></table></div>`:`<p class="muted">Sem conteúdos neste filtro.</p>`}
+    </div>
+    <div class="panel"><div class="panel-h"><h2>Próximas publicações</h2><button class="btn sm ghost" data-act="nav" data-v="calendario">Calendário</button></div>
+      ${prox.length?`<div style="display:flex;flex-direction:column;gap:8px">${prox.map(c=>`<button class="ev ${c.formato}" data-act="abrir" data-id="${h(c.id)}"><span class="top"><span>${h(numLabel(c))} · ${h(dataCurta(c.data))}</span><span style="color:${corStatus(c.status)}">${h(c.status)}</span></span><span class="nm">${h(headlineDe(c))}</span><span class="cl">${h(S.clientes.get(c.clienteId)?.nome||'')}</span></button>`).join('')}</div>`:`<p class="muted">Nada agendado daqui para frente.</p>`}
+    </div>
+  </div>`}`;
+}
+
+/* ---------- CLIENTES ---------- */
+function vClientes(){
+  const cs=[...S.clientes.values()].sort((a,b)=>a.nome.localeCompare(b.nome));
+  return `<div class="head"><div class="t"><span class="eyebrow">Etapas 1 e 2</span><h1>Clientes</h1><p class="muted">Cada cliente tem a própria Ficha, a memória permanente que a IA consulta em toda geração.</p></div><button class="btn pri" data-act="novoCliente">Novo cliente</button></div>
+  ${carregando()?`<div class="panel empty"><span class="spin"></span>Carregando…</div>`:cs.length?`<div class="cgrid">${cs.map(c=>{const n=conteudosDe(x=>x.clienteId===c.id).length;const pc=completude(c);return `<button class="ccard" data-act="abrirCliente" data-id="${h(c.id)}">
+    <div class="row" style="flex-wrap:nowrap"><div class="avatar">${h(iniciais(c.nome))}</div><div style="min-width:0"><h3>${h(c.nome)}</h3><p class="muted" style="font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${h(c.nicho||'Ficha a preencher')}</p></div></div>
+    ${c.exemplo?'<span class="tag ex" style="align-self:flex-start">Cliente fictício de teste</span>':''}
+    <div class="meter"><div class="prog"><i style="width:${pc}%"></i></div>Ficha ${pc}% completa</div>
+    <div class="meta"><span>${n} conteúdo${n===1?'':'s'}</span><span>Atualizada ${c.atualizadoEm?dataCurta(c.atualizadoEm.slice(0,10)):'—'}</span></div></button>`}).join('')}</div>`:`<div class="panel empty"><b>Nenhum cliente cadastrado</b><span>Cadastre o primeiro cliente e preencha a ficha estratégica.</span><button class="btn pri" data-act="novoCliente">Cadastrar cliente</button></div>`}`;
+}
+function vFicha(){
+  const id=S.ui.clienteId;const c=id?S.clientes.get(id):null;const novo=!c;const x=c||{tom:[],persona:{}};
+  const campo=(f,i)=>{
+    let inner='';
+    if(f.k==='tom') inner=`<div class="tons">${TONS.map(t=>`<label><input type="checkbox" name="tom" value="${t}" ${(x.tom||[]).includes(t)?'checked':''}>${t}</label>`).join('')}</div>
+      <div class="field"><label for="fc-tomNotas">Nuances do tom</label><textarea id="fc-tomNotas" name="tomNotas" rows="2" placeholder="Ex.: seguro e direto, sem alarmismo; explica o técnico em linguagem de gestor.">${h(x.tomNotas)}</textarea></div>`;
+    else if(f.k==='persona') inner=`<div class="persona">${PERSONA.map(([k,l])=>`<div class="field"><label for="fc-p-${k}">${l}</label><textarea id="fc-p-${k}" name="p_${k}" rows="3">${h(x.persona?.[k])}</textarea></div>`).join('')}</div>`;
+    else inner=`<textarea id="fc-${f.k}" name="${f.k}" rows="${['proibidas','obrigatorias','nicho'].includes(f.k)?2:4}" aria-label="${h(f.t)}">${h(x[f.k])}</textarea>`;
+    return `<section class="fsec" id="sec-${f.k}"><div class="sh"><span class="mono">${pad(i+1)}</span><div style="display:flex;flex-direction:column;gap:4px"><h2>${f.t}</h2><p class="desc">${f.d}</p></div></div>${inner}</section>`;
+  };
+  const planos=c?[...S.planos.values()].filter(p=>p.clienteId===c.id).sort((a,b)=>b.mes.localeCompare(a.mes)):[];
+  return `<div class="head"><div class="t"><button class="btn sm ghost" data-act="nav" data-v="clientes" style="align-self:flex-start">← Clientes</button><span class="eyebrow">Ficha do Cliente</span><h1>${novo?'Novo cliente':h(c.nome)}</h1>${c?.exemplo?'<span class="tag ex" style="align-self:flex-start">Cliente fictício de teste</span>':''}</div>
+    ${c?`<div class="row"><div class="meter"><div class="prog"><i style="width:${completude(c)}%"></i></div>${completude(c)}% completa</div><button class="btn" data-act="novoPlano" data-id="${h(c.id)}">Novo planejamento</button></div>`:''}</div>
+  <form id="ficha-form" class="ficha" autocomplete="off">
+    <nav class="toc" aria-label="Campos da ficha"><a href="#sec-nome"><span class="mono">··</span>Nome</a>${FICHA.map((f,i)=>`<a href="#sec-${f.k}"><span class="mono">${pad(i+1)}</span>${f.t.split(' —')[0]}</a>`).join('')}</nav>
+    <div>
+      <section class="fsec" id="sec-nome"><div class="field"><label for="fc-nome">Nome da empresa / cliente</label><input type="text" id="fc-nome" name="nome" required value="${h(x.nome)}" placeholder="Ex.: Empresa X"></div></section>
+      ${FICHA.map(campo).join('')}
+      ${planos.length?`<section class="fsec"><h2>Planejamentos deste cliente</h2><div class="row">${planos.map(p=>`<button type="button" class="btn sm" data-act="abrirPlano" data-id="${h(p.id)}">${mesNome(p.mes)}</button>`).join('')}</div></section>`:''}
+      <div class="savebar">
+        ${c?(S.ui.confirm==='cli-'+c.id?`<div class="confirm"><span>Excluir o cliente e todos os ${conteudosDe(x=>x.clienteId===c.id).length} conteúdos dele?</span><button type="button" class="btn danger sm" data-act="excluirCliente" data-id="${h(c.id)}">Excluir de vez</button><button type="button" class="btn sm" data-act="cancelarConfirm">Cancelar</button></div>`:`<button type="button" class="btn danger" data-act="pedirConfirm" data-k="cli-${h(c.id)}">Excluir cliente</button>`):''}
+        <span style="flex:1"></span>
+        <button type="button" class="btn ghost" data-act="nav" data-v="clientes">Cancelar</button>
+        <button type="submit" class="btn pri">${novo?'Cadastrar cliente':'Salvar ficha'}</button>
+      </div>
+    </div>
+  </form>`;
+}
+async function salvarFicha(form){
+  const fd=new FormData(form);const id=S.ui.clienteId||uid('cl-');const cur=S.clientes.get(id)||{criadoEm:agora()};
+  const nome=String(fd.get('nome')||'').trim();if(!nome){toast('Informe o nome do cliente.');return}
+  const doc={...cur,nome,tom:fd.getAll('tom').map(String),tomNotas:String(fd.get('tomNotas')||''),persona:Object.fromEntries(PERSONA.map(([k])=>[k,String(fd.get('p_'+k)||'')])),atualizadoEm:agora()};
+  FICHA.forEach(f=>{if(!['tom','persona'].includes(f.k))doc[f.k]=String(fd.get(f.k)||'')});
+  try{await gravar('clientes',id,doc);S.ui.clienteId=id;toast(S.ui.clienteId&&cur.nome?'Ficha salva. As próximas gerações já usam a versão atualizada.':'Cliente cadastrado.');agendar(true)}catch{}
+}
+
+/* ---------- PLANEJAMENTO ---------- */
+function progressoPlano(p){const its=conteudosDe(c=>c.planoId===p.id&&c.aprovado!==false);return {its,ger:its.filter(c=>c.gerado).length,pub:its.filter(c=>['Aprovado','Agendado','Publicado'].includes(c.status)).length}}
+function estadoPlano(p){if(S.sugerindo.has(p.id)||p.estado==='sugerindo')return ['Gerando sugestões','--s-plan'];if(p.estado==='erro')return ['Falha na IA','--bad'];const {its,ger}=progressoPlano(p);if(!its.length)return ['Sem sugestões','--s-ideia'];if(ger<its.length)return ['Revisão das sugestões','--s-rev'];return ['Conteúdos gerados','--s-apr']}
+function vPlanos(){
+  const ps=[...S.planos.values()].sort((a,b)=>b.mes.localeCompare(a.mes)||(S.clientes.get(a.clienteId)?.nome||'').localeCompare(S.clientes.get(b.clienteId)?.nome||''));
+  return `<div class="head"><div class="t"><span class="eyebrow">Etapas 3 a 7</span><h1>Planejamento mensal</h1><p class="muted">Defina tema e quantidades, revise as sugestões da IA e gere os conteúdos completos.</p></div><button class="btn pri" data-act="novoPlano" ${S.clientes.size?'':'disabled'}>Novo planejamento</button></div>
+  ${carregando()?`<div class="panel empty"><span class="spin"></span>Carregando…</div>`:ps.length?`<div class="tbl-wrap"><table><thead><tr><th>Mês</th><th>Cliente</th><th>Tema</th><th>Cards</th><th>Carrosséis</th><th>Reels</th><th>Gerados</th><th>Situação</th></tr></thead><tbody>
+  ${ps.map(p=>{const pr=progressoPlano(p);const [e,cor]=estadoPlano(p);return `<tr class="click" data-act="abrirPlano" data-id="${h(p.id)}"><td class="mono" style="white-space:nowrap">${h(mesNome(p.mes))}</td><td class="tt">${h(S.clientes.get(p.clienteId)?.nome||'Cliente removido')}</td><td class="muted" style="max-width:320px">${h(p.temas)}</td><td class="mono">${p.qtd?.card??0}</td><td class="mono">${p.qtd?.carrossel??0}</td><td class="mono">${p.qtd?.reel??0}</td><td><div class="row" style="flex-wrap:nowrap"><div class="prog" style="width:70px"><i style="width:${pr.its.length?pr.ger/pr.its.length*100:0}%"></i></div><span class="mono muted" style="font-size:12px">${pr.ger}/${pr.its.length}</span></div></td><td><span class="st" style="--c:var(${cor})">${e}</span></td></tr>`}).join('')}
+  </tbody></table></div>`:`<div class="panel empty"><b>Nenhum planejamento criado</b><span>${S.clientes.size?'Escolha um cliente, o mês, o tema e as quantidades de Cards, Carrosséis e Reels.':'Cadastre um cliente antes de planejar.'}</span>${S.clientes.size?'<button class="btn pri" data-act="novoPlano">Novo planejamento</button>':'<button class="btn pri" data-act="novoCliente">Cadastrar cliente</button>'}</div>`}`;
+}
+function vNovoPlano(){
+  const cid=S.ui.clienteId&&S.clientes.has(S.ui.clienteId)?S.ui.clienteId:'';
+  const c=cid?S.clientes.get(cid):null;
+  return `<div class="head"><div class="t"><button class="btn sm ghost" data-act="nav" data-v="planejamento" style="align-self:flex-start">← Planejamentos</button><span class="eyebrow">Etapas 3 e 4</span><h1>Novo planejamento mensal</h1></div></div>
+  ${stepsHtml(1)}
+  <form id="plano-form" class="panel" style="display:flex;flex-direction:column;gap:18px" autocomplete="off">
+    <div class="form-grid">
+      <div class="field"><label for="np-cliente">Cliente</label><select id="np-cliente" name="clienteId" required>${optClientes(cid,'Escolha o cliente')}</select></div>
+      <div class="field"><label for="np-mes">Mês</label><input type="month" id="np-mes" name="mes" required value="${h(mesAdd(hojeMes(),1))}"></div>
+      <div class="field"><span class="lbl">Ficha do cliente</span><div id="np-ficha" class="meter" style="min-height:38px">${c?`<div class="prog"><i style="width:${completude(c)}%"></i></div>${completude(c)}% completa`:'Escolha um cliente'}</div></div>
+    </div>
+    <div class="field"><label for="np-temas">Tema ou temas principais</label><textarea id="np-temas" name="temas" rows="3" required placeholder="Ex.: Como escolher corretamente um sistema de segurança para sua empresa"></textarea></div>
+    <div><span class="lbl">Quantidade de conteúdos</span>
+      <div class="qty" style="margin-top:8px">${FMT_ORD.map(f=>`<div class="qbox"><label for="np-q-${f}" class="row" style="justify-content:space-between">${fmtChip(f)}</label><input type="number" id="np-q-${f}" name="q_${f}" min="0" max="30" value="${{card:6,carrossel:2,reel:4}[f]}"></div>`).join('')}</div>
+    </div>
+    <div class="field"><label for="np-instr">Orientações extras para a IA (opcional)</label><textarea id="np-instr" name="instrucoes" rows="2" placeholder="Ex.: lançamento do plano anual no dia 15; priorizar leads pelo WhatsApp na segunda quinzena."></textarea></div>
+    <div class="row" style="justify-content:flex-end"><button type="button" class="btn ghost" data-act="nav" data-v="planejamento">Cancelar</button><button type="submit" class="btn pri">Gerar sugestões com IA</button></div>
+  </form>`;
+}
+function stepsHtml(n){const et=['Dados do mês','Sugestões da IA','Revisar e aprovar','Conteúdos completos','Calendário e produção'];return `<div class="steps">${et.map((t,i)=>`<div class="step ${i+1<n?'done':i+1===n?'now':''}"><span class="n">${i+1<n?'✓':i+1}</span><span>${t}</span></div>`).join('')}</div>`}
+async function criarPlano(form){
+  const fd=new FormData(form);const clienteId=String(fd.get('clienteId')||'');const mes=String(fd.get('mes')||'');const temas=String(fd.get('temas')||'').trim();
+  const qtd=Object.fromEntries(FMT_ORD.map(f=>[f,Math.max(0,Math.min(30,parseInt(fd.get('q_'+f))||0))]));
+  if(!clienteId||!mes||!temas)return toast('Preencha cliente, mês e tema.');
+  if(!(qtd.card+qtd.carrossel+qtd.reel))return toast('Defina ao menos um conteúdo.');
+  const cl=S.clientes.get(clienteId);if(completude(cl)<50)toast('A ficha deste cliente está incompleta. A IA vai gerar com menos contexto.');
+  const id=uid('pl-');
+  await gravar('planos',id,{clienteId,mes,temas,qtd,instrucoes:String(fd.get('instrucoes')||''),estado:'sugerindo',analise:null,erro:'',criadoEm:agora(),atualizadoEm:agora()});
+  S.ui.view='plano';S.ui.planoId=id;agendar(true);
+  gerarSugestoes(id);
+}
+function vPlano(){
+  const p=S.planos.get(S.ui.planoId);if(!p)return `<div class="panel empty"><b>Planejamento não encontrado</b><button class="btn" data-act="nav" data-v="planejamento">Voltar</button></div>`;
+  const cl=S.clientes.get(p.clienteId);
+  const its=conteudosDe(c=>c.planoId===p.id).sort(ordenarData);
+  const apr=its.filter(c=>c.aprovado);const pend=apr.filter(c=>!c.gerado);const ger=its.filter(c=>c.gerado);
+  const sug=S.sugerindo.has(p.id)||p.estado==='sugerindo';
+  const passo=sug?2:!its.length?2:pend.length?3:5;
+  const g=S.gen&&S.gen.planoId===p.id?S.gen:null;
+  const A=p.analise||{};
+  const analise=[['empresa','Quem é a empresa'],['publico','Quem é o público'],['persona','Persona'],['problema','Problema que resolvemos'],['desejo','Desejo explorado'],['produto','Produto / serviço relacionado'],['diferencial','Diferencial a reforçar'],['objecoes','Objeções trabalhadas'],['linhaNarrativa','Linha narrativa do mês']].filter(([k])=>A[k]);
+  const errs=S.ultimosErros?.planoId===p.id?S.ultimosErros.erros:[];
+  return `<div class="head"><div class="t"><button class="btn sm ghost" data-act="nav" data-v="planejamento" style="align-self:flex-start">← Planejamentos</button><span class="eyebrow">${h(cl?.nome||'')} · ${h(mesNome(p.mes))}</span><h1>${h(p.temas)}</h1>
+    <div class="row">${FMT_ORD.map(f=>`<span class="fmt ${f}">${p.qtd?.[f]||0} ${FMT[f].plural}</span>`).join('')}<span class="muted mono" style="font-size:12px">Total ${(p.qtd?.card||0)+(p.qtd?.carrossel||0)+(p.qtd?.reel||0)}</span></div></div>
+    <div class="row">${cl?`<button class="btn sm" data-act="abrirCliente" data-id="${h(cl.id)}">Ficha do cliente</button>`:''}<button class="btn sm" data-act="calPlano" data-id="${h(p.id)}">Ver no calendário</button>${S.ui.confirm==='pl-'+p.id?`<button class="btn sm danger" data-act="excluirPlano" data-id="${h(p.id)}">Confirmar exclusão (${its.length} conteúdos)</button><button class="btn sm" data-act="cancelarConfirm">Cancelar</button>`:`<button class="btn sm ghost" data-act="pedirConfirm" data-k="pl-${h(p.id)}">Excluir</button>`}</div></div>
+  ${stepsHtml(passo)}
+  ${sug?`<div class="genbox"><div class="row"><span class="spin"></span><b>A IA está analisando a ficha e o histórico de ${h(cl?.nome||'')} e montando o plano.</b></div><span class="muted" style="font-size:13px">Costuma levar de 30 segundos a 2 minutos. A IA usada é o ChatGPT (${h(S.status?.modelo||'')}).</span></div>`:''}
+  ${p.estado==='erro'||p.erro?`<div class="banner warn row" style="justify-content:space-between"><span>${h(p.erro)}</span><button class="btn sm" data-act="resugerir" data-id="${h(p.id)}">Gerar sugestões de novo</button></div>`:''}
+  ${analise.length?`<details class="panel" ${its.every(c=>!c.gerado)?'open':''}><summary><h2>Análise estratégica da IA</h2></summary><dl class="analise">${analise.map(([k,l])=>`<div><dt>${l}</dt><dd>${h(A[k])}</dd></div>`).join('')}</dl></details>`:''}
+  ${g?`<div class="genbox"><div class="row" style="justify-content:space-between"><div class="row"><span class="spin"></span><b>Gerando conteúdos completos: ${g.feitos} de ${g.total}</b></div><button class="btn sm" data-act="pararGen">Parar depois dos atuais</button></div><div class="prog"><i style="width:${g.feitos/g.total*100}%"></i></div><span class="muted" style="font-size:13px">Cada peça passa pela revisão de qualidade, pelo bloqueio de palavras proibidas e pela checagem de repetição antes de entrar no calendário.</span></div>`:''}
+  ${errs.length&&!g?`<div class="banner warn">${errs.length} peça(s) falharam: ${h(errs[0].msg)} <button class="btn sm" data-act="gerarAprovados" data-id="${h(p.id)}">Tentar de novo</button></div>`:''}
+  ${its.length?`<div class="panel-h" style="margin:0"><div><h2>Sugestões de conteúdo</h2><p class="muted" style="font-size:13px">Revise títulos, objetivos e datas. Desmarque o que não quiser produzir.</p></div>
+    <div class="row">${pend.length||its.some(c=>!c.aprovado)?`<button class="btn sm" data-act="aprovarTodas" data-id="${h(p.id)}">Aprovar todas</button>`:''}<button class="btn sm ghost" data-act="resugerir" data-id="${h(p.id)}" ${sug||g?'disabled':''}>Refazer sugestões pendentes</button>
+    ${pend.length?`<button class="btn pri" data-act="gerarAprovados" data-id="${h(p.id)}" ${g||sug?'disabled':''}>Gerar ${pend.length} conteúdo${pend.length===1?'':'s'} aprovado${pend.length===1?'':'s'}</button>`:`<button class="btn pri" data-act="calPlano" data-id="${h(p.id)}">Abrir no calendário</button>`}</div></div>
+  <div class="sugs">${its.map(c=>sugHtml(c,g)).join('')}</div>`:''}`;
+}
+function sugHtml(c,g){
+  const ativo=g?.atuais.has(c.id)||S.regerando.has(c.id);
+  const bloqueado=!!c.gerado;
+  return `<div class="sug ${c.aprovado?'':'off'}">
+    <div class="chk">${bloqueado?`<span class="mono" style="color:var(--ok)" title="Gerado">✓</span>`:`<input type="checkbox" aria-label="Aprovar ${h(numLabel(c))}" data-act="toggleAprov" data-id="${h(c.id)}" ${c.aprovado?'checked':''}>`}</div>
+    <div class="left">${fmtChip(c.formato)}<span class="mono" style="font-size:12px">${h(pad(c.numero))}</span><input type="date" id="sd-${h(c.id)}" data-edit="data" data-id="${h(c.id)}" value="${h(c.data)}" aria-label="Data"></div>
+    <div class="body">
+      ${bloqueado?`<b style="padding:4px 0">${h(headlineDe(c))}</b><span class="sub">Ideia: ${h(c.titulo)}</span>`:`<input type="text" class="tit" id="st-${h(c.id)}" data-edit="titulo" data-id="${h(c.id)}" value="${h(c.titulo)}" aria-label="Título">`}
+      <span class="sub"><b style="font-weight:500;color:var(--fg)">Ângulo:</b> ${h(c.angulo||'—')} · <b style="font-weight:500;color:var(--fg)">Palavra-chave:</b> ${h(c.palavraChave||'—')}</span>
+      ${c.porque?`<span class="sub">${h(c.porque)}</span>`:''}
+    </div>
+    <div class="obj"><select id="so-${h(c.id)}" data-edit="objetivo" data-id="${h(c.id)}" aria-label="Objetivo">${optLista(OBJETIVOS,c.objetivo)}</select></div>
+    <div class="acts">${ativo?`<span class="row muted" style="font-size:12px"><span class="spin"></span>${bloqueado?'Regerando':'Gerando'}…</span>`:bloqueado?`${stChip(c.status)}<button class="btn sm" data-act="abrir" data-id="${h(c.id)}">Abrir</button>`:`<button class="btn sm ghost" data-act="novaSug" data-id="${h(c.id)}">Outra ideia</button>`}</div>
+  </div>`;
+}
+
+/* ---------- CALENDÁRIO ---------- */
+function vCalendario(){
+  const f=S.ui.fCal;const [y,m]=f.mes.split('-').map(Number);const n=new Date(y,m,0).getDate();const ini=new Date(y,m-1,1).getDay();const hoje=hojeISO();
+  const its=conteudosDe(c=>c.aprovado!==false&&c.mes===f.mes&&(!f.cliente||c.clienteId===f.cliente)&&(!f.formato||c.formato===f.formato)&&(!f.status||c.status===f.status));
+  const porDia={};its.forEach(c=>{(porDia[c.data]=porDia[c.data]||[]).push(c)});
+  const semData=its.filter(c=>!c.data||!c.data.startsWith(f.mes));
+  let cells=DOW.map(d=>`<div class="dow">${d}</div>`).join('');
+  for(let i=0;i<ini;i++)cells+=`<div class="day out" aria-hidden="true"></div>`;
+  for(let d=1;d<=n;d++){const iso=f.mes+'-'+pad(d);const w=(ini+d-1)%7;const lst=(porDia[iso]||[]).sort(ordenarData);const fer=FERIADOS[pad(m)+'-'+pad(d)];
+    cells+=`<div class="day ${w===0||w===6?'wk':''} ${iso===hoje?'today':''} ${lst.length?'':'vazio'}"><div class="d"><b>${pad(d)}<span class="mob-dow" style="display:none"> ${DOW[w]}</span></b>${fer?`<span class="fer">${fer}</span>`:''}</div>
+    ${lst.map(c=>`<button class="ev ${c.formato}" data-act="abrir" data-id="${h(c.id)}"><span class="top"><span>${h(numLabel(c))}</span></span><span class="nm">${h(headlineDe(c))}</span><span class="cl"><span class="st" style="--c:${corStatus(c.status)};font-size:10px">${h(c.status)}</span> · ${h(S.clientes.get(c.clienteId)?.nome||'')}</span></button>`).join('')}</div>`}
+  const resto=(7-((ini+n)%7))%7;for(let i=0;i<resto;i++)cells+=`<div class="day out" aria-hidden="true"></div>`;
+  return `<div class="head"><div class="t"><span class="eyebrow">Etapas 8 e 9</span><h1>Calendário editorial</h1></div>
+    <div class="row"><button class="btn sm" data-act="calMes" data-n="-1" aria-label="Mês anterior">←</button><b style="min-width:150px;text-align:center">${mesNome(f.mes)}</b><button class="btn sm" data-act="calMes" data-n="1" aria-label="Próximo mês">→</button></div></div>
+  <div class="filters">
+    <div class="field"><label for="fc-cli">Cliente</label><select id="fc-cli" data-f="fCal.cliente">${optClientes(f.cliente)}</select></div>
+    <div class="field"><label for="fc-fmt">Formato</label><select id="fc-fmt" data-f="fCal.formato">${optFmt(f.formato)}</select></div>
+    <div class="field"><label for="fc-st">Status</label><select id="fc-st" data-f="fCal.status">${optLista(STATUS,f.status,'Todos os status')}</select></div>
+    <span class="muted mono" style="font-size:12px;padding-bottom:10px">${its.length} conteúdo${its.length===1?'':'s'}</span>
+  </div>
+  ${its.length?'':`<div class="banner">Nenhum conteúdo aprovado em ${mesNome(f.mes)} com esses filtros. Conteúdos entram aqui quando você aprova as sugestões de um planejamento.</div>`}
+  <div class="cal">${cells}</div>
+  ${semData.length?`<div class="panel"><h3>Sem data definida</h3><div class="row" style="margin-top:10px">${semData.map(c=>`<button class="btn sm" data-act="abrir" data-id="${h(c.id)}">${h(numLabel(c))}</button>`).join('')}</div></div>`:''}
+  <style>@media (max-width:760px){.cal .mob-dow{display:inline!important}}</style>`;
+}
+
+/* ---------- BANCO ---------- */
+function vBanco(){
+  const f=S.ui.fBanco;const q=norm(f.q).trim();
+  const its=conteudosDe(c=>(!f.cliente||c.clienteId===f.cliente)&&(!f.mes||c.mes===f.mes)&&(!f.formato||c.formato===f.formato)&&(!f.status||c.status===f.status)&&(!q||norm([c.titulo,headlineDe(c),c.palavraChave,c.tema,c.objetivo,S.clientes.get(c.clienteId)?.nome].join(' ')).includes(q))).sort((a,b)=>(b.data||'').localeCompare(a.data||''));
+  const meses=[...new Set(conteudosDe(()=>true).map(c=>c.mes))].sort().reverse();
+  return `<div class="head"><div class="t"><span class="eyebrow">Memória da IA</span><h1>Banco de conteúdos</h1><p class="muted">Tudo o que foi gerado fica aqui. A IA consulta este histórico para não repetir assuntos, headlines, argumentos, CTAs, abordagens e ideias visuais.</p></div></div>
+  <div class="filters">
+    <div class="field" style="max-width:280px;flex-basis:220px"><label for="fb-q">Buscar</label><input type="search" id="fb-q" data-f="fBanco.q" value="${h(f.q)}" placeholder="Título, palavra-chave, tema…"></div>
+    <div class="field"><label for="fb-cli">Cliente</label><select id="fb-cli" data-f="fBanco.cliente">${optClientes(f.cliente)}</select></div>
+    <div class="field"><label for="fb-mes">Mês</label><select id="fb-mes" data-f="fBanco.mes"><option value="">Todos os meses</option>${meses.map(m=>`<option value="${m}" ${m===f.mes?'selected':''}>${mesNome(m)}</option>`).join('')}</select></div>
+    <div class="field"><label for="fb-fmt">Formato</label><select id="fb-fmt" data-f="fBanco.formato">${optFmt(f.formato)}</select></div>
+    <div class="field"><label for="fb-st">Status</label><select id="fb-st" data-f="fBanco.status">${optLista(STATUS,f.status,'Todos os status')}</select></div>
+  </div>
+  ${carregando()?`<div class="panel empty"><span class="spin"></span>Carregando…</div>`:its.length?`<div class="tbl-wrap"><table><thead><tr><th>Data</th><th>Cliente</th><th>Peça</th><th>Headline / ideia</th><th>Objetivo</th><th>Status</th><th>Qualidade</th></tr></thead><tbody>
+  ${its.map(c=>`<tr class="click" data-act="abrir" data-id="${h(c.id)}"><td class="mono" style="white-space:nowrap">${h(dataCurta(c.data))}</td><td style="white-space:nowrap">${h(S.clientes.get(c.clienteId)?.nome||'—')}</td><td style="white-space:nowrap">${fmtChip(c.formato)} <span class="mono" style="font-size:12px">${pad(c.numero)}</span></td><td class="tt">${h(headlineDe(c))}${c.aprovado===false?' <span class="tag">não aprovada</span>':''}</td><td class="muted" style="white-space:nowrap">${h(c.objetivo)}</td><td>${stChip(c.status)}</td><td class="mono">${c.qualidade?`${c.qualidade.nota}/10${(c.flags||[]).filter(x=>x.tipo!=='info').length?` <span style="color:var(--warn)" title="Alertas">▲${(c.flags||[]).filter(x=>x.tipo!=='info').length}</span>`:''}`:'<span class="muted">—</span>'}</td></tr>`).join('')}
+  </tbody></table></div>`:`<div class="panel empty"><b>Nenhum conteúdo encontrado</b><span>Ajuste os filtros ou gere conteúdos a partir de um planejamento.</span></div>`}`;
+}
+
+/* ---------- GAVETA DO CONTEÚDO ---------- */
+function renderDrawer(force){
+  const root=document.getElementById('drawer-root');
+  const c=S.ui.drawer&&S.conteudos.get(S.ui.drawer);
+  if(!c){root.innerHTML='';return}
+  if(!force&&root.firstChild&&editando(root)){S.adiado=true;return}
+  const scroll=root.querySelector('.dr-b')?.scrollTop||0;
+  const a=document.activeElement;const aid=a&&root.contains(a)&&a.id;
+  const cl=S.clientes.get(c.clienteId);const g=c.gerado;const aba=S.ui.aba;
+  const ativo=S.regerando.has(c.id)||S.gen?.atuais.has(c.id);
+  root.innerHTML=`<div class="scrim" data-act="fechar"></div><aside class="drawer" role="dialog" aria-modal="true" aria-label="${h(numLabel(c))}">
+    <div class="dr-h">
+      <div class="row" style="flex-wrap:nowrap"><span class="eyebrow" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${h(cl?.nome||'')} · ${h(mesNome(c.mes))}</span><button class="btn sm ghost x" data-act="fechar" aria-label="Fechar">Fechar</button></div>
+      <div class="row">${fmtChip(c.formato)}<span class="mono">Nº ${pad(c.numero)}</span>${g?.laminas?`<span class="tag">${g.laminas.length} lâminas</span>`:''}${g?.duracao?`<span class="tag">${h(g.duracao)}</span>`:''}</div>
+      <h2 style="font-size:19px">${h(headlineDe(c))}</h2>
+      <p class="muted" style="font-size:13px"><b style="color:var(--fg);font-weight:500">Tema:</b> ${h(c.tema)} · <b style="color:var(--fg);font-weight:500">Objetivo:</b> ${h(c.objetivo)}</p>
+    </div>
+    <div class="dr-b">
+      <div class="meta-grid">
+        <div class="field"><label for="dw-data">Data</label><input type="date" id="dw-data" data-edit="data" data-id="${h(c.id)}" value="${h(c.data)}"></div>
+        <div class="field"><label for="dw-status">Status</label><select id="dw-status" data-edit="status" data-id="${h(c.id)}">${optLista(STATUS,c.status)}</select></div>
+        <div class="field"><label for="dw-resp">Responsável</label><input type="text" id="dw-resp" data-edit="responsavel" data-id="${h(c.id)}" value="${h(c.responsavel)}" placeholder="Nome"></div>
+      </div>
+      <div class="field"><label for="dw-obs">Observações</label><textarea id="dw-obs" data-edit="observacoes" data-id="${h(c.id)}" rows="2" placeholder="Anotações para a equipe">${h(c.observacoes)}</textarea></div>
+      ${!g?`<div class="panel empty"><b>Conteúdo ainda não gerado</b><span>Ideia aprovada: ${h(c.titulo)}</span>${ativo?'<span class="row"><span class="spin"></span>Gerando…</span>':`<button class="btn pri" data-act="gerarUm" data-id="${h(c.id)}">Gerar conteúdo completo</button>`}</div>`:`
+      <div class="tabs" role="tablist">${[['material',c.formato==='reel'?'Roteiro':'Material'],['legenda','Legenda'],['qualidade','Qualidade'+(c.qualidade?' · '+c.qualidade.nota:'')]].map(([k,l])=>`<button role="tab" aria-selected="${aba===k}" data-act="aba" data-k="${k}">${l}</button>`).join('')}</div>
+      ${aba==='material'?materialHtml(c,cl):aba==='legenda'?legendaHtml(g.legenda):qualidadeHtml(c)}
+      <div class="panel" style="display:flex;flex-direction:column;gap:10px">
+        <div class="field"><label for="dw-ajuste">Regerar com ajuste (opcional)</label><textarea id="dw-ajuste" rows="2" placeholder="Ex.: deixar o gancho mais direto; trocar a CTA para WhatsApp."></textarea></div>
+        <div class="row">${ativo?'<span class="row muted"><span class="spin"></span>Regerando… a versão atual continua salva até a nova ficar pronta.</span>':`<button class="btn" data-act="regerar" data-id="${h(c.id)}">Regerar conteúdo</button>`}<button class="btn ghost" data-act="copiarTudo" data-id="${h(c.id)}">Copiar tudo</button></div>
+      </div>`}
+      <div class="row" style="justify-content:flex-end">${S.ui.confirm==='ct-'+c.id?`<span class="confirm">Excluir este conteúdo? <button class="btn sm danger" data-act="excluirConteudo" data-id="${h(c.id)}">Excluir</button><button class="btn sm" data-act="cancelarConfirm">Cancelar</button></span>`:`<button class="btn sm danger" data-act="pedirConfirm" data-k="ct-${h(c.id)}">Excluir conteúdo</button>`}</div>
+    </div></aside>`;
+  const b=root.querySelector('.dr-b');if(b)b.scrollTop=scroll;
+  if(aid){const n=document.getElementById(aid);n&&n.focus()}
+}
+function materialHtml(c,cl){
+  const g=c.gerado;
+  if(c.formato==='card') return `<div class="art"><span class="cl">${h(cl?.nome||'')}</span><div class="hl">${h(g.headline)}</div><div class="sb">${h(g.subheadline)}</div><span class="cta">${h(g.ctaVisual)}</span></div>
+    <div class="blk"><span class="lbl">Headline</span><p>${h(g.headline)}</p></div>
+    <div class="blk"><span class="lbl">Subheadline</span><p>${h(g.subheadline)}</p></div>
+    <div class="blk"><span class="lbl">CTA visual</span><p>${h(g.ctaVisual)}</p></div>
+    <div class="blk"><span class="lbl">Sugestão visual (opcional)</span><p>${h(g.sugestaoVisual)}</p></div>
+    <div class="row"><button class="btn sm" data-act="copiarMat" data-id="${h(c.id)}">Copiar texto da arte</button></div>`;
+  if(c.formato==='carrossel') return `<div class="blk"><span class="lbl">Carrossel — ${g.laminas.length} lâminas</span><p class="muted">Estrutura: ${h(g.estruturaNarrativa)}</p></div>
+    <div class="slides">${g.laminas.map(l=>`<div class="slide"><span class="n">Lâmina ${l.n} · ${h(l.papel)}</span><span class="t">${h(l.titulo)}</span><span class="x">${h(l.texto)}</span>${l.visual?`<span class="v">${h(l.visual)}</span>`:''}</div>`).join('')}</div>
+    <div class="row"><button class="btn sm" data-act="copiarMat" data-id="${h(c.id)}">Copiar lâminas</button></div>`;
+  return `<div class="script">
+    <div><span class="k">Gancho</span><span class="v"><span class="tag" style="margin-bottom:6px">${h(g.tipoGancho||'gancho')}</span>\n${h(g.gancho)}</span></div>
+    <div><span class="k">Corpo</span><span class="v">${h(g.corpo)}</span></div>
+    <div><span class="k">CTA</span><span class="v">${h(g.cta)}</span></div>
+    <div><span class="k">Visual</span><span class="v">${h(g.visual)}</span></div>
+    <div><span class="k">Texto na tela</span><span class="v">${g.textoNaTela.map(t=>'• '+h(t)).join('\n')}</span></div>
+    ${g.audio?`<div><span class="k">Áudio</span><span class="v">${h(g.audio)}</span></div>`:''}
+  </div><div class="row"><button class="btn sm" data-act="copiarMat" data-id="${h(c.id)}">Copiar roteiro</button></div>`;
+}
+function legendaHtml(L){
+  return `<div class="legenda"><span class="h1">${h(L.h1)}</span>\n\n${h(L.valor)}\n\n${h(L.variacoes)}\n\n${h(L.cta)}\n\n<span class="ht">${h((L.hashtags||[]).join(' '))}</span></div>
+  <div class="row"><button class="btn sm pri" data-act="copiarLeg" data-id="${h(S.ui.drawer)}">Copiar legenda</button><span class="muted" style="font-size:12px">Primeira linha (H1 + SEO) · valor · termos secundários · CTA · hashtags</span></div>`;
+}
+function qualidadeHtml(c){
+  const q=c.qualidade||{};const fl=c.flags||[];
+  return `<div class="row" style="gap:18px;align-items:flex-end"><div><span class="score" style="color:${q.nota>=8?'var(--ok)':q.nota>=6?'var(--warn)':'var(--bad)'}">${q.nota??'—'}</span><span class="muted"> /10</span></div><span class="muted" style="font-size:13px;max-width:42ch">Nota da revisão da IA. Os alertas abaixo vêm das checagens automáticas do sistema.</span></div>
+  ${fl.length?`<div style="display:flex;flex-direction:column;gap:6px">${fl.map(f=>`<div class="flag ${h(f.tipo)}"><b style="text-transform:capitalize;min-width:40px">${h(f.tipo)}</b><span>${h(f.msg)}</span></div>`).join('')}</div>`:`<div class="flag info"><b>OK</b><span>Nenhum alerta: sem palavras proibidas, legenda completa, palavra-chave na primeira linha e sem repetição detectada.</span></div>`}
+  ${q.correcoes?`<div class="blk"><span class="lbl">Correções feitas na revisão</span><p>${h(q.correcoes)}</p></div>`:''}
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">${QUAL.map(([k,t,itens])=>`<div class="qgrp"><h4>${t}</h4>${itens.map((l,i)=>{const ok=q[k]?.[i]!==false;return `<div class="qi ${ok?'ok':'no'}"><span class="m">${ok?'✓':'✗'}</span><span>${l}</span></div>`}).join('')}</div>`).join('')}</div>
+  ${c.gerado?.termosRelacionados?.length?`<div class="blk"><span class="lbl">Palavra-chave e termos relacionados</span><p><b>${h(c.gerado.palavraChave||c.palavraChave)}</b> · ${h(c.gerado.termosRelacionados.join(', '))}</p></div>`:''}`;
+}
+
+
+/* ============================================================
+   SERVIDOR: dados compartilhados + ChatGPT (chave fica no servidor)
+   ============================================================ */
+const LS_SENHA='cerebro-fza-senha';
+function lerLS(k){try{return localStorage.getItem(k)||''}catch{return ''}}
+function gravarLS(k,v){try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch{}}
+let SENHA=lerLS(LS_SENHA);
+Object.assign(S,{login:false,pronto:false,status:null,versao:-1,pend:0,erroConexao:'',loginErro:''});
+async function api(metodo,url,corpo){
+  let r;
+  try{r=await fetch(url,{method:metodo,headers:{'Content-Type':'application/json','x-senha-equipe':SENHA},body:corpo?JSON.stringify(corpo):undefined})}
+  catch{throw {code:'network',mensagem:'Sem conexão com o servidor.'}}
+  const j=await r.json().catch(()=>null);
+  if(!r.ok){
+    const code=j?.erro||(r.status===504?'timeout':'upstream_error');
+    if(r.status===401){S.login=true;S.loginErro='Sua sessão expirou. Entre de novo com a senha da equipe.';agendar(true)}
+    throw {code,mensagem:j?.mensagem||(r.status===504?'A IA demorou demais para responder. Tente de novo.':'Erro '+r.status+' no servidor.'),message:j?.mensagem};
+  }
+  return j;
+}
+function enviar(ops,chave){
+  S.pend++;
+  return enfileirar(chave||'lote',()=>api('POST','/api/dados',{ops}))
+    .then(()=>{if(S.erroConexao){S.erroConexao='';agendar()}})
+    .catch(e=>{if(e.code==='quota_exceeded'||e.code==='grande_demais')toast(e.mensagem);else{S.erroConexao='Uma alteração não foi salva no servidor: '+e.mensagem;agendar()}})
+    .finally(()=>{S.pend--});
+}
+function carregarDados(d){['clientes','planos','conteudos'].forEach(k=>{const m=new Map();(Array.isArray(d?.[k])?d[k]:[]).forEach(x=>{if(x&&x.id)m.set(x.id,x)});S[k]=m})}
+function snapshotDados(){return {versao:1,exportadoEm:agora(),clientes:[...S.clientes.values()],planos:[...S.planos.values()],conteudos:[...S.conteudos.values()]}}
+async function sincronizar(forcar){
+  if(S.pend>0&&!forcar)return;
+  const d=await api('GET','/api/dados');
+  if(S.pend>0&&!forcar)return;
+  carregarDados(d);S.versao=d.versao;agendar();
+}
+let pollT=null;
+async function checarVersao(){
+  if(document.hidden||S.login||!S.pronto)return;
+  try{const {versao}=await api('GET','/api/dados?so=versao');if(versao!==S.versao)await sincronizar();if(S.erroConexao&&!S.pend){S.erroConexao='';agendar()}}
+  catch(e){if(e.code==='network'){S.erroConexao='Sem conexão com o servidor. As alterações feitas agora podem não ser salvas.';agendar()}}
+}
+function iniciarSync(){if(pollT)return;pollT=setInterval(checarVersao,20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)checarVersao()})}
+function criarIA(){
+  const chamar=async(prompt)=>{const r=await api('POST','/api/ia',{prompt});return String(r.conteudo||'')};
+  const ia=async(prompt)=>({text:await chamar(prompt),truncated:false});
+  ia.json=async(prompt)=>{const txt=await chamar(prompt);try{return JSON.parse(txt)}catch{const m=txt.match(/\{[\s\S]*\}/);if(m)try{return JSON.parse(m[0])}catch{}throw {code:'invalid_json',text:txt}}};
+  return ia;
+}
+function aplicarIA(){
+  if(S.status?.ia){sample=criarIA();S.iaOk=null;S.iaMotivo=''}
+  else{sample=null;S.iaOk=false;S.iaMotivo='A chave da OpenAI ainda não foi configurada no servidor. Cadastro, calendário e acompanhamento continuam funcionando.'}
+}
+async function entrar(){
+  S.loginErro='';
+  try{
+    S.status=await api('GET','/api/status');
+    if(!S.status.banco){S.login=false;S.pronto=false;S.erroConexao='O banco de dados ainda não foi conectado ao projeto no Vercel (Storage → Upstash Redis).';render(true);return}
+    await sincronizar(true);
+    S.login=false;S.pronto=true;S.erroConexao='';aplicarIA();
+    ajustarMes();
+    iniciarSync();
+  }catch(e){
+    if(e.code==='senha_invalida'){S.login=true;S.loginErro=SENHA?'Senha incorreta.':''}
+    else if(e.code==='sem_senha_config'){S.login=true;S.loginErro=e.mensagem}
+    else {S.erroConexao=e.mensagem||'Não foi possível conectar ao servidor.'}
+  }
+  render(true);
+}
+function vLogin(){
+  return `<div class="panel" style="max-width:440px;width:100%;margin:48px auto;display:flex;flex-direction:column;gap:16px">
+    <div class="row" style="flex-wrap:nowrap"><div class="mark">FZA</div><div><h1 style="font-size:20px">Cérebro Editorial</h1><p class="muted" style="font-size:13px">Grupo FZA · acesso da equipe</p></div></div>
+    <form id="login-form" style="display:flex;flex-direction:column;gap:12px" autocomplete="on">
+      <div class="field"><label for="lg-senha">Senha da equipe</label><input type="password" id="lg-senha" name="senha" autocomplete="current-password" required></div>
+      ${S.loginErro?`<div class="flag erro"><span>${h(S.loginErro)}</span></div>`:''}
+      <button type="submit" class="btn pri" style="justify-content:center">Entrar</button>
+    </form>
+    <p class="muted" style="font-size:12px">A senha é a mesma para toda a equipe. Peça ao responsável pelo sistema.</p></div>`;
+}
+function vConfig(){
+  const st=S.status||{};
+  return `<div class="head"><div class="t"><span class="eyebrow">Sistema</span><h1>Configurações</h1></div><button class="btn" data-act="sair">Sair deste computador</button></div>
+  <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+    <div class="panel-h" style="margin:0"><h2>Inteligência artificial: ChatGPT (OpenAI)</h2><span class="st" style="--c:${st.ia&&S.iaOk!==false?'var(--ok)':'var(--warn)'}">${!st.ia?'Chave não configurada':S.iaOk===false?'Com problema':S.iaOk?'Funcionando':'Configurada'}</span></div>
+    <div class="meta-grid"><div><span class="lbl">Modelo</span><p class="mono">${h(st.modelo||'—')}</p></div><div><span class="lbl">Chave da OpenAI</span><p>${st.ia?'Guardada no servidor':'Não configurada'}</p></div><div><span class="lbl">Banco de dados</span><p>${st.banco?'Conectado':'Não conectado'}</p></div></div>
+    <p class="muted" style="font-size:13px;max-width:72ch">A chave e o modelo ficam nas variáveis do projeto no Vercel (OPENAI_API_KEY e OPENAI_MODEL). Ninguém da equipe vê a chave. O uso é cobrado na conta de API da OpenAI, em platform.openai.com → Billing; a assinatura do ChatGPT não cobre a API.</p>
+    <div class="row"><button class="btn" data-act="testarIA" ${st.ia?'':'disabled'}>Testar conexão com o ChatGPT</button><span id="cfg-teste" class="muted" style="font-size:13px"></span></div>
+  </div>
+  <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+    <div class="panel-h" style="margin:0"><h2>Dados e backup</h2><span class="muted mono" style="font-size:12px">${S.clientes.size} clientes · ${S.planos.size} planejamentos · ${S.conteudos.size} conteúdos</span></div>
+    <p class="muted" style="font-size:13px;max-width:70ch">Os dados ficam no servidor e aparecem para toda a equipe; alterações de outras pessoas chegam em até 20 segundos. Exporte um backup de vez em quando.</p>
+    <div class="row"><button class="btn" data-act="exportar">Exportar backup (.json)</button><label class="btn" for="cfg-import" style="cursor:pointer">Importar backup</label><input type="file" id="cfg-import" accept="application/json,.json" hidden>
+      ${S.clientes.has('ex-sentinela')?'':'<button class="btn" data-act="carregarExemplo">Carregar cliente de exemplo</button>'}</div>
+  </div>`;
+}
+function ajustarMes(){const hm=hojeMes();const ms=[...S.conteudos.values()].map(c=>c.mes).filter(x=>x&&x>=hm).sort();if(ms.length&&!ms.some(m=>m===S.ui.fPainel.mes)){S.ui.fPainel.mes=ms[0];S.ui.fCal.mes=ms[0]}}
+async function gravarLote(ops){for(let i=0;i<ops.length;i+=100){await api('POST','/api/dados',{ops:ops.slice(i,i+100)})}await sincronizar(true)}
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+let toastT;
+function toast(msg){const r=document.getElementById('toast-root');r.innerHTML=`<div class="toast" role="status">${h(msg)}</div>`;clearTimeout(toastT);toastT=setTimeout(()=>{r.innerHTML=''},3200)}
+function ir(view,extra){Object.assign(S.ui,{view,confirm:null},extra||{});agendar(true);window.scrollTo(0,0)}
+const ACTS={
+  nav:el=>ir(el.dataset.v),
+  novoCliente:()=>ir('ficha',{clienteId:null}),
+  abrirCliente:el=>{S.ui.drawer=null;ir('ficha',{clienteId:el.dataset.id})},
+  novoPlano:el=>ir('novoPlano',{clienteId:el.dataset.id||null}),
+  abrirPlano:el=>ir('plano',{planoId:el.dataset.id}),
+  calPlano:el=>{const p=S.planos.get(el.dataset.id);S.ui.fCal={mes:p.mes,cliente:p.clienteId,formato:'',status:''};ir('calendario')},
+  filtrarCliente:el=>{S.ui.fPainel.cliente=el.dataset.id;agendar(true)},
+  abrir:el=>{S.ui.drawer=el.dataset.id;S.ui.aba='material';S.ui.confirm=null;agendar(true)},
+  fechar:()=>{S.ui.drawer=null;S.ui.confirm=null;agendar(true)},
+  aba:el=>{S.ui.aba=el.dataset.k;agendar(true)},
+  pedirConfirm:el=>{S.ui.confirm=el.dataset.k;agendar(true)},
+  cancelarConfirm:()=>{S.ui.confirm=null;agendar(true)},
+  excluirCliente:async el=>{const id=el.dataset.id;for(const c of conteudosDe(c=>c.clienteId===id))await apagar('conteudos',c.id);for(const p of [...S.planos.values()].filter(p=>p.clienteId===id))await apagar('planos',p.id);await apagar('clientes',id);toast('Cliente excluído.');ir('clientes')},
+  excluirPlano:async el=>{const id=el.dataset.id;for(const c of conteudosDe(c=>c.planoId===id))await apagar('conteudos',c.id);await apagar('planos',id);toast('Planejamento excluído.');ir('planejamento')},
+  excluirConteudo:async el=>{await apagar('conteudos',el.dataset.id);S.ui.drawer=null;S.ui.confirm=null;toast('Conteúdo excluído.');agendar(true)},
+  resugerir:el=>gerarSugestoes(el.dataset.id),
+  novaSug:el=>novaSugestao(el.dataset.id),
+  toggleAprov:el=>alterar('conteudos',el.dataset.id,{aprovado:el.checked}),
+  aprovarTodas:async el=>{for(const c of conteudosDe(c=>c.planoId===el.dataset.id&&!c.aprovado))await alterar('conteudos',c.id,{aprovado:true})},
+  gerarAprovados:el=>{S.ultimosErros=null;gerarAprovados(el.dataset.id)},
+  pararGen:()=>{if(S.gen){S.gen.parar=true;toast('A geração para depois das peças em andamento.')}},
+  gerarUm:el=>{const c=S.conteudos.get(el.dataset.id);if(!c.aprovado)alterar('conteudos',c.id,{aprovado:true});regerarUm(el.dataset.id)},
+  regerar:el=>regerarUm(el.dataset.id,document.getElementById('dw-ajuste')?.value.trim()),
+  copiarLeg:el=>copiar(legendaTexto(S.conteudos.get(el.dataset.id)?.gerado?.legenda)),
+  copiarMat:el=>{const t=materialTexto(S.conteudos.get(el.dataset.id));copiar(t.split('\n\nLEGENDA\n')[0])},
+  copiarTudo:el=>copiar(materialTexto(S.conteudos.get(el.dataset.id))),
+  testarIA:async()=>{const out=()=>document.getElementById('cfg-teste');if(!sample)return;out()&&(out().innerHTML='<span class="spin"></span> Testando…');
+    try{await sample.json('Responda com o JSON {"ok": true}');S.iaOk=true;agendar(true);setTimeout(()=>{out()&&(out().textContent='O ChatGPT respondeu. Tudo certo.')},60)}
+    catch(e){marcarIA(e);agendar(true);setTimeout(()=>{out()&&(out().textContent=erroIA(e)+(e?.mensagem&&e.code!=='upstream_error'?' ('+e.mensagem+')':''))},60)}},
+  exportar:()=>{const blob=new Blob([JSON.stringify(snapshotDados(),null,1)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cerebro-editorial-fza-backup-'+hojeISO()+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Backup exportado.')},
+  carregarExemplo:async()=>{try{await gravarLote(['clientes','planos','conteudos'].flatMap(k=>SEED[k].map(d=>({op:'set',coll:k,id:d.id,doc:d}))));ajustarMes();agendar(true);toast('Cliente de exemplo carregado.')}catch(e){toast(e.mensagem||'Não foi possível carregar o exemplo.')}},
+  sair:()=>{SENHA='';gravarLS(LS_SENHA,'');S.login=true;S.pronto=false;S.loginErro='';carregarDados({});S.ui.drawer=null;agendar(true)},
+  reconectar:()=>{S.erroConexao='';entrar()},
+  calMes:el=>{S.ui.fCal.mes=mesAdd(S.ui.fCal.mes,+el.dataset.n);agendar(true)}
+};
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]');if(!el)return;
+  if(el.matches('input[type=checkbox]'))return; // tratado no change
+  if(el.tagName==='A')return;
+  e.preventDefault();const fn=ACTS[el.dataset.act];if(fn)fn(el,e);
+});
+document.addEventListener('change',e=>{
+  const el=e.target;
+  if(el.matches('input[type=checkbox][data-act]')){ACTS[el.dataset.act]?.(el);return}
+  if(el.dataset.f&&el.type!=='search'){const [o,k]=el.dataset.f.split('.');S.ui[o][k]=el.value;agendar(true);return}
+  if(el.dataset.edit){const v=el.value;const k=el.dataset.edit;const id=el.dataset.id;const c=S.conteudos.get(id);if(!c||c[k]===v)return;
+    const patch={[k]:v};if(k==='data'&&v)patch.mes=v.slice(0,7);alterar('conteudos',id,patch);if(k==='status')toast('Status: '+v)}
+  if(el.id==='cfg-import'&&el.files?.[0]){const fr=new FileReader();fr.onload=()=>{try{const d=JSON.parse(fr.result);if(!Array.isArray(d.clientes)||!Array.isArray(d.conteudos))throw 0;gravarLote(['clientes','planos','conteudos'].flatMap(k=>(Array.isArray(d[k])?d[k]:[]).filter(x=>x&&x.id).map(x=>({op:'set',coll:k,id:x.id,doc:x})))).then(()=>toast(`Backup importado: ${S.clientes.size} clientes, ${S.conteudos.size} conteúdos.`)).catch(e=>toast(e.mensagem||'Falha ao importar.'))}catch{toast('Arquivo inválido. Use um backup exportado pelo Cérebro Editorial.')}};fr.readAsText(el.files[0]);el.value='';return}
+  if(el.id==='np-cliente'){const c=S.clientes.get(el.value);const box=document.getElementById('np-ficha');if(box)box.innerHTML=c?`<div class="prog"><i style="width:${completude(c)}%"></i></div>${completude(c)}% completa`:'Escolha um cliente'}
+});
+document.addEventListener('input',e=>{const el=e.target;if(el.dataset.f&&el.type==='search'){const [o,k]=el.dataset.f.split('.');S.ui[o][k]=el.value;agendar(true)}});
+document.addEventListener('focusout',()=>{if(S.adiado){setTimeout(()=>{if(S.adiado&&!editando(document.body)){S.adiado=false;agendar()}},300)}});
+document.addEventListener('submit',e=>{e.preventDefault();if(e.target.id==='login-form'){SENHA=String(new FormData(e.target).get('senha')||'');gravarLS(LS_SENHA,SENHA);entrar();return}if(e.target.id==='ficha-form')salvarFicha(e.target);if(e.target.id==='plano-form')criarPlano(e.target)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.ui.drawer){S.ui.drawer=null;agendar(true)}});
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+const SEED = {"clientes": [{"criadoEm": "2026-09-29T11:52:48.861Z", "nome": "Sentinela Segurança Eletrônica", "tom": ["Profissional", "Técnico", "Próximo", "Autoridade"], "tomNotas": "Seguro e direto, sem alarmismo. Explica o técnico em linguagem de gestor, com exemplos do dia a dia de quem tem empresa. Nunca usa tom sensacionalista.", "persona": {"perfil": "Marcos, 44 anos, dono de uma distribuidora de materiais de construção com dois galpões e 18 funcionários no Distrito Industrial de Três Lagoas.", "necessidades": "Saber o que acontece na empresa fora do horário comercial, controlar quem entra nos galpões e ter registro confiável de carga e descarga.", "dores": "Já teve sumiço de mercadoria sem saber como; o alarme antigo dispara à toa e ninguém atende; as câmeras gravam, mas ninguém olha.", "desejos": "Dormir tranquilo, viajar sem ficar olhando o celular a cada hora e ter uma operação organizada que não dependa só dele.", "comportamentos": "Pesquisa no Google e no Instagram, pede indicação para outros empresários, compara três orçamentos e decide no WhatsApp.", "motivacoes": "Proteger o patrimônio que levou anos para construir e dar segurança para a equipe.", "duvidas": "Qual sistema serve para o meu caso? Preciso trocar tudo o que já tenho? Quanto tempo a equipe leva para chegar?", "objecoes": "Acha caro, já tem câmeras, tem receio de contrato longo e de alarme falso."}, "atualizadoEm": "2026-09-29T11:52:49.444Z", "nicho": "Segurança eletrônica corporativa: CFTV, alarme monitorado, controle de acesso e cerca elétrica para comércios, indústrias, galpões logísticos e propriedades do agronegócio em Três Lagoas e região (MS).", "resumo": "Projeta, instala e monitora sistemas de segurança eletrônica para empresas. Começa com visita técnica gratuita e projeto sob medida, instala câmeras IP, alarmes, controle de acesso e cerca elétrica, e mantém central de monitoramento 24h própria com equipe de pronta resposta.", "publico": "Donos e gestores de empresas de pequeno e médio porte (comércio, indústria, logística, agronegócio) em Três Lagoas e região, 30 a 60 anos, que decidem investimentos em patrimônio e operação.", "produtos": "Monitoramento 24h de alarmes e câmeras; instalação de CFTV com câmeras IP; alarme monitorado com sensores; controle de acesso (biometria, cartão, facial); cerca elétrica; pronta resposta; manutenção preventiva; aplicativo para ver câmeras pelo celular.", "proibidas": "barato, promoção imperdível, medo, bandido, invasão garantida, 100% seguro, blindado, o melhor da cidade", "obrigatorias": "projeto sob medida, monitoramento 24h, visita técnica gratuita, pronta resposta", "promessa": "Sua empresa acompanhada 24 horas por dia por um sistema pensado para a sua operação, e você com tempo livre para cuidar do negócio.", "diferenciais": "Central de monitoramento própria em Três Lagoas; tempo médio de pronta resposta de 12 minutos na área urbana; projeto técnico antes do orçamento; manutenção preventiva trimestral inclusa; técnicos certificados; aproveitamento do equipamento que o cliente já tem quando possível.", "objecoes": "\"É caro.\" \"Já tenho câmeras.\" \"Alarme dispara à toa.\" \"Nunca aconteceu nada aqui.\" \"Contrato longo me prende.\"", "exemplo": true, "id": "ex-sentinela"}], "planos": [{"clienteId": "ex-sentinela", "mes": "2026-10", "temas": "Como escolher corretamente um sistema de segurança para sua empresa", "qtd": {"card": 4, "carrossel": 2, "reel": 3}, "instrucoes": "Priorizar mensagens no WhatsApp na segunda quinzena.", "estado": "gerado", "analise": {"empresa": "Integradora de segurança eletrônica de Três Lagoas que vende projeto e acompanhamento, não só equipamento: central própria, pronta resposta em 12 minutos e manutenção inclusa.", "publico": "Donos e gestores de PMEs locais que decidem sozinhos e comparam orçamentos pelo WhatsApp.", "persona": "Marcos, dono de distribuidora com dois galpões, cansado de alarme falso e de câmera que ninguém acompanha.", "problema": "Empresas compram equipamento sem projeto e ficam com um sistema que grava mas não protege.", "desejo": "Tranquilidade para sair da empresa e confiar que alguém está acompanhando.", "produto": "Monitoramento 24h com projeto sob medida, alarme monitorado, CFTV e controle de acesso.", "diferencial": "Projeto técnico antes do orçamento e central própria com pronta resposta local.", "objecoes": "Já tenho câmeras; alarme dispara à toa; nunca aconteceu nada aqui.", "linhaNarrativa": "Primeira quinzena desperta a percepção de que gravar não é proteger e ensina a escolher um sistema; meio do mês prova a operação da central; segunda quinzena quebra objeções e leva para a visita técnica gratuita pelo WhatsApp."}, "erro": "", "criadoEm": "2026-09-29T11:52:49.793Z", "atualizadoEm": "2026-09-29T11:52:51.421Z", "exemplo": true, "id": "ex-sentinela-2026-10"}], "conteudos": [{"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "card", "numero": 1, "ordem": 0, "tema": "Diferença entre gravar e monitorar", "objetivo": "Atrair atenção", "titulo": "Câmera que grava não é câmera que protege", "angulo": "Quebra de expectativa", "palavraChave": "monitoramento de câmeras para empresas", "ctaPrevista": "Chame no WhatsApp", "porque": "Abre o mês provocando a percepção central do tema: equipamento sozinho não resolve.", "data": "2026-10-01", "status": "Agendado", "responsavel": "Design · Ana", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Monitoramento de câmeras para empresas: gravar imagens é diferente de ter alguém acompanhando.", "valor": "Muitas empresas só descobrem um problema dias depois, quando alguém vai procurar a gravação. Nesse ponto a câmera serviu como registro, não como proteção. No monitoramento 24h, câmeras e sensores ficam ligados a uma central que recebe o alerta, confere a imagem em tempo real e aciona a pronta resposta quando é preciso.", "variacoes": "Se a sua empresa já tem CFTV, dá para aproveitar boa parte do equipamento e integrar ao monitoramento remoto. A visita técnica gratuita mostra o que pode ficar e o que precisa de ajuste no seu sistema de vigilância eletrônica.", "cta": "Quer saber se as câmeras da sua empresa podem ser monitoradas? Chame no WhatsApp e agende a visita técnica gratuita.", "hashtags": ["#monitoramento24h", "#cftv", "#segurancaempresarial", "#segurancaeletronica", "#treslagoas", "#treslagoasms", "#cameradeseguranca"]}, "palavraChave": "monitoramento de câmeras para empresas", "termosRelacionados": ["CFTV monitorado", "monitoramento remoto", "vigilância eletrônica", "central 24h"], "headline": "Sua câmera grava. Mas alguém está vendo?", "subheadline": "Gravar é registrar. Com monitoramento 24h, cada alerta chega a uma central que confere a imagem e age na hora.", "ctaVisual": "Chame no WhatsApp", "sugestaoVisual": "Foto de um monitor de CFTV em escritório vazio à noite, cadeira desocupada em frente, a luz fria da tela como único ponto de luz."}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Troquei a subheadline genérica \"mais proteção para sua empresa\" por uma explicação concreta do que a central faz."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:50.811Z", "geradoEm": "2026-09-29T11:52:50.811Z", "exemplo": true, "id": "ex-sent-2026-10-card-01"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "card", "numero": 2, "ordem": 3, "tema": "Alarme falso", "objetivo": "Quebrar objeção", "titulo": "Alarme que dispara sozinho tem causa e tem solução", "angulo": "Objeção: alarme dispara à toa", "palavraChave": "alarme monitorado para empresa", "ctaPrevista": "Solicite uma avaliação", "porque": "Ataca a objeção mais citada pela persona antes de apresentar a central.", "data": "2026-10-09", "status": "Em revisão", "responsavel": "Redação · Bia", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Alarme monitorado para empresa não precisa disparar à toa. Veja o que costuma causar o disparo falso.", "valor": "Na maioria das visitas técnicas, o disparo falso tem uma de três origens: sensor apontado para uma janela, ventilador ou porta de enrolar; poeira e teia acumuladas por falta de manutenção; ou um projeto que não considerou a rotina da empresa, como gatos no depósito ou a entrada do vigia noturno. Quando o alarme dispara demais, a equipe para de levar a sério, e esse é o maior risco.", "variacoes": "Com projeto sob medida, cada sensor tem posição e sensibilidade definidas para o ambiente. A manutenção preventiva trimestral mantém tudo calibrado, e a central de monitoramento 24h confere a imagem antes de acionar a pronta resposta.", "cta": "Seu alarme dispara sem motivo? Solicite uma avaliação pelo WhatsApp e descubra a causa.", "hashtags": ["#alarmemonitorado", "#alarmefalso", "#segurancaempresarial", "#segurancaeletronica", "#monitoramento24h", "#treslagoas"]}, "palavraChave": "alarme monitorado para empresa", "termosRelacionados": ["alarme falso", "sensor de presença", "disparo de alarme", "manutenção de alarme"], "headline": "Alarme que dispara sozinho não é normal.", "subheadline": "Disparo falso tem causa: sensor mal posicionado, falta de manutenção ou projeto errado. E tem solução.", "ctaVisual": "Solicite uma avaliação", "sugestaoVisual": "Close de um sensor de presença no teto de um depósito com a luz vermelha acesa; ao fundo, prateleiras desfocadas."}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Removi o termo proibido da subheadline e troquei o argumento de custo por uma explicação das causas."}, "flags": [{"tipo": "info", "msg": "Correção automática aplicada: a primeira versão tinha palavras proibidas e foi reescrita."}], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:51.119Z", "geradoEm": "2026-09-29T11:52:51.119Z", "exemplo": true, "id": "ex-sent-2026-10-card-02"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "card", "numero": 3, "ordem": 5, "tema": "Tempo de pronta resposta", "objetivo": "Mostrar diferencial", "titulo": "12 minutos: o tempo médio da pronta resposta", "angulo": "Dado concreto", "palavraChave": "pronta resposta em Três Lagoas", "ctaPrevista": "Conheça a solução", "porque": "Transforma o diferencial em número fácil de lembrar e comparar com a concorrência.", "data": "2026-10-16", "status": "Em produção", "responsavel": "Design · Ana", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Pronta resposta em Três Lagoas: quanto tempo a equipe leva para chegar na sua empresa?", "valor": "Na área urbana, a média da Sentinela é de 12 minutos entre a confirmação do alerta e a chegada da equipe. Isso só é possível porque a central e a base de pronta resposta ficam na cidade, sem depender de atendimento vindo de outra região.", "variacoes": "Quando for comparar empresas de monitoramento, pergunte o tempo médio de atendimento e se a equipe é própria. Monitoramento local faz diferença justamente nos primeiros minutos.", "cta": "Conheça como funciona a pronta resposta da Sentinela pelo link da bio.", "hashtags": ["#prontaresposta", "#monitoramento24h", "#segurancapatrimonial", "#segurancaeletronica", "#treslagoas", "#treslagoasms"]}, "palavraChave": "pronta resposta em Três Lagoas", "termosRelacionados": ["tempo de atendimento", "equipe de apoio tático", "monitoramento local", "segurança patrimonial"], "headline": "Da central até a sua porta: 12 minutos, em média.", "subheadline": "Central própria em Três Lagoas e equipe de pronta resposta na rua, 24 horas por dia.", "ctaVisual": "Conheça a solução", "sugestaoVisual": "Viatura da equipe em movimento numa avenida de Três Lagoas ao anoitecer, com leve efeito de velocidade e o número 12 em destaque tipográfico."}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Deixei claro que o número vale para a área urbana, como está na ficha."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:51.264Z", "geradoEm": "2026-09-29T11:52:51.264Z", "exemplo": true, "id": "ex-sent-2026-10-card-03"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "card", "numero": 4, "ordem": 8, "tema": "Visita técnica e projeto", "objetivo": "Gerar mensagens no WhatsApp", "titulo": "Antes do orçamento, um projeto", "angulo": "Oferta direta de visita técnica", "palavraChave": "projeto de segurança eletrônica", "ctaPrevista": "Agende pelo WhatsApp", "porque": "Fecha o mês convertendo a atenção acumulada em conversas no WhatsApp.", "data": "2026-10-28", "status": "Em planejamento", "responsavel": "Design · Ana", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Projeto de segurança eletrônica começa com uma visita, não com uma lista de câmeras.", "valor": "Em cerca de uma hora, o técnico percorre a empresa com você, identifica acessos e pontos cegos, entende os horários de maior movimento e o que já está instalado. Com isso, o orçamento chega com planta de câmeras, sensores e a justificativa de cada item.", "variacoes": "A análise de riscos serve para qualquer porte: loja, escritório, galpão ou propriedade rural. E você recebe o projeto mesmo que decida não fechar agora.", "cta": "Agende sua visita técnica gratuita pelo WhatsApp. A gente confirma o horário no mesmo dia.", "hashtags": ["#projetodeseguranca", "#visitatecnica", "#segurancaeletronica", "#segurancaempresarial", "#treslagoas", "#treslagoasms"]}, "palavraChave": "projeto de segurança eletrônica", "termosRelacionados": ["visita técnica", "análise de riscos", "orçamento de segurança", "planta de câmeras"], "headline": "Antes do orçamento, um projeto.", "subheadline": "Na visita técnica gratuita mapeamos acessos, pontos cegos e horários de maior movimento da sua empresa.", "ctaVisual": "Agende pelo WhatsApp", "sugestaoVisual": "Técnico e empresário caminhando juntos por um galpão, o técnico apontando para o alto de uma parede; luz natural de fim de tarde."}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Acrescentei 'você recebe o projeto mesmo que não feche agora' para reduzir a barreira da objeção de compromisso."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:51.421Z", "geradoEm": "2026-09-29T11:52:51.421Z", "exemplo": true, "id": "ex-sent-2026-10-card-04"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "carrossel", "numero": 1, "ordem": 2, "tema": "Critérios de escolha", "objetivo": "Gerar salvamentos", "titulo": "5 perguntas para fazer antes de contratar um sistema de segurança", "angulo": "Checklist de compra", "palavraChave": "como escolher sistema de segurança para empresa", "ctaPrevista": "Salve para a próxima cotação", "porque": "É a peça-mãe do tema do mês: material de referência que a persona guarda para comparar orçamentos.", "data": "2026-10-07", "status": "Em revisão", "responsavel": "Design · Ana", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Como escolher sistema de segurança para empresa sem cair em orçamento de equipamento.", "valor": "Duas propostas com o mesmo número de câmeras podem entregar resultados completamente diferentes. O que muda é o que vem antes e depois da instalação: quem analisou o local, quem recebe os alertas, quem vai até lá e quem mantém tudo funcionando. As cinco perguntas do carrossel ajudam a comparar propostas pelo que realmente importa.", "variacoes": "Vale para CFTV, alarme monitorado, controle de acesso ou um projeto completo de segurança eletrônica. Uma empresa de monitoramento séria responde com dados, prazos e o que está no contrato.", "cta": "Salve este post para a próxima cotação e envie para quem decide a segurança da empresa com você.", "hashtags": ["#segurancaeletronica", "#monitoramento24h", "#alarmemonitorado", "#cftv", "#gestaoempresarial", "#treslagoas", "#treslagoasms", "#dicasparaempresas"]}, "palavraChave": "como escolher sistema de segurança para empresa", "termosRelacionados": ["orçamento de segurança eletrônica", "empresa de monitoramento", "projeto de CFTV", "alarme para empresa"], "laminas": [{"n": 1, "papel": "Capa", "titulo": "Antes de assinar qualquer orçamento de segurança, faça estas 5 perguntas", "texto": "As respostas mostram se você está recebendo um projeto ou só uma lista de equipamentos.", "visual": "Fundo escuro, prancheta com checklist em destaque e caneta dourada."}, {"n": 2, "papel": "Problema", "titulo": "Muita empresa compra câmera antes de entender o risco", "texto": "O resultado aparece depois: ponto cego onde mais importa, gravação que ninguém acompanha e alarme desligado porque incomoda.", "visual": "Planta baixa simplificada de um galpão com áreas sem cobertura marcadas."}, {"n": 3, "papel": "Desenvolvimento", "titulo": "1. Quem recebe o alerta?", "texto": "Se a resposta for 'o seu celular', pergunte o que acontece às 3h da manhã. Monitoramento 24h significa alguém acordado acompanhando por você.", "visual": "Ícone de celular com notificação às 03:00."}, {"n": 4, "papel": "Desenvolvimento", "titulo": "2. Vão visitar a empresa antes do orçamento?", "texto": "Sem visita técnica, o orçamento é um palpite. O projeto sob medida parte do seu layout, dos acessos e dos horários de maior movimento.", "visual": "Técnico medindo um portão com trena."}, {"n": 5, "papel": "Desenvolvimento", "titulo": "3. Quanto tempo leva a pronta resposta?", "texto": "Peça o tempo médio, não uma promessa. E pergunte se a equipe é própria ou terceirizada.", "visual": "Cronômetro estilizado marcando 12 min."}, {"n": 6, "papel": "Desenvolvimento", "titulo": "4. Como fica a manutenção?", "texto": "Sistema sem manutenção preventiva falha justamente quando é exigido. Pergunte a frequência e se ela está no contrato.", "visual": "Close de sensor sendo limpo."}, {"n": 7, "papel": "Desenvolvimento", "titulo": "5. E se faltar energia ou internet?", "texto": "Bateria, nobreak e comunicação redundante (chip de dados + internet) mantêm o sistema falando com a central mesmo em queda.", "visual": "Ícones de bateria e antena com linha contínua até a central."}, {"n": 8, "papel": "Conclusão", "titulo": "Quem faz projeto responde tudo isso sem hesitar", "texto": "Na Sentinela, a visita técnica vem antes do orçamento, a central é própria em Três Lagoas e a manutenção trimestral já está inclusa.", "visual": "Foto da central de monitoramento com operadores."}, {"n": 9, "papel": "CTA", "titulo": "Salve para usar na próxima cotação", "texto": "E se quiser ouvir as respostas da Sentinela, agende a visita técnica gratuita pelo link da bio.", "visual": "Ícone de salvar em dourado sobre fundo preto."}], "numLaminas": 9, "estruturaNarrativa": "Checklist com 5 perguntas, uma por lâmina"}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Separei as perguntas 4 e 5 em lâminas próprias; juntas ficavam densas demais. O carrossel passou de 8 para 9 lâminas."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:50.963Z", "geradoEm": "2026-09-29T11:52:50.963Z", "exemplo": true, "id": "ex-sent-2026-10-carrossel-01"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "carrossel", "numero": 2, "ordem": 6, "tema": "CFTV comum x monitorado", "objetivo": "Quebrar objeção", "titulo": "Câmera gravando x empresa monitorada: o que muda na prática", "angulo": "Comparação lado a lado", "palavraChave": "CFTV monitorado", "ctaPrevista": "Fale com nossa equipe", "porque": "Responde à objeção \"já tenho câmeras\" na segunda quinzena, abrindo caminho para a conversão.", "data": "2026-10-20", "status": "Em planejamento", "responsavel": "Redação · Bia", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "CFTV monitorado ou só gravando? A diferença aparece quando alguém precisa agir.", "valor": "Câmera gravando guarda o que aconteceu. Câmera monitorada ajuda a mudar o que está acontecendo. A diferença não está no equipamento, e sim em ter alguém acompanhando, com processo definido para cada tipo de alerta.", "variacoes": "Para quem já investiu em câmeras de segurança, a integração do CFTV ao monitoramento de imagens costuma aproveitar gravador, cabeamento e boa parte das câmeras. O projeto sob medida indica só o que precisa de ajuste.", "cta": "Mande uma foto do seu gravador no WhatsApp e descubra o que dá para aproveitar.", "hashtags": ["#cftvmonitorado", "#cameradeseguranca", "#monitoramento24h", "#segurancaeletronica", "#segurancaempresarial", "#treslagoas"]}, "palavraChave": "CFTV monitorado", "termosRelacionados": ["câmeras monitoradas", "integração de CFTV", "monitoramento de imagens", "DVR"], "laminas": [{"n": 1, "papel": "Capa", "titulo": "Câmera gravando x empresa monitorada", "texto": "Parecem a mesma coisa. No momento de uma ocorrência, não são.", "visual": "Tela dividida: à esquerda, gravador de CFTV com luz piscando; à direita, operador na central."}, {"n": 2, "papel": "Contexto", "titulo": "\"Já tenho câmeras.\"", "texto": "É a frase que mais ouvimos. E é um ótimo ponto de partida, porque boa parte desse equipamento pode ser aproveitada.", "visual": "Câmera dome no teto de uma loja."}, {"n": 3, "papel": "Comparação", "titulo": "Quando algo acontece às 2h", "texto": "Só gravando: você descobre na manhã seguinte.\nMonitorado: a central vê o alerta em segundos e confere a imagem.", "visual": "Duas colunas com ícones de relógio."}, {"n": 4, "papel": "Comparação", "titulo": "Quem toma a atitude", "texto": "Só gravando: ninguém, até alguém chegar.\nMonitorado: operador liga para o responsável e aciona a pronta resposta.", "visual": "Duas colunas com ícone de telefone e de viatura."}, {"n": 5, "papel": "Comparação", "titulo": "Quando uma câmera para", "texto": "Só gravando: ninguém percebe até precisar da imagem.\nMonitorado: a central recebe o aviso de falha e agenda a manutenção.", "visual": "Tela com aviso 'sem sinal' e check verde ao lado."}, {"n": 6, "papel": "Conclusão", "titulo": "Você não precisa começar do zero", "texto": "Na visita técnica gratuita, avaliamos o CFTV que você já tem e mostramos o que integra ao monitoramento 24h.", "visual": "Técnico avaliando um DVR com prancheta."}, {"n": 7, "papel": "CTA", "titulo": "Fale com nossa equipe no WhatsApp", "texto": "Mande uma foto do seu gravador e a gente te diz o que dá para aproveitar.", "visual": "Mockup de conversa no WhatsApp com foto de um DVR."}], "numLaminas": 7, "estruturaNarrativa": "Comparação lado a lado em três situações reais"}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Troquei a CTA \"chame no WhatsApp\" (já usada no Card 01) por um pedido concreto: mandar foto do gravador."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:51.270Z", "geradoEm": "2026-09-29T11:52:51.270Z", "exemplo": true, "id": "ex-sent-2026-10-carrossel-02"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "reel", "numero": 1, "ordem": 1, "tema": "Sinais de sistema desatualizado", "objetivo": "Gerar autoridade", "titulo": "3 sinais de que o sistema de segurança da sua empresa ficou para trás", "angulo": "Checklist falado pelo técnico", "palavraChave": "sistema de segurança para empresa", "ctaPrevista": "Mensagem no WhatsApp para visita técnica", "porque": "Posiciona a Sentinela como quem entende do assunto logo na primeira semana.", "data": "2026-10-05", "status": "Aprovado", "responsavel": "Audiovisual · Léo", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Sistema de segurança para empresa: 3 sinais de que o seu precisa de atenção.", "valor": "Imagem que não identifica ninguém, câmera que cai sem aviso e manutenção esquecida. Os três problemas têm a mesma raiz: um sistema instalado e deixado de lado. Segurança eletrônica funciona como qualquer equipamento da operação: precisa de projeto, acompanhamento e revisão periódica.", "variacoes": "Na Sentinela, a manutenção preventiva trimestral já vem inclusa e a central de monitoramento 24h recebe um aviso sempre que uma câmera ou sensor para de responder. Assim o problema aparece antes de virar prejuízo.", "cta": "Reconheceu algum sinal? Manda uma mensagem no WhatsApp e agende a visita técnica gratuita.", "hashtags": ["#sistemadeseguranca", "#segurancaeletronica", "#manutencaopreventiva", "#cftv", "#alarmemonitorado", "#treslagoas", "#empresasms"]}, "palavraChave": "sistema de segurança para empresa", "termosRelacionados": ["manutenção de CFTV", "alarme falso", "câmera de segurança", "diagnóstico de segurança"], "duracao": "35–45 s", "gancho": "Três sinais de que o sistema de segurança da sua empresa ficou para trás. O terceiro quase ninguém percebe.", "tipoGancho": "Erro comum", "corpo": "Sinal número um: você abre a gravação e não consegue identificar um rosto ou uma placa. Câmera antiga, resolução baixa ou posição errada fazem a imagem existir, mas não servir para nada.\n\nSinal número dois: uma câmera desliga e ninguém fica sabendo. Se só descobre quando precisa da imagem, o sistema não está sendo acompanhado.\n\nSinal número três: ninguém lembra quando foi a última manutenção. Sensor sujo, bateria fraca e cabo oxidado são as causas mais comuns de alarme que dispara sozinho ou que não dispara quando deveria.", "cta": "Se você reconheceu um desses sinais, chama a gente no WhatsApp. A visita técnica é gratuita e você sai com um diagnóstico do que dá para aproveitar.", "visual": "Técnico da Sentinela, uniformizado, falando para a câmera em frente a um galpão, plano médio. Em cada sinal, corte para B-roll: tela com imagem pixelada lado a lado com imagem nítida; tela de câmera com aviso 'sem sinal'; close de mão limpando sensor e trocando bateria. Final com o técnico de volta ao plano médio, sorrindo, apontando para o texto na tela.", "textoNaTela": ["3 sinais de que seu sistema ficou para trás", "1. A imagem não identifica ninguém", "2. A câmera cai e ninguém percebe", "3. Manutenção? Ninguém lembra", "Visita técnica gratuita · WhatsApp"], "audio": "Trilha instrumental leve com batida constante, volume baixo sob a voz. Evitar trilha de suspense."}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Cortei uma introdução institucional antes do gancho para o primeiro segundo já entregar a promessa."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:52.423Z", "geradoEm": "2026-09-29T11:52:50.812Z", "exemplo": true, "id": "ex-sent-2026-10-reel-01"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "reel", "numero": 2, "ordem": 4, "tema": "Bastidores da central", "objetivo": "Mostrar diferencial", "titulo": "O que acontece na central quando um alarme dispara às 3h", "angulo": "Bastidores em tempo real", "palavraChave": "central de monitoramento 24h", "ctaPrevista": "Visitas ao perfil", "porque": "Prova o diferencial da central própria no meio do mês, depois da fase educativa.", "data": "2026-10-14", "status": "Em produção", "responsavel": "Audiovisual · Léo", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Central de monitoramento 24h: o passo a passo de um alerta de madrugada.", "valor": "O que diferencia monitoramento de verdade é o que acontece entre o disparo e a ação. Operador confere a imagem, liga para o responsável, aciona a equipe e registra tudo. É esse processo que evita tanto o susto desnecessário quanto a demora quando algo é real.", "variacoes": "A central da Sentinela é própria e fica em Três Lagoas, com operadores acompanhando alarmes e câmeras de empresas da região. A pronta resposta sai da base local, o que explica o tempo médio de 12 minutos na área urbana.", "cta": "Siga o perfil para ver mais bastidores e chame no direct para conhecer o monitoramento para a sua empresa.", "hashtags": ["#centraldemonitoramento", "#monitoramento24h", "#prontaresposta", "#segurancaeletronica", "#bastidores", "#treslagoas", "#treslagoasms"]}, "palavraChave": "central de monitoramento 24h", "termosRelacionados": ["pronta resposta", "monitoramento de alarme", "operador de monitoramento", "relatório de ocorrência"], "duracao": "40–50 s", "gancho": "São 3h da manhã. Um sensor dispara num galpão do Distrito Industrial. Olha o que acontece nos próximos minutos.", "tipoGancho": "Curiosidade", "corpo": "Em segundos, o alerta chega na tela do operador aqui na central da Sentinela, em Três Lagoas.\n\nPrimeiro ele abre as câmeras daquele ponto e confere a imagem. Se for um gato ou uma lona batendo com o vento, registra e segue.\n\nSe tiver movimento de pessoa, ele liga para o responsável cadastrado e, ao mesmo tempo, aciona a pronta resposta. Nossa equipe chega, em média, em 12 minutos na área urbana.\n\nDe manhã, o dono da empresa recebe o relatório com horário, imagens e o que foi feito. Sem precisar ter acordado.", "cta": "Quer ver como seria o monitoramento 24h da sua empresa? Segue o perfil e chama no direct.", "visual": "Abertura com relógio digital marcando 03:00 em close. Corte para a tela da central com o alerta piscando. Plano sobre o ombro do operador abrindo as câmeras. B-roll da viatura saindo da base à noite. Fechamento com celular recebendo o relatório na mesa de café da manhã.", "textoNaTela": ["03:00 · sensor disparado", "Operador confere a câmera", "Liga para o responsável", "Pronta resposta acionada", "Média de 12 min na área urbana", "Relatório no seu celular"], "audio": "Som ambiente da central (bipes, teclado) nos primeiros segundos, depois trilha eletrônica discreta."}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 10, "correcoes": "Incluí o caso do alarme sem ocorrência (gato ou lona) para trabalhar também a objeção do alarme falso sem alarmismo."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:51.113Z", "geradoEm": "2026-09-29T11:52:51.113Z", "exemplo": true, "id": "ex-sent-2026-10-reel-02"}, {"clienteId": "ex-sentinela", "planoId": "ex-sentinela-2026-10", "mes": "2026-10", "formato": "reel", "numero": 3, "ordem": 7, "tema": "Segurança além de furto", "objetivo": "Quebrar objeção", "titulo": "\"Nunca aconteceu nada aqui\": o que a visita técnica costuma revelar", "angulo": "Frase do cliente + virada", "palavraChave": "controle de acesso para empresas", "ctaPrevista": "Comente VISITA", "porque": "Trabalha a objeção de quem não sente necessidade, mostrando ganhos de gestão além da proteção.", "data": "2026-10-23", "status": "Em planejamento", "responsavel": "Audiovisual · Léo", "observacoes": "", "aprovado": true, "gerado": {"legenda": {"h1": "Controle de acesso para empresas: segurança que também ajuda a organizar a rotina.", "valor": "Mesmo onde nunca houve ocorrência, o sistema de segurança gera informação útil todos os dias: quem entrou em cada área, quando o caminhão foi carregado, se a porta dos fundos ficou aberta. É gestão da operação com o mesmo equipamento que protege.", "variacoes": "Biometria, cartão ou reconhecimento facial podem ser combinados com CFTV e sensores monitorados. O projeto sob medida define o que faz sentido para o tamanho e a rotina da sua empresa.", "cta": "Comente VISITA e a nossa equipe entra em contato para agendar a visita técnica gratuita.", "hashtags": ["#controledeacesso", "#gestaoempresarial", "#biometria", "#segurancaeletronica", "#monitoramento24h", "#treslagoas", "#empresasms"]}, "palavraChave": "controle de acesso para empresas", "termosRelacionados": ["gestão de acessos", "biometria", "detector de fumaça monitorado", "controle de carga e descarga"], "duracao": "30–40 s", "gancho": "\"Nunca aconteceu nada aqui.\" É a frase que mais ouvimos numa visita técnica. E ela quase sempre está certa.", "tipoGancho": "Quebra de expectativa", "corpo": "Só que segurança eletrônica não serve apenas para ocorrência.\n\nCom controle de acesso, você sabe quem entrou no depósito e a que horas. Com câmera no pátio, confere carga e descarga sem depender da palavra de ninguém. Com sensor de fumaça monitorado, a central percebe um princípio de incêndio num domingo.\n\nNo fim, o sistema vira ferramenta de gestão. E o dia em que algo acontecer, ele já está pronto.", "cta": "Comenta VISITA que a gente te chama para agendar a visita técnica gratuita.", "visual": "Gestor de braços cruzados falando a frase do gancho (ator). Corte seco para o técnico respondendo em plano médio. B-roll: dedo na leitora biométrica, tela com lista de acessos com horário, câmera acompanhando caminhão no pátio, detector de fumaça no teto. Fechamento no técnico com o texto 'Comente VISITA'.", "textoNaTela": ["\"Nunca aconteceu nada aqui\"", "Quem entrou no depósito? 18h42", "Carga conferida pela câmera", "Fumaça detectada no domingo", "Comente VISITA"], "audio": "Sem trilha nos primeiros 3 segundos para o gancho respirar; depois trilha leve e otimista."}, "qualidade": {"estrategia": [true, true, true, true], "marca": [true, true, true, true], "copy": [true, true, true, true, true, true], "seo": [true, true, true, true], "repeticao": [true, true, true], "nota": 9, "correcoes": "Retirei um exemplo de furto do corpo para manter o tom sem alarmismo pedido na ficha."}, "flags": [], "criadoEm": "2026-09-29T11:52:49.945Z", "atualizadoEm": "2026-09-29T11:52:51.415Z", "geradoEm": "2026-09-29T11:52:51.415Z", "exemplo": true, "id": "ex-sent-2026-10-reel-03"}]};
+function boot(){
+  if(SENHA){render(true);entrar()}else{S.login=true;render(true)}
+}
+boot();
+</script>
+</body></html>
