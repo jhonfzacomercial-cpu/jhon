@@ -26,7 +26,16 @@ npm start          # abre em http://localhost:3001
 | `DATA_DIR` | pasta do banco (`gestao.db`) e dos anexos (`uploads/`) | `./data` |
 | `TZ` | fuso usado para "hoje" e atrasos | `America/Sao_Paulo` |
 
-Para hospedar, basta qualquer serviço que rode Node (Render, Railway, VPS…) com um disco persistente apontado em `DATA_DIR`. Faça backup em **Configurações → Baixar backup**.
+## Publicar na internet (Render)
+
+O arquivo `render.yaml` na raiz do repositório já configura tudo (Node 22, build, disco persistente de 1 GB, fuso de São Paulo, senha de acesso).
+
+1. Crie uma conta em https://render.com entrando com o GitHub.
+2. **New → Blueprint** e escolha o repositório `jhon` (autorize o Render a ver o repositório, se pedir).
+3. O Render lê o `render.yaml` e pede o valor de **APP_PASSWORD**: digite a senha que você vai usar para entrar.
+4. Clique em **Apply / Deploy**. Em poucos minutos o endereço aparece no painel do serviço (algo como `https://fza-gestao.onrender.com`).
+
+Custo: plano Starter (~US$ 7/mês) + disco (~US$ 0,25/GB/mês). O disco é o que guarda os dados entre atualizações. Cada novo commit no branch configurado em `render.yaml` publica a nova versão automaticamente. Faça backup de vez em quando em **Configurações → Baixar backup**.
 
 ## O que tem
 

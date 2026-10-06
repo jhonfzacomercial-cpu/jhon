@@ -73,7 +73,8 @@ function autenticacao(senha) {
       const ok = typeof req.body?.senha === 'string'
         && crypto.timingSafeEqual(crypto.createHash('sha256').update(req.body.senha).digest(), crypto.createHash('sha256').update(senha).digest());
       if (!ok) return res.status(401).json({ erro: 'Senha incorreta' });
-      res.setHeader('Set-Cookie', `fza_sessao=${token}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${60 * 60 * 24 * 60}`);
+      const https = req.secure || req.headers['x-forwarded-proto'] === 'https';
+      res.setHeader('Set-Cookie', `fza_sessao=${token}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${60 * 60 * 24 * 60}${https ? '; Secure' : ''}`);
       res.json({ ok: true });
     },
     guarda(req, res, next) {
@@ -96,6 +97,9 @@ export function criarApp(db, { senha = process.env.APP_PASSWORD } = {}) {
       res.status(e.status || 500).json({ erro: e.message || 'Erro interno' });
     }
   };
+
+  // Verificação de saúde para a hospedagem (sem dados, sem senha)
+  api.get('/saude', (req, res) => res.json({ ok: true }));
 
   if (senha) {
     const auth = autenticacao(senha);
