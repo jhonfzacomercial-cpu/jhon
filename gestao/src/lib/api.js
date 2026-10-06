@@ -67,3 +67,4 @@ export async function sincronizar() {
   if (LOCAL) await (await local).recarregar();
 }
 export const salvandoNaNuvem = async () => (LOCAL ? (await local).persistente() : true);
+export const apenasLeitura = async () => (LOCAL ? (await local).somenteLeitura() : false);

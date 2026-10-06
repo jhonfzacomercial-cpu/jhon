@@ -85,7 +85,8 @@ async function gravar() {
   const { sql, store } = estado;
   const r = sql.exec('SELECT DISTINCT tabela, chave FROM _mudancas');
   sql.exec('DELETE FROM _mudancas');
-  if (!r.length || !store) return;
+  // Quem só visualiza não grava (as automações rodam só na memória)
+  if (!r.length || !store || estado.leitura) return;
   const falhas = [];
   const tarefas = r[0].values.map(([t, k]) => async () => {
     const res = sql.exec(`SELECT * FROM ${t} WHERE ${chaveDe(t)} = ?`, [t === 'config' ? k : Number(k)]);
@@ -117,6 +118,11 @@ async function gravar() {
       try { await fn(); } catch (e) { erros.push(e); }
     }
   }));
+  if (erros.length && erros.every((e) => e?.code === 'invalid_argument' || e?.code === 'not_granted')) {
+    // As regras de acesso recusaram: esta pessoa só tem acesso de leitura
+    estado.leitura = true;
+    throw new Error(MSG_LEITURA);
+  }
   if (erros.length) {
     // Fica pendente para a próxima gravação
     for (const [t, k] of falhas) sql.run('INSERT INTO _mudancas VALUES (?, ?)', [t, String(k)]);
@@ -124,6 +130,8 @@ async function gravar() {
     throw new Error(e?.code === 'quota_exceeded' ? 'O espaço de armazenamento do sistema acabou. Exporte um backup e apague registros antigos.' : `Não foi possível salvar (${e?.code || e?.message || 'erro'}). Tente de novo.`);
   }
 }
+
+const MSG_LEITURA = 'Você tem acesso apenas para visualizar. Peça ao Jhonatas acesso de Editor para alterar.';
 
 async function iniciar() {
   const SQL = await initSqlJs();
@@ -134,22 +142,32 @@ async function iniciar() {
   sql.exec('PRAGMA foreign_keys = ON');
   instalarGatilhos(sql);
   const db = compat(sql);
-  estado = { sql, store, app: criarApp(db, { senha: '' }), salvando: Promise.resolve() };
+  // can('data.write'): true/false, ou null quando a plataforma não informa (aí a gravação recusada decide)
+  const user = window.claude?.use ? await window.claude.use('user').catch(() => null) : null;
+  const podeGravar = user ? await user.can('data.write').catch(() => null) : null;
+  estado = { sql, store, leitura: podeGravar === false, app: criarApp(db, { senha: '' }), salvando: Promise.resolve() };
   return estado;
 }
 
 let pronto = null;
 export const persistente = () => !!estado?.store;
+export const somenteLeitura = () => !!estado?.leitura;
 
 /** Mesmo contrato do fetch da API: resolve o corpo ou lança Error com a mensagem. */
 export async function chamar(metodo, url, body) {
   pronto ||= iniciar();
   await pronto;
+  if (estado.leitura && metodo !== 'GET') throw new Error(MSG_LEITURA);
   const { status, body: resposta } = requisitar(estado.app, metodo, url, body ? structuredClone(body) : undefined);
   // Gravações em fila: uma de cada vez, na ordem das alterações
   const vez = estado.salvando.then(gravar);
   estado.salvando = vez.catch(() => {});
-  await vez;
+  try {
+    await vez;
+  } catch (e) {
+    // Numa leitura, a falha das automações não deve atrapalhar quem só visualiza
+    if (metodo !== 'GET' || !estado.leitura) throw e;
+  }
   if (status >= 400) throw new Error(resposta?.erro || `Erro ${status}`);
   return resposta;
 }

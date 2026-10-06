@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { api, sincronizar, salvandoNaNuvem, LOCAL } from './api.js';
+import { api, sincronizar, salvandoNaNuvem, apenasLeitura, LOCAL } from './api.js';
 
 const Ctx = createContext(null);
 export const useStore = () => useContext(Ctx);
@@ -30,6 +30,10 @@ export function StoreProvider({ children, meta }) {
 
   // Versão hospedada: ao voltar para a aba, relê os dados (podem ter mudado em outro aparelho)
   const [semNuvem, setSemNuvem] = useState(false);
+  const [leitura, setLeitura] = useState(false);
+  useEffect(() => {
+    if (LOCAL) apenasLeitura().then(setLeitura);
+  }, [versao]);
   useEffect(() => {
     if (!LOCAL) return undefined;
     salvandoNaNuvem().then((ok) => setSemNuvem(!ok));
@@ -43,7 +47,7 @@ export function StoreProvider({ children, meta }) {
   }, [mudou]);
 
   const valor = {
-    meta, versao, mudou, semNuvem, toast, erro, colaboradores,
+    meta, versao, mudou, semNuvem, leitura, toast, erro, colaboradores,
     ativos: colaboradores.filter((c) => c.status !== 'Desligado'),
     nomeColab: (id) => colaboradores.find((c) => c.id === id)?.nome,
     // modais globais: { tipo: 'tarefa'|'cobranca'|'job'|'colaborador', dados }
