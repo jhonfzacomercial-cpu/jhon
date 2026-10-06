@@ -1,0 +1,26 @@
+# Blueprint do Render para o FZA Gestão (pasta gestao/).
+# Render → New → Blueprint → escolher este repositório.
+services:
+  - type: web
+    name: fza-gestao
+    runtime: node
+    branch: claude/personal-management-system-wxmipj
+    rootDir: gestao
+    plan: starter            # disco persistente exige plano pago
+    region: virginia
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/saude
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
+      - key: TZ
+        value: America/Sao_Paulo
+      - key: DATA_DIR
+        value: /var/data
+      - key: APP_PASSWORD
+        sync: false          # o Render pede a senha na criação
+    disk:
+      name: dados
+      mountPath: /var/data
+      sizeGB: 1
