@@ -22,7 +22,7 @@ function aplicarTema(t) {
 }
 
 export function Layout() {
-  const { abrir, toasts } = useStore();
+  const { abrir, toasts, semNuvem } = useStore();
   const nav = useNavigate();
   const loc = useLocation();
   const [busca, setBusca] = useState(false);
@@ -103,6 +103,7 @@ export function Layout() {
           </Menu>
         </header>
         <main className="content">
+          {semNuvem && <div className="card card-pad small" style={{ marginBottom: 16, borderColor: 'var(--orange)', background: 'var(--orange-soft)' }}>⚠️ Esta visualização não consegue salvar na nuvem. O que você fizer aqui some ao fechar a página. Abra o sistema pelo link do claude.ai, logado na sua conta.</div>}
           <Outlet />
         </main>
       </div>

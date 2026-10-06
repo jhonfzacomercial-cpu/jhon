@@ -12,7 +12,8 @@
     "build": "vite build",
     "start": "node --disable-warning=ExperimentalWarning server/index.js",
     "seed": "node --disable-warning=ExperimentalWarning server/seed-cli.js",
-    "test": "node --disable-warning=ExperimentalWarning --test server/tests/*.test.js"
+    "test": "node --disable-warning=ExperimentalWarning --test server/tests/*.test.js",
+    "build:artifact": "vite build --config vite.artifact.config.js && node scripts/artifact.js"
   },
   "dependencies": {
     "express": "^4.22.3"
@@ -23,6 +24,7 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.4",
+    "sql.js": "^1.14.2",
     "vite": "^8.3.3"
   }
 }

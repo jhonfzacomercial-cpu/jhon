@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Download, Upload, Sparkles, Trash2, Keyboard, Lock, CalendarClock } from 'lucide-react';
 import { useStore, useDados, useAcao } from '../lib/store.jsx';
-import { api } from '../lib/api.js';
+import { api, baixarBackup, LOCAL } from '../lib/api.js';
 import { PageHead, Card } from '../components/ui.jsx';
 
 export function Config() {
@@ -37,13 +37,13 @@ export function Config() {
         </Card>
 
         <Card titulo="Backup" icone={Download} pad>
-          <p className="small muted" style={{ marginTop: 0 }}>Os dados ficam no arquivo <span className="mono">data/gestao.db</span> do servidor. Baixe um backup periodicamente.</p>
+          <p className="small muted" style={{ marginTop: 0 }}>{LOCAL ? 'Os dados ficam salvos no armazenamento desta página no claude.ai.' : <>Os dados ficam no arquivo <span className="mono">data/gestao.db</span> do servidor.</>} Baixe um backup periodicamente.</p>
           <div className="row wrap">
-            <a className="btn primary" href="/api/backup" download><Download /> Baixar backup (.json)</a>
+            <button className="btn primary" onClick={() => baixarBackup().catch((e) => toast(e.message, 'erro'))}><Download /> Baixar backup (.json)</button>
             <button className="btn" onClick={() => arquivo.current.click()}><Upload /> Restaurar backup</button>
             <input type="file" accept="application/json" hidden ref={arquivo} onChange={restaurar} />
           </div>
-          <p className="tiny muted">Restaurar substitui todos os dados atuais pelos do arquivo. Anexos de tarefas ficam em <span className="mono">data/uploads</span>.</p>
+          <p className="tiny muted">Restaurar substitui todos os dados atuais pelos do arquivo. O backup não inclui o conteúdo dos anexos.</p>
         </Card>
 
         <Card titulo="Atalhos de teclado" icone={Keyboard} pad>
@@ -55,8 +55,14 @@ export function Config() {
         </Card>
 
         <Card titulo="Acesso" icone={Lock} pad>
-          <p className="small" style={{ marginTop: 0 }}>{meta.protegido ? '🔒 O sistema está protegido por senha.' : '🔓 Sem senha. Para proteger o acesso, inicie o servidor com a variável APP_PASSWORD.'}</p>
-          <p className="tiny muted mono">APP_PASSWORD=minhasenha npm start</p>
+          {LOCAL ? (
+            <p className="small" style={{ marginTop: 0 }}>🔒 O acesso é controlado pelo claude.ai: só você vê e altera estes dados. Se compartilhar a página, quem não for Editor não enxerga os registros.</p>
+          ) : (
+            <>
+              <p className="small" style={{ marginTop: 0 }}>{meta.protegido ? '🔒 O sistema está protegido por senha.' : '🔓 Sem senha. Para proteger o acesso, inicie o servidor com a variável APP_PASSWORD.'}</p>
+              <p className="tiny muted mono">APP_PASSWORD=minhasenha npm start</p>
+            </>
+          )}
         </Card>
 
         <Card titulo="Dados de exemplo" icone={Sparkles} pad>

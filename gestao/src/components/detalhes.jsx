@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Pencil, Trash2, Paperclip, Plus, X, BellRing, ListTodo, CheckCircle2, Download } from 'lucide-react';
 import { useStore, useAcao, useDados } from '../lib/store.jsx';
-import { api, arquivoParaBase64 } from '../lib/api.js';
+import { api, anexar as enviarAnexo, removerAnexo, urlAnexo } from '../lib/api.js';
 import * as f from '../lib/formato.js';
 import { Modal, Status, Prioridade, Prazo, Badge, Select, Confirmar, Timeline, Campo, Vazio } from './ui.jsx';
 import { STATUS_TAREFA, STATUS_COBRANCA, hoje, addDias } from '../../shared/constantes.js';
@@ -37,8 +37,7 @@ export function TarefaDetalhe({ id, onClose }) {
     e.target.value = '';
     if (!file) return;
     if (file.size > 15 * 1024 * 1024) return toast('Arquivo maior que 15 MB', 'erro');
-    const base64 = await arquivoParaBase64(file);
-    await acao(() => api.post(`/tarefas/${id}/anexos`, { nome: file.name, tipo: file.type, base64 }), 'Anexo adicionado');
+    await acao(() => enviarAnexo(id, file), 'Anexo adicionado');
   };
   const concluido = t.status === 'Concluído';
   return (
@@ -102,10 +101,10 @@ export function TarefaDetalhe({ id, onClose }) {
               {t.anexos.map((a) => (
                 <div key={a.id} className="daily-item">
                   <Paperclip size={15} className="muted" />
-                  <a className="grow ellipsis strong" href={`/api/anexos/${a.id}`} target="_blank" rel="noreferrer">{a.nome}</a>
+                  <a className="grow ellipsis strong" href={urlAnexo(a)} target="_blank" rel="noreferrer">{a.nome}</a>
                   <span className="muted tiny">{f.tamanho(a.tamanho)}</span>
-                  <a className="btn ghost icon sm" href={`/api/anexos/${a.id}`} download={a.nome} aria-label="Baixar"><Download size={14} /></a>
-                  <button className="btn ghost icon sm" aria-label="Remover anexo" onClick={() => acao(() => api.del(`/anexos/${a.id}`), 'Anexo removido')}><X size={14} /></button>
+                  <a className="btn ghost icon sm" href={urlAnexo(a)} target="_blank" rel="noreferrer" download={a.nome} aria-label="Abrir"><Download size={14} /></a>
+                  <button className="btn ghost icon sm" aria-label="Remover anexo" onClick={() => acao(() => removerAnexo(a), 'Anexo removido')}><X size={14} /></button>
                 </div>
               ))}
             </div>

@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { api } from './api.js';
+import { api, sincronizar, salvandoNaNuvem, LOCAL } from './api.js';
 
 const Ctx = createContext(null);
 export const useStore = () => useContext(Ctx);
@@ -28,8 +28,22 @@ export function StoreProvider({ children, meta }) {
     api.get('/colaboradores').then(setColaboradores).catch(() => {});
   }, [versao]);
 
+  // Versão hospedada: ao voltar para a aba, relê os dados (podem ter mudado em outro aparelho)
+  const [semNuvem, setSemNuvem] = useState(false);
+  useEffect(() => {
+    if (!LOCAL) return undefined;
+    salvandoNaNuvem().then((ok) => setSemNuvem(!ok));
+    let escondidoEm = 0;
+    const vis = () => {
+      if (document.hidden) { escondidoEm = Date.now(); return; }
+      if (escondidoEm && Date.now() - escondidoEm > 20000) sincronizar().then(mudou).catch(() => {});
+    };
+    document.addEventListener('visibilitychange', vis);
+    return () => document.removeEventListener('visibilitychange', vis);
+  }, [mudou]);
+
   const valor = {
-    meta, versao, mudou, toast, erro, colaboradores,
+    meta, versao, mudou, semNuvem, toast, erro, colaboradores,
     ativos: colaboradores.filter((c) => c.status !== 'Desligado'),
     nomeColab: (id) => colaboradores.find((c) => c.id === id)?.nome,
     // modais globais: { tipo: 'tarefa'|'cobranca'|'job'|'colaborador', dados }

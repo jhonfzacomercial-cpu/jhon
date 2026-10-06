@@ -185,7 +185,7 @@ export function criarApp(db, { senha = process.env.APP_PASSWORD } = {}) {
     const t = listarTarefas(db, 'WHERE t.id = ?', [id])[0];
     if (!t) falha(404, 'Tarefa não encontrada');
     t.checklist = plainAll(db.prepare('SELECT * FROM tarefa_checklist WHERE tarefa_id = ? ORDER BY ordem, id').all(id));
-    t.anexos = plainAll(db.prepare('SELECT id, nome, tipo, tamanho, criado_em FROM tarefa_anexos WHERE tarefa_id = ? ORDER BY id').all(id));
+    t.anexos = plainAll(db.prepare('SELECT id, nome, arquivo, tipo, tamanho, criado_em FROM tarefa_anexos WHERE tarefa_id = ? ORDER BY id').all(id));
     return t;
   };
 
@@ -276,6 +276,12 @@ export function criarApp(db, { senha = process.env.APP_PASSWORD } = {}) {
     const id = Number(req.params.id);
     obter(db, 'tarefas', id);
     const { nome, tipo, base64 } = req.body;
+    if (nome && req.body.arquivo && !base64) {
+      // Arquivo já guardado fora do servidor (versão no navegador)
+      inserir(db, 'tarefa_anexos', { tarefa_id: id, nome, arquivo: String(req.body.arquivo), tipo: tipo || null, tamanho: Number(req.body.tamanho) || 0, criado_em: agora() });
+      atualizar(db, 'tarefas', id, { atualizado_em: agora() });
+      return tarefaCompleta(id);
+    }
     if (!nome || !base64) falha(400, 'Arquivo inválido');
     const buf = Buffer.from(base64, 'base64');
     if (buf.length > 15 * 1024 * 1024) falha(400, 'Arquivo maior que 15 MB');

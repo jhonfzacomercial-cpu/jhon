@@ -26,6 +26,10 @@ npm start          # abre em http://localhost:3001
 | `DATA_DIR` | pasta do banco (`gestao.db`) e dos anexos (`uploads/`) | `./data` |
 | `TZ` | fuso usado para "hoje" e atrasos | `America/Sao_Paulo` |
 
+## Versão hospedada no claude.ai (gratuita)
+
+`npm run build:artifact` gera `dist-artifact/fza-gestao.html`: a mesma API roda no navegador (SQLite via sql.js) e cada registro alterado é gravado no armazenamento da página no claude.ai. Anexos ficam no armazenamento de arquivos da página e o backup é baixado pelo próprio claude.ai. Só o dono (e quem ele tornar Editor) lê e altera os dados.
+
 ## Publicar na internet (Render)
 
 O arquivo `render.yaml` na raiz do repositório já configura tudo (Node 22, build, disco persistente de 1 GB, fuso de São Paulo, senha de acesso).
