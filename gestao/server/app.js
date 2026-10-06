@@ -477,7 +477,13 @@ export function criarApp(db, { senha = process.env.APP_PASSWORD } = {}) {
       const itens = (req.body.itens || []).filter((i) => i.titulo?.trim());
       const existentes = plainAll(db.prepare('SELECT id FROM tarefas WHERE daily_id = ?').all(daily.id)).map((r) => r.id);
       const mantidos = new Set(itens.filter((i) => i.id).map((i) => Number(i.id)));
-      for (const id of existentes) if (!mantidos.has(id)) db.prepare('DELETE FROM tarefas WHERE id = ?').run(id);
+      // Item removido: o que nasceu nesta Daily é apagado; pendência trazida de antes volta a ser pendência
+      for (const id of existentes) {
+        if (mantidos.has(id)) continue;
+        const t = obter(db, 'tarefas', id);
+        if (t.reagendamentos > 0 || t.origem !== 'daily') db.prepare('UPDATE tarefas SET daily_id = NULL WHERE id = ?').run(id);
+        else db.prepare('DELETE FROM tarefas WHERE id = ?').run(id);
+      }
       let criadas = 0;
       for (const i of itens) {
         if (i.id && existentes.includes(Number(i.id))) {
@@ -493,7 +499,7 @@ export function criarApp(db, { senha = process.env.APP_PASSWORD } = {}) {
         if (!t) continue;
         if (p.acao === 'concluir') atualizarTarefa(t.id, { status: 'Concluído' });
         if (p.acao === 'hoje' && t.prazo !== data) {
-          atualizar(db, 'tarefas', t.id, { prazo: data, reagendamentos: t.reagendamentos + 1, atraso_registrado: 0, atualizado_em: agora() });
+          atualizar(db, 'tarefas', t.id, { prazo: data, daily_id: daily.id, reagendamentos: t.reagendamentos + 1, atraso_registrado: 0, atualizado_em: agora() });
           registrar(db, 'pendencia_reagendada', `Pendência levada para a Daily de ${data}: ${t.titulo}`, { entidade: 'tarefa', entidade_id: t.id, colaborador_id });
         }
       }

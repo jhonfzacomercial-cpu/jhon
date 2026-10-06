@@ -60,16 +60,19 @@ test('daily cria tarefas, reagenda pendências e registra histórico', async () 
     pendencias: [{ id: pend.id, acao: 'hoje' }],
   });
   const depois = await api('GET', `/dailys/form?colaborador_id=${gabriel}&data=${hoje()}`);
-  assert.equal(depois.itens.length, 2);
+  assert.equal(depois.itens.length, 3, 'pendência trazida entra na lista do dia');
+  assert.ok(!depois.pendencias.some((x) => x.id === pend.id));
   assert.equal(depois.daily.bloqueios, 'Sem acesso ao drive');
   const reag = (await api('GET', `/tarefas/${pend.id}`));
   assert.equal(reag.prazo, hoje());
   assert.equal(reag.reagendamentos, 1);
   // removendo um item na edição
-  await api('POST', '/dailys', { colaborador_id: gabriel, data: hoje(), itens: [{ id: depois.itens[0].id, titulo: 'Tarefa A', status: 'Concluído' }] });
+  const tA = depois.itens.find((i) => i.titulo === 'Tarefa A');
+  await api('POST', '/dailys', { colaborador_id: gabriel, data: hoje(), itens: [{ id: tA.id, titulo: 'Tarefa A', status: 'Concluído' }] });
   const final = await api('GET', `/dailys/form?colaborador_id=${gabriel}&data=${hoje()}`);
   assert.equal(final.itens.length, 1);
   assert.equal(final.itens[0].status, 'Concluído');
+  assert.ok(final.pendencias.some((x) => x.id === pend.id), 'pendência removida da lista volta a ser pendência');
   const perfil = await api('GET', `/colaboradores/${gabriel}/perfil`);
   assert.ok(perfil.dailys[0].eh_hoje);
 });
