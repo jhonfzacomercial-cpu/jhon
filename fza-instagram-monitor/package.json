@@ -1,0 +1,25 @@
+{
+  "name": "fza-instagram-monitor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FZA Instagram Monitor - monitoramento de perfis públicos do Instagram",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev:server": "tsx watch src/server/index.ts",
+    "dev:worker": "tsx watch src/worker/index.ts",
+    "dev:web": "vite",
+    "build": "npm run build:web && npm run build:server",
+    "build:web": "vite build",
+    "build:server": "tsc -p tsconfig.server.json",
+    "typecheck": "tsc -p tsconfig.server.json --noEmit && tsc -p tsconfig.web.json --noEmit",
+    "start:server": "node dist/server/index.js",
+    "start:worker": "node dist/worker/index.js",
+    "migrate": "tsx src/db/migrate-cli.ts",
+    "migrate:prod": "node dist/db/migrate-cli.js",
+    "user:create": "tsx src/cli/create-user.ts",
+    "provider:check": "tsx src/cli/provider-check.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  }
+}
