@@ -35,7 +35,7 @@ declare module 'fastify' {
   }
 }
 
-const PUBLIC_API = new Set(['/api/auth/login', '/api/health']);
+const PUBLIC_API = new Set(['/api/auth/login', '/api/auth/me', '/api/health']);
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
@@ -131,10 +131,15 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
   // Interface (build do Vite) servida pelo mesmo processo; rotas do SPA caem no index.html.
   const webDir = deps.webDir ?? path.resolve(here, '../../dist/web');
   if (existsSync(webDir)) {
-    await app.register(fastifyStatic, { root: webDir, wildcard: false });
+    await app.register(fastifyStatic, { root: webDir, wildcard: true, index: false });
+    app.get('/', (_req, reply) => reply.header('Cache-Control', 'no-cache').sendFile('index.html'));
     app.setNotFoundHandler((req, reply) => {
-      if (req.url.startsWith('/api/')) return reply.code(404).send({ error: 'not_found', message: 'Rota não encontrada.' });
-      return reply.sendFile('index.html');
+      const path = req.url.split('?')[0];
+      // API e arquivos inexistentes (com extensão) respondem 404; demais rotas são do SPA.
+      if (path.startsWith('/api/') || /\.[a-z0-9]+$/i.test(path)) {
+        return reply.code(404).send({ error: 'not_found', message: 'Rota não encontrada.' });
+      }
+      return reply.header('Cache-Control', 'no-cache').sendFile('index.html');
     });
   } else {
     app.setNotFoundHandler((_req, reply) => reply.code(404).send({ error: 'not_found', message: 'Rota não encontrada.' }));

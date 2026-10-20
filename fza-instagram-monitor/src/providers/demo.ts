@@ -54,7 +54,7 @@ export class DemoProvider implements ProfileProvider {
     const trendPerDay = ((s >> 8) % 41) - 15; // de -15 a +25 por dia
     const days = now.getTime() / 86_400_000;
     const noise = (seed(username + Math.floor(days * 24)) % 21) - 10;
-    const followers = Math.max(0, Math.round(base + trendPerDay * (days - 20_000) + noise));
+    const followers = Math.max(0, Math.round(base + trendPerDay * (days - 20_697) + noise));
 
     const everyDays = 1 + (s % 5);
     const media: MediaObservation[] = [];

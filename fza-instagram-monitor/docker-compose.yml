@@ -1,0 +1,74 @@
+# Produção em um servidor (VPS) com Docker.
+# Uso: cp .env.example .env  (preencha)  ->  docker compose up -d --build
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fza_monitor
+      POSTGRES_USER: fza
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Sem "ports": o banco não fica exposto à internet, só à rede interna dos containers.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fza -d fza_monitor"]
+      interval: 10s
+      retries: 10
+
+  web:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://fza:${POSTGRES_PASSWORD}@db:5432/fza_monitor
+      TRUST_PROXY: "true"
+    depends_on:
+      db: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 30s
+      retries: 3
+
+  worker:
+    build: .
+    restart: unless-stopped
+    command: ["node", "dist/worker/index.js"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://fza:${POSTGRES_PASSWORD}@db:5432/fza_monitor
+    depends_on:
+      db: { condition: service_healthy }
+
+  # HTTPS automático (Let's Encrypt). Requer DNS do domínio apontando para o servidor.
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:?defina APP_DOMAIN no .env}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on: [web]
+
+  # Backup diário com pg_dump; mantém BACKUP_KEEP_DAYS dias em ./backups.
+  backup:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      PGHOST: db
+      PGUSER: fza
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: fza_monitor
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+    volumes:
+      - ./backups:/backups
+      - ./scripts/backup.sh:/backup.sh:ro
+    entrypoint: ["/bin/sh", "-c", "while true; do /bin/sh /backup.sh /backups; sleep 86400; done"]
+    depends_on:
+      db: { condition: service_healthy }
+
+volumes:
+  pgdata:
+  caddy_data:

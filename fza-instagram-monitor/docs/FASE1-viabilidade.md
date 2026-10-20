@@ -1,6 +1,6 @@
 # FASE 1 — Viabilidade técnica das fontes de dados
 
-Status: **concluída — aguardando confirmação da fonte principal pela FZA.**
+Status: **concluída. Fonte principal aprovada pela FZA em 20/10/2026: Meta Business Discovery via conta profissional da FZA.**
 Data da avaliação: 2026-10-20.
 
 > Observação de método: o ambiente de desenvolvimento usado nesta fase bloqueia
@@ -79,11 +79,12 @@ Contas de clientes já gerenciadas pela FZA via Business Manager podem ser
 conectadas pela mesma integração oficial, liberando Insights (possivelmente
 ganhos e perdas separados) **[confirmar métrica]**.
 
-## 3. Decisão proposta
+## 3. Decisão
 
-1. **Fonte principal:** Meta Business Discovery, via conta profissional da FZA.
-2. **Fonte opcional:** Apify, apenas para perfis pessoais, desligada por padrão.
-3. Camada de integração desacoplada (adaptadores) para trocar ou somar fontes.
+1. **Fonte principal (aprovada e implementada):** Meta Business Discovery, via conta profissional da FZA.
+2. **Fonte opcional (não implementada):** Apify, apenas para perfis pessoais. Os nomes dos campos de saída não puderam ser confirmados na documentação; o adaptador só deve ser escrito após uma execução real.
+3. Camada de integração desacoplada (`src/providers`) para trocar ou somar fontes.
+4. **Alternativas descartadas:** login com usuário e senha da agência e extensão de navegador visitando perfis. Ambas usam conta logada (risco de bloqueio e violação dos Termos), dependem de um computador ligado e leem números arredondados ("12,3 mil"), o que impede calcular a variação diária exata.
 
 ## 4. Requisitos que não podem ser cumpridos só com o @
 

@@ -61,7 +61,7 @@ export function diagnose(input: DiagnosisInput): Finding[] {
         `Variação líquida de ${fmtInt(chosen.c.absolute!)} seguidores` +
         (chosen.c.percent != null ? ` (${fmtPct(chosen.c.percent)})` : '') +
         ` nos últimos ${chosen.days} dias. Faixa de estabilidade: ±0,5%. ` +
-        'A variação líquida não separa novos seguidores de deixaram de seguir.',
+        'A variação líquida não separa novos seguidores de quem deixou de seguir.',
       period: `${chosen.c.from!.observedAt} a ${chosen.c.to!.observedAt}`,
       dataPoints: `${s.filter((x) => x.observedAt.getTime() >= Date.parse(chosen.c.from!.observedAt)).length} coletas no período`,
     });

@@ -22,7 +22,8 @@
     "user:create": "tsx src/cli/create-user.ts",
     "provider:check": "tsx src/cli/provider-check.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "demo:seed": "tsx src/cli/demo-seed.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^11.1.3",

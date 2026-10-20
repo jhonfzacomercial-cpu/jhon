@@ -62,7 +62,7 @@ export async function collectProfile(
   } catch (err) {
     const e = toCollectionError(err);
     await recordFailure(db, provider, profile, settings, runId, e, started, now(), opts.random);
-    opts.log.warn('collection_failed', { profile: profile.username, runId, code: e.code, msg: redactSecrets(e.message) });
+    opts.log.warn('collection_failed', { profile: profile.username, runId, code: e.code, error: redactSecrets(e.message) });
     await evaluateProfileAlerts(db, profile.id, settings, now()).catch((ae) =>
       opts.log.error('alert_eval_failed', { profile: profile.username, err: (ae as Error).message }),
     );
